@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #808080;
+ 
+}
+
+.title {
+  text-align: center;
+  color: black;
+  background-color: #bebebe;
+}
+.tr {
+  text-align: center;
+  padding-bottom: 135px;
+}
+
+.tb-info {
+  text-align: center;
+  margin-top: 15%;
+}

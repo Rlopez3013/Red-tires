@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Maker from './Maker';
+import Maker from './Makers/Maker';
 
 function Navbar() {
   return (
-    <div>
-      <h1>React Tires</h1>
+  <div>
+     
+     <nav className='nav'>
       <ul>
         <li>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/'} className='home-title'>Home</Link>
         </li>
       </ul>
       <li>
@@ -33,6 +34,7 @@ function Navbar() {
       <li>
         <Link to={'/api/tires'}>Tires</Link>
       </li>
+      </nav>
     </div>
   );
 }

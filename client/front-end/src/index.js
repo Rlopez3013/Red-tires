@@ -7,7 +7,9 @@ import { MakerProvider } from './context/makersContext';
 import { ModelProvider } from './context/modelsContext';
 import { CarsTiresProvider } from './context/carTiresContext';
 import { TiresProvider } from './context/tiresContext';
-import { WheelProvider, WheelsContext } from './context/wheelContext';
+import { WheelProvider } from './context/wheelContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

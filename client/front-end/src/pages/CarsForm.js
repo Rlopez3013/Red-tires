@@ -9,10 +9,11 @@ import { unstable_useBlocker, useNavigate, useParams } from 'react-router-dom';
 function CarsForm() {
   const [listModels, setListModels] = useState([]);
   const [filteredModel, setFilteredModel] = useState([]);
+  const [filteredWheel, setFilteredWheel] = useState([]);
   const [uniqueYears, setUniqueYears] = useState([]);
   const [uniqueModels, setUniqueModels] = useState([]);
   const [uniqueMakers, setUniqueMakers] = useState([]);
-  // const [listWheels, setListWheels] = useState([]);
+  const [uniqueWheels, setUniqueWheels] = useState([]);
   const [model, setModel] = useState('');
   const [wheel, setWheel] = useState('');
   const [year, setYear] = useState('');
@@ -57,12 +58,27 @@ function CarsForm() {
   };
 
   const filterbyModel = (model) => {
-    let filterModel = listModels.filter((model) => {
-      return model.model;
-
-      setModel(year);
-      setFilteredModel(uniqueModels);
+    console.log('init filter', model);
+    console.log('list models', listWheels);
+    let filterModel = listWheels.filter((wheel) => {
+      //model.year == year &&
+      return wheel.modelId == model;
     });
+
+    console.log('filtered list', filterModel);
+
+    //setModel(model);
+    setFilteredModel(uniqueModels);
+    setUniqueWheels(filterModel);
+  };
+
+  const filterbyWheel = (tire) => {
+    let filtered = listWheels.filter((wheel) => {
+      return wheel.year == year && model.tireId == tire;
+    });
+
+    setWheel(year);
+    setUniqueWheels(filtered);
   };
 
   useEffect(() => {
@@ -71,7 +87,11 @@ function CarsForm() {
     });
     Axios.get(`${WHEELS_API_URL}`).then((res) => {
       setListWheels(res.data);
-      console.log(res.data);
+
+      const uniqueWheels = [...new Set(res.data.map((obj) => obj.tireId))];
+
+      setUniqueWheels(uniqueWheels);
+      console.log('unique wheels 2', uniqueWheels);
     });
 
     Axios.get(`${MODELS_API_URL}`).then((res) => {
@@ -141,23 +161,50 @@ function CarsForm() {
             </option>
           ))}
         </select>
-        <div>
-          <h3>Wheels</h3>
-          <label>Tires</label>
-          <select
-            name="wheel"
-            id="wheel"
-            placeholder="Choose a wheel"
-            className="dropdown"
-          >
-            <option>Select A tire</option>
-            {listWheels?.map((wheel, wh) => (
-              <option key={wh} value={wheel.id}>
-                {wheel.tire}
-              </option>
+        <h3>Wheels for every Car</h3>
+        <label>Tires</label>
+        <select
+          name="wheel"
+          x
+          id="wheel"
+          placeholder="Choose a wheel"
+          className="dropdown"
+          onChange={(e) => filterbyWheel(e.target.value)}
+        >
+          <option>Select A tire</option>
+          {uniqueWheels.map((wheel, wh) => (
+            <option key={wh} value={wheel.tireId}>
+              {wheel.tire}
+            </option>
+          ))}
+        </select>
+        <table>
+          <thead>
+            <tr>
+              <th>Wheel</th>
+              <th>Company</th>
+              <th>Season</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            {uniqueWheels.map((wheel, wh) => (
+              <tr key={(wheel.id, wh)}>
+                <td>{wheel.tire}</td>
+                <td>{wheel.company}</td>
+                <td>{wheel.season}</td>
+                <td>{wheel.size}</td>
+              </tr>
             ))}
-          </select>
-        </div>
+
+            {/* {uniqueWheels.map((wheel, wh) => (
+              <p>{wheel.tire}</p>
+            ))}
+             {uniqueWheels.map((wheel, wh) => (
+              <p>{wheel.company}</p>
+            ))}  */}
+          </tbody>
+        </table>
       </form>
     </div>
   );
