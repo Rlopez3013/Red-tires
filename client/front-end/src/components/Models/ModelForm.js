@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { ModelsContext } from '../context/modelsContext.js';
+import { ModelsContext } from '../../context/modelsContext.js';
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -67,55 +67,63 @@ function ModelForm() {
   };
 
   return (
-    <div>
-      <h2>Add a New Model</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="maker">Maker</label>
-        <select
-          name="maker"
-          id="maker"
-          placeholder="Choose a Maker"
-          className="dropdown"
-          onChange={(e) => setMaker(e.target.value)}
-        >
-          <option>Select Maker</option>
-          {listMaker.map((maker) => (
-            <option key={maker.id} value={maker.id}>
-              {maker.maker}
-            </option>
-          ))}
-        </select>
-
-        <label htmlFor="Model">
-          Model
+    <div className="form-row align-items-center">
+      <div className="col-auto">
+        <h2 className="modelForm-title">Add A New Model</h2>
+        <form className="model-form" onSubmit={handleSubmit}>
+          <div className="col-auto">
+            <select
+              name="maker"
+              id="maker"
+              placeholder="Choose a Maker"
+              className={'btn btn-secondary btn-lg dropdown-toggle'}
+              onChange={(e) => setMaker(e.target.value)}
+            >
+              <option>Select Maker</option>
+              {listMaker.map((maker) => (
+                <option key={maker.id} value={maker.id}>
+                  {maker.maker}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-auto">
+            <input
+              className={'sr-only'}
+              type="text"
+              name="model"
+              placeholder="Model"
+              value={model.model || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-auto">
+            <input
+              className={'sr-only'}
+              type="text"
+              name="type"
+              placeholder="Type"
+              value={model.type || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-auto">
+            <input
+              className={'sr-only mb-3'}
+              type="number"
+              name="year"
+              placeholder="Year"
+              value={model.year || ''}
+              onChange={handleChange}
+            />
+          </div>
           <input
-            className={'btn-submit'}
-            type="text"
-            name="model"
-            value={model.model || ''}
-            onChange={handleChange}
+            className={' btn btn-outline-primary'}
+            type="submit"
+            onClick={addModel}
           />
-        </label>
-        <label>
-          Type
-          <input
-            type="text"
-            name="type"
-            value={model.type || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Year
-          <input
-            type="number"
-            name="year"
-            value={model.year || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <input type="submit" onClick={addModel} />
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

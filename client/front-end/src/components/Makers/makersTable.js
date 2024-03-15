@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { MakersContext } from '../../context/makersContext.js';
 import { useNavigate } from 'react-router-dom';
-import './styles.css';
+import './maker.css';
 
 const MakersTable = () => {
   const { listMakers, onDelete, onEdit, updateMaker, onCancel, inEditMode } =
@@ -38,7 +38,7 @@ const MakersTable = () => {
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
                   <>
                     <button
-                      variant="secondary"
+                      className="btn btn-outline-primary"
                       onClick={() =>
                         updateMaker({
                           id: item.id,
@@ -49,6 +49,7 @@ const MakersTable = () => {
                       Save
                     </button>
                     <button
+                      className="btn-cancel"
                       style={{ marginLeft: 8 }}
                       onClick={() => onCancel({ id: item.id })}
                     >
@@ -57,14 +58,14 @@ const MakersTable = () => {
                   </>
                 ) : (
                   <button
-                    className={'btn-edit'}
+                    className={'btn btn-outline-primary'}
                     onClick={() => navigate(`/api/maker/edit/${item.id}`)}
                   >
                     Edit
                   </button>
                 )}
                 <button
-                  className={'btn-delete'}
+                  className={'btn btn-outline-danger'}
                   onClick={(e) => onDelete(item.id, e)}
                 >
                   Delete

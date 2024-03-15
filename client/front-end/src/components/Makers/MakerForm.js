@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { MakersContext } from '../../context/makersContext.js';
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import './maker.css'
 function MakerForm() {
   const [maker, setMaker] = useState([]);
   const [fabricant, setFabricant] = useState({
@@ -45,17 +45,22 @@ function MakerForm() {
 
   return (
     <div>
-      <h3>{params.id ? 'Edit Maker' : 'New Maker'}</h3>
-      <form>
-        <label htmlFor="New Maker">New Maker</label>
+      <h3 className={'heading'}>{params.id ? 'Edit Maker' : 'New Maker'}</h3>
+      <form className='form'>
+        
         <input
           className={'btn-submit'}
+          placeholder='Add Maker'
           value={maker}
           onChange={(e) => {
             setMaker(e.target.value);
           }}
         />
-        <input className={'btn-submit'} type="submit" onClick={addMaker} />
+        <input
+          className={'btn btn-outline-primary'}
+          type="submit"
+          onClick={addMaker}
+        />
       </form>
     </div>
   );

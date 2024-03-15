@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { CarsTiresContext } from '../../context/carTiresContext.js';
 import { useNavigate } from 'react-router-dom';
+import './cars.css';
 
 const CarTireTable = () => {
   const {
@@ -16,10 +17,10 @@ const CarTireTable = () => {
 
   return (
     <div>
-      <h1>Cars and Tires</h1>
-      <table>
+      <h1 className="car-title">Cars and Tires</h1>
+      <table className="car-table">
         <thead>
-          <tr>
+          <tr className="car-tr">
             <th>Year</th>
             <th>Maker</th>
             <th>Model</th>
@@ -137,14 +138,14 @@ const CarTireTable = () => {
                   </>
                 ) : (
                   <button
-                    className={'btn-edit'}
+                    className={'btn btn-outline-primary'}
                     onClick={() => navigate(`/update/${item.id}`)}
                   >
                     Edit
                   </button>
                 )}
                 <button
-                  className={'btn-delete'}
+                  className={'btn btn-outline-danger'}
                   onClick={(e) => onDelete(item.id, e)}
                 >
                   Delete

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { TiresContext } from '../../context/tiresContext';
 import { useNavigate } from 'react-router-dom';
+import './tires.css';
 
 const TiresTable = () => {
   const { listTires, onDelete, onEdit, updateTire, onCancel, inEditMode } =
@@ -9,10 +10,10 @@ const TiresTable = () => {
 
   return (
     <div>
-      <h1>Tires Inventory</h1>
-      <table>
+      <h1 className="tire-title">Tires Inventory</h1>
+      <table className="tire-table">
         <thead>
-          <tr>
+          <tr className="tire-tr">
             <th>Tires</th>
             <th>Companies</th>
             <th>Sizes</th>
@@ -81,7 +82,7 @@ const TiresTable = () => {
                 )}
               </td>
               <td>
-                <img src={`data:image/png;base64,${item.tire_Img}`} width={180} height={180}/>
+                <img src={item.path_img} width={180} height={180} />
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -106,14 +107,14 @@ const TiresTable = () => {
                   </>
                 ) : (
                   <button
-                    className={'btn-edit'}
+                    className={'btn btn-outline-primary'}
                     onClick={() => navigate(`/api/tires/edit/${item.id}`)}
                   >
                     Edit
                   </button>
                 )}
                 <button
-                  className={'btn-delete'}
+                  className={'btn btn-outline-danger'}
                   onClick={(e) => onDelete(item.id, e)}
                 >
                   Delete

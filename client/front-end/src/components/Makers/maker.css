@@ -1,11 +1,11 @@
-* {
+ * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
   background-color: #808080;
- 
+  background-image: url('../../images/home_img.jpg') ;
 }
 
 .title {
@@ -22,3 +22,18 @@ body {
   text-align: center;
   margin-top: 15%;
 }
+
+
+.heading {
+  color: olive;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.form {
+  text-align: center;
+  padding-left: 50px;
+  margin-top: 25px;
+}
+
+

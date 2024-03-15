@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { ModelsContext } from '../../context/modelsContext.js';
 import { useNavigate } from 'react-router-dom';
+import './models.css'
+
 const ModelsTable = () => {
   const {
     listModels,
@@ -15,10 +17,10 @@ const ModelsTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1>Models Table</h1>
-      <table>
+      <h1 className='model-title'>Models</h1>
+      <table className='model-table'>
         <thead>
-          <tr>
+          <tr className='tr'>
             <th>Makers</th>
             <th>Models</th>
             <th>Type</th>
@@ -26,7 +28,7 @@ const ModelsTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='model-tbody'>
           {listModels.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>
@@ -108,14 +110,14 @@ const ModelsTable = () => {
                   </>
                 ) : (
                   <button
-                    className={'btn-edit'}
+                    className={'btn btn-outline-primary'}
                     onClick={() => navigate(`/api/models/edit/${item.id}`)}
                   >
                     Edit
                   </button>
                 )}
                 <button
-                  className={'btn-delete'}
+                  className={'btn btn-outline-danger'}
                   onClick={(e) => onDelete(item.id, e)}
                 >
                   Delete

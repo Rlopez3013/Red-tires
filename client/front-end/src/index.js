@@ -8,8 +8,8 @@ import { ModelProvider } from './context/modelsContext';
 import { CarsTiresProvider } from './context/carTiresContext';
 import { TiresProvider } from './context/tiresContext';
 import { WheelProvider } from './context/wheelContext';
+import { CustomerProvider } from './context/customersContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,7 +20,9 @@ root.render(
           <CarsTiresProvider>
             <TiresProvider>
               <WheelProvider>
-                <App />
+                <CustomerProvider>
+                  <App />
+                </CustomerProvider>
               </WheelProvider>
             </TiresProvider>
           </CarsTiresProvider>

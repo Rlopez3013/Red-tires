@@ -1,12 +1,12 @@
 import ModelsTable from './modelsTables';
-import ModelsForm from '../../pages/ModelForm';
+import ModelsForm from './ModelForm';
 import { Container } from 'react-bootstrap';
 
 const Model = () => {
   return (
     <div>
       <div>
-        <main className="py-3">
+        <main>
           <Container>
             <ModelsTable />
             <br></br>

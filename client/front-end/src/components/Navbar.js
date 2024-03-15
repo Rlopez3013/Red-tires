@@ -4,36 +4,43 @@ import Maker from './Makers/Maker';
 
 function Navbar() {
   return (
-  <div>
-     
-     <nav className='nav'>
-      <ul>
+    <div>
+      <nav className="nav">
+        <ul>
+          <li>
+            <Link to={'/'} className="home-title">
+              Home
+            </Link>
+          </li>
+        </ul>
         <li>
-          <Link to={'/'} className='home-title'>Home</Link>
+          <Link to={'/api/makers/newMaker'}>New Maker</Link>
         </li>
-      </ul>
-      <li>
-        <Link to={'/api/makers/newMaker'}>New Maker</Link>
-      </li>
-      <li>
-        <Link to={`/api/makers`}>Makers</Link>
-      </li>
-      <li>
-        <Link to={'/api/models'}>Models</Link>
-      </li>
+        <li>
+          <Link to={`/api/makers`}>Makers</Link>
+        </li>
+        <li>
+          <Link to={'/api/models'}>Models</Link>
+        </li>
 
-      <li>
-        <Link to={'/api/models/newModel'}>New Model</Link>
-      </li>
-      <li>
-        <Link to={'/api/models_tires/carsTires'}>Cars</Link>
-      </li>
-      <li>
-        <Link to={'/api/models_tires/newCarTires'}>New Car</Link>
-      </li>
-      <li>
-        <Link to={'/api/tires'}>Tires</Link>
-      </li>
+        <li>
+          <Link to={'/api/models/newModel'}>New Model</Link>
+        </li>
+        <li>
+          <Link to={'/api/models_tires/carsTires'}>Cars</Link>
+        </li>
+        <li>
+          <Link to={'/api/models_tires/newCarTires'}>New Car</Link>
+        </li>
+        <li>
+          <Link to={'/api/tires'}>Tires</Link>
+        </li>
+        <li>
+          <Link to={'/api/Customers/registration'}>Registration</Link>
+        </li>
+        <li>
+          <Link to={'/Customers/patrons'}>Patrons</Link>
+        </li>
       </nav>
     </div>
   );

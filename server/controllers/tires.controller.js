@@ -10,7 +10,7 @@ export const getTires = async (req, res) => {
       S.size,
       I.path_img,
       Sn.season,
-      TO_BASE64(I.path_img) as 'Images_id' 
+      I.path_img as 'Images_id' 
       from Tires as T 
       inner join Companies C on T.Companies_id = C.id 
       inner join Sizes S on T.Sizes_id = S.id

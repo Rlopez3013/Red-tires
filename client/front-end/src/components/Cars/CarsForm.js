@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
-import { CarsTiresContext } from '../context/carTiresContext.js';
-import { WheelsContext } from '../context/wheelContext.js';
+import { CarsTiresContext } from '../../context/carTiresContext.js';
+import { WheelsContext } from '../../context/wheelContext.js';
 
 import Axios from 'axios';
 import { unstable_useBlocker, useNavigate, useParams } from 'react-router-dom';
@@ -114,9 +114,9 @@ function CarsForm() {
 
   return (
     <div>
-      Add a New Tires to a Car
-      <form>
-        <label htmlFor="year">Year</label>
+      <h1 className="car-title">Add a New Tires to a Car</h1>
+      <form className="car-form">
+        <label className="year">Year</label>
         <select
           name="year"
           id="year"
@@ -178,7 +178,7 @@ function CarsForm() {
             </option>
           ))}
         </select>
-        <table>
+        <table className="carForm-table">
           <thead>
             <tr>
               <th>Wheel</th>
