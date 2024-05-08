@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #808080;
+}
+
+.title-sh {
+  text-align: center;
+  color: black;
+  font-size: larger;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #bebebe;
+}
+.tr-sh {
+  text-align: center;
+  padding-bottom: 135px;
+}
+
+.tb-info-sh {
+  text-align: center;
+  font-size: large;
+  margin-top: 15%;
+}
+
+.heading-sh {
+  color: blue;
+  text-align: center;
+  margin-top: 60px;
+}

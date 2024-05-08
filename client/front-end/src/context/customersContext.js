@@ -26,8 +26,11 @@ export const CustomerProvider = ({ children }) => {
 
   const onDelete = async (id) => {
     try {
-      const response = await Axios.delete(`${CUSTOMER_API_URL}/delete/${id}`);
+      const response = await Axios.delete(
+        `${CUSTOMER_API_URL}/deleteCustomer/${id}`
+      );
       setListCustomers(listCustomers.filter((customer) => customer.id != id));
+      console.log(response);
     } catch (error) {
       console.error(error);
     }

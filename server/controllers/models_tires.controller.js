@@ -12,11 +12,12 @@ export const getModelsTires = async (req, res) => {
 
 export const getModelTire = async (req, res) => {
   try {
-    const { model, tire } = req.params;
+    const { model, tire, Models_id } = req.params;
 
     console.log(req.params.model);
     const [result] = await pool.query(
       `Select
+      Md.id,
       Md.model,
       Md.type,
       Md.year,
@@ -32,7 +33,7 @@ export const getModelTire = async (req, res) => {
       left join Makers Mk on Mk.id=Md.Makers_id
       inner join Seasons Sn on Sn.id=t.Seasons_id
       inner join Sizes S on S.id=t.Sizes_id
-      where Md.model = '${model}'`
+      where Models_id = '${Models_id}'`
     );
     if (result.length === 0) {
       return res.status(404).json({ message: 'C404 Models_Tires not found' });
@@ -45,14 +46,25 @@ export const getModelTire = async (req, res) => {
 
 export const getModelTiremodel = async (req, res) => {
   try {
-    const { model } = req.params;
-    console.log(req.params.model);
+    const { model, Models_id } = req.params;
+    console.log(req.params.Models_id);
     const [result] = await pool.query(
-      `Select Md.model,Md.type,Md.year,Mk.maker from Models_Tires l inner join Models Md on Md.id=l.Models_id left join Makers Mk on Mk.id=Md.Makers_id where Md.model = '${model}' `
+      `Select 
+      Md.id,
+      Md.model,
+      Md.type,
+      Md.year,
+      t.tire,
+      Mk.maker 
+      from Models_Tires l 
+      inner join Models Md on Md.id=l.Models_id 
+      inner Join Tires t on t.id = l.Tires_id
+      left join Makers Mk on Mk.id=Md.Makers_id 
+      where Models_id = '${Models_id}' `
     );
     if (result.length === 0) {
       return res.status(404).json({
-        message: 'model not found',
+        message: 'model not found !',
       });
     }
     res.json(result[0]);
@@ -66,8 +78,15 @@ export const getModelTirestires = async (req, res) => {
     const { tire } = req.params;
     console.log(req.params.tire);
     const [result] = await pool.query(
-      `Select tr.tire,C.company,Sn.season,S.size from Models_Tires l 
-      inner join Tires tr on tr.id=l.Tires_id inner join Seasons Sn on Sn.id=tr.Seasons_id inner join Sizes S on S.id=tr.Sizes_id 
+      `Select 
+      tr.tire,
+      C.company,
+      Sn.season,
+      S.size 
+      from Models_Tires l 
+      inner join Tires tr on tr.id=l.Tires_id 
+      inner join Seasons Sn on Sn.id=tr.Seasons_id 
+      inner join Sizes S on S.id=tr.Sizes_id 
       left join Companies C on C.id=tr.Companies_id
      where tr.tire = '${tire}' `
     );

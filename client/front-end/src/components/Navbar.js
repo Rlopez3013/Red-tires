@@ -14,32 +14,35 @@ function Navbar() {
           </li>
         </ul>
         <li>
-          <Link to={'/api/makers/newMaker'}>New Maker</Link>
+          <Link to={'/makers/newMaker'}>New Maker</Link>
         </li>
         <li>
-          <Link to={`/api/makers`}>Makers</Link>
+          <Link to={`/makers`}>Makers</Link>
         </li>
         <li>
-          <Link to={'/api/models'}>Models</Link>
+          <Link to={'/models'}>Models</Link>
         </li>
 
         <li>
-          <Link to={'/api/models/newModel'}>New Model</Link>
+          <Link to={'/models/newModel'}>New Model</Link>
         </li>
         <li>
-          <Link to={'/api/models_tires/carsTires'}>Cars</Link>
+          <Link to={'/models_tires/carsTires'}>Cars</Link>
         </li>
         <li>
-          <Link to={'/api/models_tires/newCarTires'}>New Car</Link>
+          <Link to={'/models_tires/newCarTires'}>New Car</Link>
         </li>
         <li>
-          <Link to={'/api/tires'}>Tires</Link>
+          <Link to={'/tires'}>Tires</Link>
         </li>
         <li>
-          <Link to={'/api/Customers/registration'}>Registration</Link>
+          <Link to={'/Customers/registration'}>Registration</Link>
         </li>
         <li>
           <Link to={'/Customers/patrons'}>Patrons</Link>
+        </li>
+        <li>
+          <Link to={'/shopper/cart'}>Shopping</Link>
         </li>
       </nav>
     </div>

@@ -16,7 +16,9 @@ import Navbar from './components/Navbar';
 import EditTire from './components/Tires/tireEdit';
 import Registration from './components/Customers/Registration';
 import Patrons from './components/Customers/Patrons';
-import EditCustomer from './components/Customers/customerEdit'
+import CustomerEdit from './components/Customers/CustomerEdit';
+import Shopper from './Shopping/Shopper';
+import ShoppersForm from './Shopping/ShoppersForm';
 function App() {
   return (
     <>
@@ -24,20 +26,21 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/MakersPage" element={<MakersPage />} />
-        <Route path="/api/models_tires/carsTires" element={<CarTires />} />
-        <Route path="/api/makers" element={<Makers />} />
-        <Route path="/api/tires" element={<Tires />} />
-        <Route path="/api/makers/newMaker" element={<MakerForm />} />
-        <Route path="/api/models_tires/newCarTires" element={<CarsForm />} />
-        <Route path="/api/maker/edit/:id" element={<Edit />} />
+        <Route path="/models_tires/carsTires" element={<CarTires />} />
+        <Route path="/makers" element={<Makers />} />
+        <Route path="/tires" element={<Tires />} />
+        <Route path="/makers/newMaker" element={<MakerForm />} />
+        <Route path="/models_tires/newCarTires" element={<CarsForm />} />
+        <Route path="/maker/edit/:id" element={<Edit />} />
         <Route path="/ModelsPage" element={<ModelsPage />} />
-        <Route path="/api/models" element={<Models />} />
-        <Route path="/api/models/edit/:id" element={<Update />} />
-        <Route path="/api/tires/edit/:id" element={<EditTire />} />
-        <Route path="/api/models/newModel" element={<ModelForm />} />
-        <Route path="/api/Customers/registration" element={<Registration />} />
+        <Route path="/models" element={<Models />} />
+        <Route path="/models/edit/:id" element={<Update />} />
+        <Route path="/tires/edit/:id" element={<EditTire />} />
+        <Route path="/models/newModel" element={<ModelForm />} />
+        <Route path="/Customers/registration" element={<Registration />} />
         <Route path="/Customers/patrons" element={<Patrons />} />
-        { <Route path='/Customers/edit/:id' element={<EditCustomer />} /> }
+        {<Route path="/Customers/edit/:id" element={<CustomerEdit />} />}
+        <Route path="/shopper/cart" element={<ShoppersForm />}></Route>
       </Routes>
     </>
   );

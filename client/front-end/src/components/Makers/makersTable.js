@@ -9,7 +9,7 @@ const MakersTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className="title">Maker Inventory</h1>
+      <h1 className="title display-5">Maker Inventory</h1>
       <table className="table table-sm table-success">
         <thead>
           <tr className="tr">

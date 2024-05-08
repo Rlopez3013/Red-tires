@@ -31,7 +31,7 @@ const CustomersTable = () => {
           </tr>
         </thead>
         <tbody className="tb-info">
-          { listCustomers.map((item, n) => (
+          {listCustomers.map((item, n) => (
             <tr key={(item.id, n)}>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (

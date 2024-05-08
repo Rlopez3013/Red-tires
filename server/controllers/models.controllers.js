@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId", Mk.maker,Md.id,Md.model,Md.type,Md.year from Models Md join Makers Mk on Md.Makers_id = Mk.id'
+      'select Mk.id as "makerId", Mk.name,Md.id,Md.model_name,Md.trim,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
     ); //make a join for makers value
     console.log(result);
     res.json(result);

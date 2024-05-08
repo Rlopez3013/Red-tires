@@ -3,7 +3,18 @@ import { pool } from '../db.js';
 export const getCustomers = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select C.id, C.f_name,C.last_name,C.email,CA.street,CA.city,CA.state,CA.country,CA.zip_code from customer_addresses CA join Customers C on CA.customer_id = C.id'
+      `Select 
+      C.id, 
+      C.f_name,
+      C.last_name,
+      C.email,
+      CA.street,
+      CA.city,
+      CA.state,
+      CA.country,
+      CA.zip_code 
+      from customer_addresses CA 
+      join Customers C on CA.customer_id = C.id`
     );
     //console.log(result);
     res.json(result);

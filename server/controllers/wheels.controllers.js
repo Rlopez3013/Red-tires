@@ -35,6 +35,7 @@ export const getWheel = async (req, res) => {
     company,
     model,
     type,
+    size,
     year
      FROM Modelos_Gomas
      where modelId = ${id};`);
