@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+ 
+}
+
+.title_home {
+  color: olive;
+  text-align: center;
+}
+
+
+

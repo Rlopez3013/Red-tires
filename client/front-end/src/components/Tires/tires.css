@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.tire-title {
+  color: aquamarine;
+  text-align: justify;
+}
+
+.tire-table {
+  text-align: center;
+  font-weight: 800;
+  color: aquamarine;
+  text-align: center;
+}

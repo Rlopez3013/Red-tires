@@ -37,3 +37,5 @@ export const WheelProvider = ({ children }) => {
     </WheelsContext.Provider>
   );
 };
+
+export default WheelsContext;

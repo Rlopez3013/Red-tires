@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mysqldb:
+    image: mysql
+    container_name: redTires
+    environment:
+      - MYSQL_ROOT_PASSWORD=change-me
+      - MYSQL_DATABASE=redtires2
+    ports:
+      - 3307:3306
+  app:
+    build: .
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+    ports:
+      - 4001:4001
+    volumes:
+      - mysqldb:/Users/rafaellopez/Desktop/Red-tires/db:var/lib/mysql
+volumes:
+  mysqldb:

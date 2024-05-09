@@ -1,38 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Maker from './Maker';
+import Maker from './Makers/Maker';
 
 function Navbar() {
   return (
     <div>
-      <h1>React Tires</h1>
-      <ul>
+      <nav className="nav">
+        <ul>
+          <li>
+            <Link to={'/'} className="home-title">
+              Home
+            </Link>
+          </li>
+        </ul>
         <li>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/makers/newMaker'}>New Maker</Link>
         </li>
-      </ul>
-      <li>
-        <Link to={'/api/makers/newMaker'}>New Maker</Link>
-      </li>
-      <li>
-        <Link to={`/api/makers`}>Makers</Link>
-      </li>
-      <li>
-        <Link to={'/api/models'}>Models</Link>
-      </li>
+        <li>
+          <Link to={`/makers`}>Makers</Link>
+        </li>
+        <li>
+          <Link to={'/models'}>Models</Link>
+        </li>
 
-      <li>
-        <Link to={'/api/models/newModel'}>New Model</Link>
-      </li>
-      <li>
-        <Link to={'/api/models_tires/carsTires'}>Cars</Link>
-      </li>
-      <li>
-        <Link to={'/api/models_tires/newCarTires'}>New Car</Link>
-      </li>
-      <li>
-        <Link to={'/api/tires'}>Tires</Link>
-      </li>
+        <li>
+          <Link to={'/models/newModel'}>New Model</Link>
+        </li>
+        <li>
+          <Link to={'/models_tires/carsTires'}>Cars</Link>
+        </li>
+        <li>
+          <Link to={'/models_tires/newCarTires'}>New Car</Link>
+        </li>
+        <li>
+          <Link to={'/tires'}>Tires</Link>
+        </li>
+        <li>
+          <Link to={'/Customers/registration'}>Registration</Link>
+        </li>
+        <li>
+          <Link to={'/Customers/patrons'}>Patrons</Link>
+        </li>
+        <li>
+          <Link to={'/shopper/cart'}>Shopping</Link>
+        </li>
+      </nav>
     </div>
   );
 }

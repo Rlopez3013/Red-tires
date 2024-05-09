@@ -29,7 +29,7 @@ export const createCompany = async (req, res) => {
     const { company } = req.body;
     const [result] = await pool.query(
       'insert into Companies(company) values(?)',
-      [company]
+      [company] 
     );
     console.log(result);
     res.send('New Company create');
