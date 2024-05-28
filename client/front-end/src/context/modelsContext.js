@@ -39,7 +39,7 @@ export const ModelProvider = ({ children }) => {
       const response = await Axios.delete(
         `${MODELS_API_URL}/deleteModel/${id}`
       );
-      setListModels(listModels.filter((model) => model.id != id));
+      setListModels(listModels.filter((model_name) => model_name.id != id));
       console.log(response);
     } catch (error) {
       console.log(error);

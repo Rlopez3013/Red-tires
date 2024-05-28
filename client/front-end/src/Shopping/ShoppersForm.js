@@ -38,9 +38,9 @@ function ShoppersForm() {
   const WHEELS_API_URL = `${API_HOST}/api/wheels`;
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
 
-  const filterByMaker = (maker) => {
-    let filtered = listModels.filter((model) => {
-      return model.year == year && model.makerId == maker;
+  const filterByMaker = (maker_name) => {
+    let filtered = listModels.filter((model_name) => {
+      return model_name.year == year && model.makerId == maker_name;
     });
 
     setUniqueModels(filtered);
@@ -53,9 +53,9 @@ function ShoppersForm() {
       return model.year == year;
     });
 
-    const makers = filtered.map(({ maker }) => maker);
+    const makers = filtered.map(({ maker_name }) => maker_name);
     const uniqueMakers = filtered.filter(
-      ({ maker }, index) => !makers.includes(maker, index + 1)
+      ({ maker_name }, index) => !makers.includes(maker_name, index + 1)
     );
 
     setYear(year);
@@ -63,11 +63,11 @@ function ShoppersForm() {
     setUniqueModels([]);
   };
 
-  const filterbyModel = (model) => {
-    console.log('init filter', model);
+  const filterbyModel = (model_name) => {
+    console.log('init filter', model_name);
     console.log('list models', listWheels);
     let filterModel = listWheels.filter((wheel) => {
-      return wheel.modelId == model;
+      return wheel.modelId == model_name;
     });
 
     console.log('filtered list', filterModel);
@@ -118,8 +118,8 @@ function ShoppersForm() {
       setListModels(res.data);
 
       const uniqueYears = [...new Set(res.data.map((obj) => obj.year))];
-      const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker))];
-      const uniqueModels = [...new Set(res.data.map((obj) => obj.model))];
+      const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker_name))];
+      const uniqueModels = [...new Set(res.data.map((obj) => obj.model_name))];
 
       setUniqueYears(uniqueYears.sort());
       setUniqueMakers(uniqueMakers);
@@ -134,8 +134,8 @@ function ShoppersForm() {
         <div>
           <label>First Name</label>
           <select
-            name="f_name"
-            id="f_name"
+            name="first_name"
+            id="first_name"
             placeholder="Choose a name"
             className="dropdown"
             onChange={(e) => filterbyYear(e.target.value)}
@@ -168,16 +168,16 @@ function ShoppersForm() {
         </select>
         <label>Maker</label>
         <select
-          name="maker"
-          id="maker"
+          name="maker_name"
+          id="maker_name"
           placeholder="Choose a Maker"
           className="dropdown"
           onChange={(e) => filterByMaker(e.target.value)}
         >
           <option value={0}>Select a Maker</option>
           {uniqueMakers?.map((maker, mk) => (
-            <option key={mk} value={maker.makerId}>
-              {maker.maker}
+            <option key={mk} value={maker.id}>
+              {maker.maker_name}
             </option>
           ))}
         </select>
@@ -192,7 +192,7 @@ function ShoppersForm() {
           <option>Select a Model</option>
           {uniqueModels.map((model, md) => (
             <option key={md} value={model.id}>
-              {model.model}
+              {model.model_name}
             </option>
           ))}
         </select>

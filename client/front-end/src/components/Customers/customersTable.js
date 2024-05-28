@@ -39,12 +39,12 @@ const CustomersTable = () => {
                     <option>Select Name</option>
                     {listCustomers.map((item, n) => (
                       <option key={n} value={item.id}>
-                        {item.name}
+                        {item.first_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.f_name
+                  item.first_name
                 )}
               </td>
               <td>

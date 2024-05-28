@@ -31,10 +31,10 @@ function ModelForm() {
   useEffect(() => {
     const loadModels = async () => {
       if (params.id) {
-        const model = await getModel(params.id);
-        console.log(model);
+        const model_name = await getModel(params.id);
+        console.log(model_name);
         setModel({
-          model: model.model,
+          model_name: model.model_name,
         });
       }
     };
@@ -43,8 +43,8 @@ function ModelForm() {
   const addModel = (e) => {
     e.preventDefault();
     Axios.post('http://localhost:4000/api/models', {
-      model: model.model,
-      type: model.type,
+      model_name: model.model_name,
+      trim: model.trim,
       year: model.year,
       Makers_id: maker,
     }).then((response) => {
@@ -82,7 +82,7 @@ function ModelForm() {
               <option>Select Maker</option>
               {listMaker.map((maker) => (
                 <option key={maker.id} value={maker.id}>
-                  {maker.maker}
+                  {maker.maker_name}
                 </option>
               ))}
             </select>
@@ -91,9 +91,9 @@ function ModelForm() {
             <input
               className={'sr-only'}
               type="text"
-              name="model"
+              name="model_name"
               placeholder="Model"
-              value={model.model || ''}
+              value={model.model_name || ''}
               onChange={handleChange}
             />
           </div>
@@ -101,9 +101,9 @@ function ModelForm() {
             <input
               className={'sr-only'}
               type="text"
-              name="type"
-              placeholder="Type"
-              value={model.type || ''}
+              name="trim"
+              placeholder="Trim"
+              value={model.trim || ''}
               onChange={handleChange}
             />
           </div>

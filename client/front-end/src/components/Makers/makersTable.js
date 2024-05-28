@@ -26,12 +26,12 @@ const MakersTable = () => {
                     <option>Select Maker</option>
                     {listMakers.map((item, mk) => (
                       <option key={mk} value={item.id}>
-                        {item.maker}
+                        {item.maker_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.maker
+                  item.maker_name
                 )}
               </td>
               <td>
@@ -59,7 +59,7 @@ const MakersTable = () => {
                 ) : (
                   <button
                     className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/api/maker/edit/${item.id}`)}
+                    onClick={() => navigate(`/maker/edit/${item.id}`)}
                   >
                     Edit
                   </button>

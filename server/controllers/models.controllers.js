@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId", Mk.name,Md.id,Md.model_name,Md.trim,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
+      'select Mk.id as "makerId", Mk.maker_name,Md.id,Md.model_name,Md.trim,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
     ); //make a join for makers value
     console.log(result);
     res.json(result);
@@ -30,11 +30,11 @@ export const getModel = async (req, res) => {
 
 export const createModel = async (req, res) => {
   try {
-    const { model, type, year, Makers_id } = req.body;
+    const { model_name, trim, year, Makers_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into Models(model,type,year,Makers_id) values (?,?,?,?)',
-      [model, type, year, Makers_id]
+      'insert into Models(model_name,trim,year,Makers_id) values (?,?,?,?)',
+      [model_name, trim, year, Makers_id]
     );
     console.log(result);
     res.send('New Model created');

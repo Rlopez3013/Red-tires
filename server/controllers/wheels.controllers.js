@@ -4,20 +4,20 @@ export const getWheels = async (req, res) => {
   try {
     const [result] = await pool.query(
       `Select 
-      Md.model as model,
+      Md.model_name,
       Md.id as modelId,
-      t.tire as tire,
+      t.tire_name,
       t.id  as tireId, 
-      Sn.season as season,
-      z.size as size,
-     C.company as company,
+      Sn.sn_name,
+      z.tire_size,
+     C.tire_company,
      C. id as companyId
      from Models_Tires L
-      join Tires t on t.id = L.Tires_id
-      join Companies C on C.id = t.Companies_id
-      join Models Md on Md.id = L.Models_id
-      join Seasons Sn on Sn.id = t.Seasons_id
-      join Sizes z on z.id = t.Sizes_id`
+      join Tires t on t.id = L.tire_Id
+      join Companies C on C.id = t.company_id
+      join Models Md on Md.id = L.model_id
+      join Seasons Sn on Sn.id = t.sn_id
+      join Sizes z on z.id = t.size_id`
     );
     console.log(result);
     res.json(result);
@@ -30,14 +30,14 @@ export const getWheel = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(`SELECT 
-    tire,
+    tire_name,
     modelId,
-    company,
-    model,
-    type,
+    tire_company,
+    model_name,
+    trim,
     size,
     year
-     FROM Modelos_Gomas
+     FROM Models_Tires
      where modelId = ${id};`);
     if (result.length === 0) {
       return res.status(404).json({ message: 'Wheel not found' });

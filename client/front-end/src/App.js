@@ -39,8 +39,9 @@ function App() {
         <Route path="/models/newModel" element={<ModelForm />} />
         <Route path="/Customers/registration" element={<Registration />} />
         <Route path="/Customers/patrons" element={<Patrons />} />
-        {<Route path="/Customers/edit/:id" element={<CustomerEdit />} />}
+        <Route path="/Customers/edit/:id" element={<CustomerEdit />} />
         <Route path="/shopper/cart" element={<ShoppersForm />}></Route>
+        <Route path="/Shopping/shopper" element={<Shopper />}></Route>
       </Routes>
     </>
   );

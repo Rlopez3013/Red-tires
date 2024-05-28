@@ -3,19 +3,17 @@ import { pool } from '../db.js';
 export const getTires = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `Select 
-      T.id, 
-      T.tire,
-      C.company,
-      S.size,
-      I.path_img,
-      Sn.season,
-      I.path_img as 'Images_id' 
-      from Tires as T 
-      inner join Companies C on T.Companies_id = C.id 
-      inner join Sizes S on T.Sizes_id = S.id
-      inner join Seasons Sn on T.Seasons_id = Sn.id
-      inner join images I on T.Images_id = I.id
+      `SELECT 
+      T.id,
+      T.tire_name,
+      C.tire_company,
+      S.tire_size,
+      Sn.sn_name
+      from Tires T
+      inner join Companies C on T.company_id = C.id 
+      inner join Sizes S on T.size_id = S.id 
+      inner join Seasons Sn on T.sn_id = Sn.id
+      
   `
     );
     console.log(result);
@@ -43,10 +41,11 @@ export const getTire = async (req, res) => {
 
 export const createTire = async (req, res) => {
   try {
-    const { tire, Companies_id, Sizes_id, Seasons_id, tire_Img } = req.body;
+    const { tire_name, Companies_id, Sizes_id, Seasons_id, tire_Img } =
+      req.body;
     const [result] = await pool.query(
-      'insert into Tires(tire,Companies_id,Sizes_id,Seasons_id) values(?,?,?,?)',
-      [tire, Companies_id, Sizes_id, Seasons_id]
+      'insert into Tires(tire_name,Companies_id,Sizes_id,Seasons_id) values(?,?,?,?)',
+      [tire_name, Companies_id, Sizes_id, Seasons_id]
     );
     console.log(result);
     res.send('New Tire created');
@@ -58,9 +57,9 @@ export const createTire = async (req, res) => {
 export const updateTire = async (req, res) => {
   try {
     const { id } = req.params;
-    const { tire } = req.body;
+    const { tire_name } = req.body;
     const [result] = await pool.query(
-      `update Tires set tire = '${tire}' where id = ${id}`
+      `update Tires set tire_name = '${tire_name}' where id = ${id}`
     );
     res.json(result);
   } catch (error) {

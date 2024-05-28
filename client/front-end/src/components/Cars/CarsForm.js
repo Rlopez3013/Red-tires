@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
-import { CarsTiresContext } from '../../context/carTiresContext.js';
-import { WheelsContext } from '../../context/wheelContext.js';
+import CarsTiresContext from '../../context/carTiresContext.js';
+import WheelsContext from '../../context/wheelContext.js';
 
 import Axios from 'axios';
-import { unstable_useBlocker, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function CarsForm() {
   const [listModels, setListModels] = useState([]);
@@ -17,7 +17,7 @@ function CarsForm() {
   const [model, setModel] = useState('');
   const [wheel, setWheel] = useState('');
   const [year, setYear] = useState('');
-  const [type, setType] = useState('');
+  const [trim, setTrim] = useState('');
   const [maker, setMaker] = useState('');
   const { listWheels, setListWheels } = useContext(WheelsContext);
   const { listModelsTires, setListModelsTires } = useContext(CarsTiresContext);
@@ -42,18 +42,17 @@ function CarsForm() {
   };
 
   const filterbyYear = (year) => {
-    setUniqueMakers([]);
     let filtered = listModels.filter((model) => {
       return model.year == year;
     });
 
-    const makers = filtered.map(({ maker }) => maker);
-    const uniqueMakers = filtered.filter(
-      ({ maker }, index) => !makers.includes(maker, index + 1)
+    const makers = filtered.map(({ maker_name }) => maker_name);
+    const _uniqueMakers = filtered.filter(
+      ({ maker_name }, index) => !makers.includes(maker_name, index + 1)
     );
 
     setYear(year);
-    setUniqueMakers(uniqueMakers);
+    setUniqueMakers(_uniqueMakers);
     setUniqueModels([]);
   };
 
@@ -67,17 +66,20 @@ function CarsForm() {
 
     console.log('filtered list', filterModel);
 
-    //setModel(model);
+    setModel(model);
     setFilteredModel(uniqueModels);
-    setUniqueWheels(filterModel);
+    //setUniqueWheels(filterModel);
   };
 
   const filterbyWheel = (tire) => {
+    console.log('list wheel', tire);
+    console.log('list wheel', listWheels);
     let filtered = listWheels.filter((wheel) => {
       return wheel.year == year && model.tireId == tire;
     });
 
     setWheel(year);
+
     setUniqueWheels(filtered);
   };
 
@@ -101,9 +103,12 @@ function CarsForm() {
       const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker))];
       const uniqueModels = [...new Set(res.data.map((obj) => obj.model))];
 
+      console.log('prev unique makers', uniqueMakers);
       setUniqueYears(uniqueYears.sort());
-      setUniqueMakers(uniqueMakers);
-      setUniqueModels(uniqueModels);
+      console.log('unique model', uniqueModels);
+
+      //setUniqueMakers(uniqueMakers);
+      //setUniqueModels(uniqueModels);
     });
 
     // Axios.get(`${MAKERS_API_URL}`).then((res) => {
@@ -140,9 +145,9 @@ function CarsForm() {
           onChange={(e) => filterByMaker(e.target.value)}
         >
           <option value={0}>Select a Maker</option>
-          {uniqueMakers?.map((maker, mk) => (
-            <option key={mk} value={maker.makerId}>
-              {maker.maker}
+          {uniqueMakers?.map((m, mk) => (
+            <option key={mk} value={m.makerId}>
+              {m.maker_name}
             </option>
           ))}
         </select>
@@ -155,9 +160,9 @@ function CarsForm() {
           onChange={(e) => filterbyModel(e.target.value)}
         >
           <option>Select a Model</option>
-          {uniqueModels.map((model, md) => (
-            <option key={md} value={model.id}>
-              {model.model}
+          {uniqueModels.map((mdl, md) => (
+            <option key={md} value={mdl.modelId}>
+              {mdl.model_name}
             </option>
           ))}
         </select>
@@ -165,7 +170,6 @@ function CarsForm() {
         <label>Tires</label>
         <select
           name="wheel"
-          x
           id="wheel"
           placeholder="Choose a wheel"
           className="dropdown"
@@ -174,7 +178,7 @@ function CarsForm() {
           <option>Select A tire</option>
           {uniqueWheels.map((wheel, wh) => (
             <option key={wh} value={wheel.tireId}>
-              {wheel.tire}
+              {wheel.tire_name}
             </option>
           ))}
         </select>
@@ -190,10 +194,10 @@ function CarsForm() {
           <tbody>
             {uniqueWheels.map((wheel, wh) => (
               <tr key={(wheel.id, wh)}>
-                <td>{wheel.tire}</td>
-                <td>{wheel.company}</td>
-                <td>{wheel.season}</td>
-                <td>{wheel.size}</td>
+                <td>{wheel.tire_name}</td>
+                <td>{wheel.tire_company}</td>
+                <td>{wheel.sn_name}</td>
+                <td>{wheel.tire_size}</td>
               </tr>
             ))}
 

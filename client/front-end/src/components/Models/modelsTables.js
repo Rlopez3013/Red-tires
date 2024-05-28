@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ModelsContext } from '../../context/modelsContext.js';
 import { useNavigate } from 'react-router-dom';
-import './models.css'
+import './models.css';
 
 const ModelsTable = () => {
   const {
@@ -17,10 +17,10 @@ const ModelsTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className='model-title'>Models</h1>
-      <table className='model-table'>
+      <h1 className="model-title">Models</h1>
+      <table className="model-table">
         <thead>
-          <tr className='tr'>
+          <tr className="tr">
             <th>Makers</th>
             <th>Models</th>
             <th>Type</th>
@@ -28,7 +28,7 @@ const ModelsTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className='model-tbody'>
+        <tbody className="model-tbody">
           {listModels.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>
@@ -37,12 +37,12 @@ const ModelsTable = () => {
                     <option>Select Makers</option>
                     {listMakers.map((item, mk) => (
                       <option key={mk} value={item.id}>
-                        {item.maker}
+                        {item.maker_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.maker
+                  item.maker_name
                 )}
               </td>
               <td>
@@ -51,12 +51,12 @@ const ModelsTable = () => {
                     <option>Select Model</option>
                     {listModels.map((item, md) => (
                       <option key={md} value={item.id}>
-                        {item.model}
+                        {item.model_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.model
+                  item.model_name
                 )}
               </td>
               <td>
@@ -65,12 +65,12 @@ const ModelsTable = () => {
                     <option>Select Type</option>
                     {listModels.map((item, ty) => (
                       <option key={ty} value={item.id}>
-                        {item.type}
+                        {item.trim}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.type
+                  item.trim
                 )}
               </td>
               <td>
@@ -95,7 +95,7 @@ const ModelsTable = () => {
                       onClick={() =>
                         updateModel({
                           id: item.id,
-                          newModel: item.model,
+                          newModel: item.model_name,
                         })
                       }
                     >
@@ -111,7 +111,7 @@ const ModelsTable = () => {
                 ) : (
                   <button
                     className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/api/models/edit/${item.id}`)}
+                    onClick={() => navigate(`/models/edit/${item.id}`)}
                   >
                     Edit
                   </button>

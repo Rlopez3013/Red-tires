@@ -4,17 +4,16 @@ export const getShoppers = async (req, res) => {
   try {
     const [result] = await pool.query(
       `Select
-      SC.id, 
+      S.id, 
       C.id as "customerId",
-      C.f_name,
+      C.first_name,
       C.last_name,
-      M.model,
-      T.tire,
-      Quantity 
-      from Shopping_Cart SC 
-      inner join Customers C on SC.Customer_id = C.id 
-      inner join Models M on SC.model_id = M.id
-      inner join Tires T on SC.Tire_id = T.id`
+      M.model_name,
+      T.tire_name
+      from Shoppers S 
+      inner join Customers C on S.Customer_id = C.id 
+      inner join Models M on S.model_id = M.id
+      inner join Tires T on S.Tire_id = T.id`
     );
     console.log(result);
     res.json(result);
@@ -28,18 +27,17 @@ export const getShopper = async (req, res) => {
     const { id } = req.params;
     const [result] = await pool.query(
       `Select 
-      SC.id,
+      S.id,
       C.id as "customerId", 
-      C.f_name,
+      C.first_name,
       C.last_name,
-      M.model,
-      T.tire,
-      Quantity 
-      from Shopping_Cart SC 
-      inner join Customers C on SC.Customer_id = C.id 
-      inner join Models M on SC.model_id = M.id
-      inner join Tires T on SC.Tire_id = T.id 
-      where SC.id = ${id}`
+      M.model_name,
+      T.tire_name 
+      from Shoppers S 
+      inner join Customers C on S.Customer_id = C.id 
+      inner join Models M on S.model_id = M.id
+      inner join Tires T on S.Tire_id = T.id 
+      where S.id = ${id}`
     );
     if (result.length === 0) {
       return res.status(404).json({ message: 'shopper not found' });
@@ -57,7 +55,7 @@ export const createShopper = async (req, res) => {
     const { Customer_id, Tire_id, Quantity } = req.body;
 
     const [result] = await pool.query(
-      'insert into Shopping_Cart(Customer_id, Tire_id, Quantity) values(?,?,?)',
+      'insert into Shoppers(Customer_id, Tire_id, Quantity) values(?,?,?)',
       [Customer_id, Tire_id, Quantity]
     );
   } catch (error) {
@@ -68,10 +66,10 @@ export const createShopper = async (req, res) => {
 
 export const updateShopper = async (req, res) => {
   try {
-    const [result] = await pool.query(
-      `update Shopping_Cart set ? where id = ? `,
-      [req.body, req.params.id]
-    );
+    const [result] = await pool.query(`update Shoppers set ? where id = ? `, [
+      req.body,
+      req.params.id,
+    ]);
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: 'shopper updated!', success: true });
@@ -82,9 +80,7 @@ export const updateShopper = async (req, res) => {
 export const deleteShopper = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(
-      `Delete from Shopping_Cart where id = ${id}`
-    );
+    const [result] = await pool.query(`Delete from Shoppers where id = ${id}`);
     if (result.affectedRows === 0)
       return res
         .status(404)

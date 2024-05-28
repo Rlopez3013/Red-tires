@@ -31,12 +31,12 @@ const TiresTable = () => {
                     <option>Select Tire</option>
                     {listTires.map((item, pn) => (
                       <option key={pn} value={item.id}>
-                        {item.tire}
+                        {item.tire_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.tire
+                  item.tire_name
                 )}
               </td>
               <td>
@@ -45,12 +45,12 @@ const TiresTable = () => {
                     <option>Select Company</option>
                     {listTires.map((item, C) => (
                       <option key={C} value={item.id}>
-                        {item.company}
+                        {item.tire_company}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.company
+                  item.tire_company
                 )}
               </td>
               <td>
@@ -59,12 +59,12 @@ const TiresTable = () => {
                     <option>Select Size</option>
                     {listTires.map((item, zs) => (
                       <option key={zs} value={item.id}>
-                        {item.size}
+                        {item.tire_size}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.size
+                  item.tire_size
                 )}
               </td>
               <td>
@@ -73,12 +73,12 @@ const TiresTable = () => {
                     <option>Select Season</option>
                     {listTires.map((item, se) => (
                       <option key={se} value={item.id}>
-                        {item.season}
+                        {item.sn_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.season
+                  item.sn_name
                 )}
               </td>
               <td>

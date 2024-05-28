@@ -29,12 +29,12 @@ const ShoppersTable = () => {
                     <option>Select Names</option>
                     {listShopper.map((item, sh) => (
                       <option key={sh} value={item.id}>
-                        {item.f_name}
+                        {item.first_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.f_name
+                  item.first_name
                 )}
               </td>
               <td>
@@ -57,13 +57,14 @@ const ShoppersTable = () => {
                     <option>Select Model</option>
                     {listShopper.map((item, m) => (
                       <option key={m} value={item.id}>
-                        {item.model}
+                        {item.model_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.model
+                  item.model_name
                 )}
+                console.log('model_name', model_name)
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -71,12 +72,12 @@ const ShoppersTable = () => {
                     <option>Select Tire</option>
                     {listShopper.map((item, t) => (
                       <option key={t} value={item.id}>
-                        {item.tire}
+                        {item.tire_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.tire
+                  item.tire_name
                 )}
               </td>
               <td>

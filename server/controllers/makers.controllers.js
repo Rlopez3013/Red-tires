@@ -29,7 +29,7 @@ export const getMaker = async (req, res) => {
 export const createMaker = async (req, res) => {
   try {
     const { maker } = req.body;
-    const [result] = await pool.query('insert into Makers(maker) values (?)', [
+    const [result] = await pool.query('insert into Makers(name) values (?)', [
       maker,
     ]);
     console.log(result);

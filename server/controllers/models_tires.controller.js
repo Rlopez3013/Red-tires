@@ -2,7 +2,22 @@ import { pool } from '../db.js';
 
 export const getModelsTires = async (req, res) => {
   try {
-    const [result] = await pool.query(`select * from Modelos_Gomas`);
+    const [result] = await pool.query(`Select
+    Md.id,
+    Md.model_name,
+    Md.year,
+    t.tire_name,
+    Mk.maker_name,
+    C.tire_company,
+    Sn.sn_name,
+    S.tire_size
+    from Models_Tires l
+    inner join Models Md on Md.id=l.model_id
+    inner Join Tires t on t.id=l.tire_Id
+    left join Companies C on C.id=t.company_id
+    left join Makers Mk on Mk.id=Md.maker_id
+    inner join Seasons Sn on Sn.id=t.sn_id
+    inner join Sizes S on S.id=t.size_id`);
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -12,28 +27,27 @@ export const getModelsTires = async (req, res) => {
 
 export const getModelTire = async (req, res) => {
   try {
-    const { model, tire, Models_id } = req.params;
+    const { model, tire, model_id } = req.params;
 
     console.log(req.params.model);
     const [result] = await pool.query(
       `Select
       Md.id,
-      Md.model,
-      Md.type,
+      Md.model_name,
       Md.year,
-      t.tire,
-      Mk.maker,
-      C.company,
-      Sn.season,
-      S.size
+      t.tire_name,
+      Mk.maker_name,
+      C.tire_company,
+      Sn.sn_name,
+      S.tire_size
       from Models_Tires l
-      inner join Models Md on Md.id=l.Models_id
-      inner Join Tires t on t.id=l.Tires_id
-      left join Companies C on C.id=t.Companies_id
-      left join Makers Mk on Mk.id=Md.Makers_id
-      inner join Seasons Sn on Sn.id=t.Seasons_id
-      inner join Sizes S on S.id=t.Sizes_id
-      where Models_id = '${Models_id}'`
+      inner join Models Md on Md.id=l.model_id
+      inner Join Tires t on t.id=l.tire_Id
+      left join Companies C on C.id=t.company_id
+      left join Makers Mk on Mk.id=Md.maker_id
+      inner join Seasons Sn on Sn.id=t.sn_id
+      inner join Sizes S on S.id=t.size_id
+      where model_id = '${model_id}'`
     );
     if (result.length === 0) {
       return res.status(404).json({ message: 'C404 Models_Tires not found' });
@@ -46,25 +60,24 @@ export const getModelTire = async (req, res) => {
 
 export const getModelTiremodel = async (req, res) => {
   try {
-    const { model, Models_id } = req.params;
-    console.log(req.params.Models_id);
+    const { model, model_id } = req.params;
+    console.log(req.params.model_id);
     const [result] = await pool.query(
       `Select 
-      Md.id,
-      Md.model,
-      Md.type,
-      Md.year,
-      t.tire,
-      Mk.maker 
+      M.id,
+      M.model_name,
+      M.year,
+      t.tire_name,
+      Mk.maker_name 
       from Models_Tires l 
-      inner join Models Md on Md.id=l.Models_id 
-      inner Join Tires t on t.id = l.Tires_id
-      left join Makers Mk on Mk.id=Md.Makers_id 
-      where Models_id = '${Models_id}' `
+      inner join Models M on M.id=l.model_id 
+      inner Join Tires t on t.id = l.tire_Id
+      left join Makers Mk on Mk.id=M.maker_id 
+      where model_id = '${model_id}' `
     );
     if (result.length === 0) {
       return res.status(404).json({
-        message: 'model not found !',
+        message: 'model not found 3!',
       });
     }
     res.json(result[0]);
@@ -75,20 +88,20 @@ export const getModelTiremodel = async (req, res) => {
 
 export const getModelTirestires = async (req, res) => {
   try {
-    const { tire } = req.params;
-    console.log(req.params.tire);
+    const { tire_name } = req.params;
+    console.log(req.params.tire_name);
     const [result] = await pool.query(
       `Select 
-      tr.tire,
-      C.company,
-      Sn.season,
-      S.size 
+      tr.tire_name,
+      C.tire_company,
+      Sn.sn_name,
+      S.tire_size 
       from Models_Tires l 
-      inner join Tires tr on tr.id=l.Tires_id 
-      inner join Seasons Sn on Sn.id=tr.Seasons_id 
-      inner join Sizes S on S.id=tr.Sizes_id 
-      left join Companies C on C.id=tr.Companies_id
-     where tr.tire = '${tire}' `
+      inner join Tires tr on tr.id=l.tire_Id 
+      inner join Seasons Sn on Sn.id=tr.sn_id 
+      inner join Sizes S on S.id=tr.size_id 
+      left join Companies C on C.id=tr.company_id
+     where tr.tire_name = '${tire_name}' `
     );
     if (result.length === 0) {
       return res.status(404).json({
@@ -103,11 +116,11 @@ export const getModelTirestires = async (req, res) => {
 
 export const createModelTire = async (req, res) => {
   try {
-    const { Models_id } = req.body;
-    const { Tires_id } = req.body;
+    const { model_id } = req.body;
+    const { tire_id } = req.body;
     const [result] = await pool.query(
-      'insert into Models_Tires(Models_id,Tires_id) values (?,?)',
-      [Models_id, Tires_id]
+      'insert into Models_Tires(model_id,tire_id) values (?,?)',
+      [model_id, tire_id]
     );
     console.log(result);
     res.send('New Model Tire created');
@@ -119,11 +132,11 @@ export const createModelTire = async (req, res) => {
 export const updateModelTire = async (req, res) => {
   try {
     const { modelId, tireId } = req.params;
-    const { Models_id, Tires_id } = req.body;
+    const { model_id, tire_id } = req.body;
 
     const result = await pool.query(
-      'update Models_Tires set  Models_id = ? Tires_id =? where modelId = ? tireId = ? ',
-      [Models_id, Tires_id, modelId, tireId]
+      'update Models_Tires set  model_id = ? tire_id =? where modelId = ? tireId = ? ',
+      [model_id, tire_id, modelId, tireId]
     );
     res.json(result);
     console.log(result);
@@ -134,10 +147,10 @@ export const updateModelTire = async (req, res) => {
 
 export const deleteModelTires = async (req, res) => {
   try {
-    const { Models_id, Tires_id } = req.body;
+    const { model_id, tire_id } = req.body;
     const [result] = await pool.query(
-      `delete from Models_Tires where  Models_id = ? and Tires_id = ?`,
-      [Models_id, Tires_id]
+      `delete from Models_Tires where  models_id = ? and tire_id = ?`,
+      [model_id, tire_id]
     );
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Model Tire not found' });
