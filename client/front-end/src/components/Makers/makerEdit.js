@@ -48,7 +48,7 @@ function Edit() {
       <form onSubmit={updateMaker}>
         <div>
           <label htmlFor="name">ID:</label>
-          <input type="text" name="name" value={maker?.id || ''} readOnly />
+          <input type="text" name="name" value={maker?.id || ''} />
         </div>
         <div>
           <label htmlFor="name">Maker</label>

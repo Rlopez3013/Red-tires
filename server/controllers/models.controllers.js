@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId", Mk.maker_name,Md.id,Md.model_name,Md.trim,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
+      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
     ); //make a join for makers value
     console.log(result);
     res.json(result);
@@ -76,9 +76,10 @@ export const getModelsByYear = async (req, res) => {
     const { year } = req.params;
     const [result] = await pool.query(`SELECT 
     Ma.id as MakerId,
-    Ma.maker, 
+    Ma.maker_name, 
     Mo.id as ModelId,
-    Mo.model
+    Mo.model_name,
+    Mo.type
     FROM redtires.Models Mo
     inner join Makers Ma on Ma.id = Mo.Makers_id
     WHERE year = ${year}`);

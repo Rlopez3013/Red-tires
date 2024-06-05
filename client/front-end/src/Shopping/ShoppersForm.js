@@ -38,13 +38,13 @@ function ShoppersForm() {
   const WHEELS_API_URL = `${API_HOST}/api/wheels`;
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
 
-  const filterByMaker = (maker_name) => {
-    let filtered = listModels.filter((model_name) => {
-      return model_name.year == year && model.makerId == maker_name;
+  const filterByMaker = (maker) => {
+    let filtered = listModels.filter((model) => {
+      return model.year == year && model.makerId == maker;
     });
 
     setUniqueModels(filtered);
-    //setFilteredModel(filtered);
+    console.log('uniqueModels', setUniqueModels);
   };
 
   const filterbyYear = (year) => {
@@ -53,9 +53,9 @@ function ShoppersForm() {
       return model.year == year;
     });
 
-    const makers = filtered.map(({ maker_name }) => maker_name);
+    const makers = filtered.map(({ maker }) => maker);
     const uniqueMakers = filtered.filter(
-      ({ maker_name }, index) => !makers.includes(maker_name, index + 1)
+      ({ maker }, index) => !makers.includes(maker, index + 1)
     );
 
     setYear(year);
@@ -63,13 +63,13 @@ function ShoppersForm() {
     setUniqueModels([]);
   };
 
-  const filterbyModel = (model_name) => {
-    console.log('init filter', model_name);
+  const filterbyModel = (model) => {
+    console.log('init filter', model);
     console.log('list models', listWheels);
     let filterModel = listWheels.filter((wheel) => {
-      return wheel.modelId == model_name;
+      return wheel.modelId == model;
     });
-
+    console.log('wheel', listWheels);
     console.log('filtered list', filterModel);
 
     setFilteredModel(uniqueModels);
@@ -85,13 +85,14 @@ function ShoppersForm() {
     setUniqueWheels(filtered);
   };
 
-  const filterByCustomer = (customer) => {
+  const filterByCustomer = (first_name) => {
     let filtered = listCustomers.filter((customer) => {
-      return customer.wheel == wheel && model.tireId == customer;
+      return customer.wheel == wheel && model.tireId == first_name;
     });
 
     setCustomer(customer);
     setUniqueCustomer(filtered);
+    console.log('customer', uniqueCustomer);
   };
 
   useEffect(() => {
@@ -118,12 +119,13 @@ function ShoppersForm() {
       setListModels(res.data);
 
       const uniqueYears = [...new Set(res.data.map((obj) => obj.year))];
-      const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker_name))];
-      const uniqueModels = [...new Set(res.data.map((obj) => obj.model_name))];
+      const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker))];
+      const uniqueModels = [...new Set(res.data.map((obj) => obj.model))];
 
       setUniqueYears(uniqueYears.sort());
       setUniqueMakers(uniqueMakers);
       setUniqueModels(uniqueModels);
+      console.log('unique Model', uniqueModels);
     });
   }, []);
 
@@ -168,16 +170,16 @@ function ShoppersForm() {
         </select>
         <label>Maker</label>
         <select
-          name="maker_name"
-          id="maker_name"
+          name="maker"
+          id="maker"
           placeholder="Choose a Maker"
           className="dropdown"
           onChange={(e) => filterByMaker(e.target.value)}
         >
           <option value={0}>Select a Maker</option>
           {uniqueMakers?.map((maker, mk) => (
-            <option key={mk} value={maker.id}>
-              {maker.maker_name}
+            <option key={mk} value={maker}>
+              {maker}
             </option>
           ))}
         </select>
@@ -191,8 +193,8 @@ function ShoppersForm() {
         >
           <option>Select a Model</option>
           {uniqueModels.map((model, md) => (
-            <option key={md} value={model.id}>
-              {model.model_name}
+            <option key={md} value={model}>
+              {model}
             </option>
           ))}
         </select>

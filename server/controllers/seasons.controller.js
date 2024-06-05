@@ -32,10 +32,10 @@ export const getSeason = async (req, res) => {
 
 export const createSeason = async (req, res) => {
   try {
-    const { season, terrain } = req.body;
+    const { sn_name } = req.body;
     const [result] = await pool.query(
-      'insert into Seasons(season, terrain) values(?,?)',
-      [season, terrain]
+      'insert into Seasons(sn_name) values(?,?)',
+      [sn_name]
     );
     console.log(result);
     res.send('New Season Created');

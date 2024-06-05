@@ -10,7 +10,7 @@ const MakersTable = () => {
   return (
     <div>
       <h1 className="title display-5">Maker Inventory</h1>
-      <table className="table table-sm table-success">
+      <table className="table table-sm table-success table-hover">
         <thead>
           <tr className="tr">
             <th>Makers</th>
@@ -42,7 +42,7 @@ const MakersTable = () => {
                       onClick={() =>
                         updateMaker({
                           id: item.id,
-                          newMaker: item.maker,
+                          newMaker: item.maker_name,
                         })
                       }
                     >

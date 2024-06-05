@@ -17,7 +17,7 @@ export const getCustomers = async (req, res) => {
       from Customers_address CA 
       join Customers C on CA.customer_id = C.id`
     );
-    //console.log(result);
+    console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error);
@@ -29,8 +29,8 @@ export const getCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(
-      `select * from Customers where id = ${id}`,
-      []
+      `select * from Customers where id = ${id}`
+      //[]
     );
     if (result.length === 0) {
       return res.status(500).json({ message: 'Customer not found' });

@@ -31,10 +31,10 @@ function ModelForm() {
   useEffect(() => {
     const loadModels = async () => {
       if (params.id) {
-        const model_name = await getModel(params.id);
-        console.log(model_name);
+        const model = await getModel(params.id);
+        console.log(model);
         setModel({
-          model_name: model.model_name,
+          model: model.model_name,
         });
       }
     };

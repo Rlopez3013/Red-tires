@@ -7,8 +7,9 @@ body {
 }
 
 .tr {
-  color: darkgray;
+  color: olive;
   font-size: larger;
+  text-align: center;
 }
 
 .model-title {

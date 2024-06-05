@@ -82,7 +82,7 @@ const TiresTable = () => {
                 )}
               </td>
               <td>
-                <img src={item.path_img} width={180} height={180} />
+                <img src="blizzark.jpeg" width={180} height={180} alt="" />
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -92,7 +92,7 @@ const TiresTable = () => {
                       onClick={() =>
                         updateTire({
                           id: item.id,
-                          newTire: item.tire,
+                          newTire: item.tire_name,
                         })
                       }
                     >

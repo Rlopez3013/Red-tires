@@ -10,7 +10,7 @@ const Model = () => {
           <Container>
             <ModelsTable />
             <br></br>
-            <ModelsForm />
+            {/* <ModelsForm /> */}
           </Container>
         </main>
       </div>

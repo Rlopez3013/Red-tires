@@ -35,7 +35,7 @@ export const getWheel = async (req, res) => {
     tire_company,
     model_name,
     trim,
-    size,
+    tire_size,
     year
      FROM Models_Tires
      where modelId = ${id};`);

@@ -28,10 +28,11 @@ export const getMaker = async (req, res) => {
 
 export const createMaker = async (req, res) => {
   try {
-    const { maker } = req.body;
-    const [result] = await pool.query('insert into Makers(name) values (?)', [
-      maker,
-    ]);
+    const { maker_name } = req.body;
+    const [result] = await pool.query(
+      'insert into Makers(maker_name) values (?)',
+      [maker_name]
+    );
     console.log(result);
     res.send('New maker created');
   } catch (error) {
@@ -42,9 +43,9 @@ export const createMaker = async (req, res) => {
 export const updateMaker = async (req, res) => {
   try {
     const { id } = req.params;
-    const { maker } = req.body;
+    const { maker_name } = req.body;
     const [result] = await pool.query(
-      `update Makers set maker = '${maker}' where id = ${id}`
+      `update Makers set maker_name = '${maker_name}' where id = ${id}`
     );
     res.json(result);
   } catch (error) {

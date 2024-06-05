@@ -9,7 +9,7 @@ import seasonsRoutes from './Routes/seasons.routes.js';
 import sizesRoutes from './Routes/sizes.routes.js';
 import tiresRoutes from './Routes/tires.routes.js';
 import wheelsRoutes from './Routes/wheels.routes.js';
-import customersRoutes from './Routes/Customers.routes.js';
+import customersRoutes from './Routes/customers.routes.js';
 import shoppingRoutes from './Routes/shopping.routes.js';
 import cors from 'cors';
 const app = express();

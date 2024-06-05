@@ -139,7 +139,7 @@ const CarTireTable = () => {
                 ) : (
                   <button
                     className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/update/${item.id}`)}
+                    onClick={() => navigate(`/carTire/edit/model/${item.id}`)}
                   >
                     Edit
                   </button>

@@ -57,14 +57,13 @@ const ShoppersTable = () => {
                     <option>Select Model</option>
                     {listShopper.map((item, m) => (
                       <option key={m} value={item.id}>
-                        {item.model_name}
+                        {m.model_name}
                       </option>
                     ))}
                   </select>
                 ) : (
                   item.model_name
                 )}
-                console.log('model_name', model_name)
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -72,7 +71,7 @@ const ShoppersTable = () => {
                     <option>Select Tire</option>
                     {listShopper.map((item, t) => (
                       <option key={t} value={item.id}>
-                        {item.tire_name}
+                        {t.tire_name}
                       </option>
                     ))}
                   </select>
@@ -86,7 +85,7 @@ const ShoppersTable = () => {
                     <option>Quantity</option>
                     {listShopper.map((item, Q) => (
                       <option key={Q} value={item.id}>
-                        {item.Quatity}
+                        {Q.Quatity}
                       </option>
                     ))}
                   </select>

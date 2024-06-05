@@ -12,9 +12,7 @@ export const getTires = async (req, res) => {
       from Tires T
       inner join Companies C on T.company_id = C.id 
       inner join Sizes S on T.size_id = S.id 
-      inner join Seasons Sn on T.sn_id = Sn.id
-      
-  `
+      inner join Seasons Sn on T.sn_id = Sn.id`
     );
     console.log(result);
     res.json(result);
@@ -41,8 +39,7 @@ export const getTire = async (req, res) => {
 
 export const createTire = async (req, res) => {
   try {
-    const { tire_name, Companies_id, Sizes_id, Seasons_id, tire_Img } =
-      req.body;
+    const { tire_name, Companies_id, Sizes_id, Seasons_id } = req.body;
     const [result] = await pool.query(
       'insert into Tires(tire_name,Companies_id,Sizes_id,Seasons_id) values(?,?,?,?)',
       [tire_name, Companies_id, Sizes_id, Seasons_id]

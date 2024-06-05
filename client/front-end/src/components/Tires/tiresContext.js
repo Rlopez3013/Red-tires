@@ -60,18 +60,18 @@ const onDelete = async (id) => {
 };
 
 const addTire = () => {
-  Axios.post(`${Tires_API_URL}`, { newTire: tire });
+  Axios.post(`${Tires_API_URL}`, { newTire: tire_name });
 };
 
 const updateTire = (id) => {
   Axios.put(`${Tires_API_URL}/edit/${id}`, {
-    newTire: tire,
+    newTire: tire_name,
   }).then(() => {
     setListTires.map((item) => {
       return item.id === id
         ? {
             id: id,
-            tire: item.tire,
+            tire: item.tire_name,
           }
         : item;
     });

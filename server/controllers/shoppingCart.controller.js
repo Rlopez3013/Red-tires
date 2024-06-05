@@ -52,15 +52,15 @@ export const getShopper = async (req, res) => {
 
 export const createShopper = async (req, res) => {
   try {
-    const { Customer_id, Tire_id, Quantity } = req.body;
+    const { Customer_id, Tire_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into Shoppers(Customer_id, Tire_id, Quantity) values(?,?,?)',
-      [Customer_id, Tire_id, Quantity]
+      'insert into Shoppers(Customer_id, Tire_id) values(?,?)',
+      [Customer_id, Tire_id]
     );
   } catch (error) {
-    return res.status(500).json({ message: 'error.message' });
     console.log(error);
+    return res.status(500).json({ message: 'error.message' });
   }
 };
 
