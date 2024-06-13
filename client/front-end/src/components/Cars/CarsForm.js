@@ -2,11 +2,13 @@ import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import CarsTiresContext from '../../context/carTiresContext.js';
 import WheelsContext from '../../context/wheelContext.js';
+import carStyle from './cars.module.css';
 
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function CarsForm() {
+  const { id } = useParams();
   const [listModels, setListModels] = useState([]);
   const [filteredModel, setFilteredModel] = useState([]);
   const [filteredWheel, setFilteredWheel] = useState([]);
@@ -46,9 +48,9 @@ function CarsForm() {
       return model.year == year;
     });
 
-    const makers = filtered.map(({ maker_name }) => maker_name);
+    const makers = filtered.map(({ maker }) => maker);
     const _uniqueMakers = filtered.filter(
-      ({ maker_name }, index) => !makers.includes(maker_name, index + 1)
+      ({ maker }, index) => !makers.includes(maker, index + 1)
     );
 
     setYear(year);
@@ -61,19 +63,19 @@ function CarsForm() {
     console.log('list models', listWheels);
     let filterModel = listWheels.filter((wheel) => {
       //model.year == year &&
-      return wheel.modelId == model;
+      return wheel.model_name == model;
     });
 
     console.log('filtered list', filterModel);
 
     setModel(model);
     setFilteredModel(uniqueModels);
-    //setUniqueWheels(filterModel);
+    setUniqueWheels(filterModel);
   };
 
   const filterbyWheel = (tire) => {
     console.log('list wheel', tire);
-    console.log('list wheel', listWheels);
+    console.log('list wheel2', listWheels);
     let filtered = listWheels.filter((wheel) => {
       return wheel.year == year && model.tireId == tire;
     });
@@ -87,8 +89,9 @@ function CarsForm() {
     Axios.get(`${CARSTIRES_API_URL}`).then((res) => {
       setListModelsTires(res.data);
     });
-    Axios.get(`${WHEELS_API_URL}`).then((res) => {
+    Axios.get(`${WHEELS_API_URL}/`).then((res) => {
       setListWheels(res.data);
+      console.log('res.data id', res.data);
 
       const uniqueWheels = [...new Set(res.data.map((obj) => obj.tireId))];
 
@@ -118,10 +121,10 @@ function CarsForm() {
   }, []);
 
   return (
-    <div>
-      <h1 className="car-title">Add a New Tires to a Car</h1>
-      <form className="car-form">
-        <label className="year">Year</label>
+    <div className={carStyle.carFormBg}>
+      <h1 className={carStyle.form_title}>Add a New Tires to a Car </h1>
+      <form className={carStyle.cars_select}>
+        <label className={carStyle.year}>Year</label>
         <select
           name="year"
           id="year"
@@ -166,25 +169,10 @@ function CarsForm() {
             </option>
           ))}
         </select>
-        <h3>Wheels for every Car</h3>
-        <label>Tires</label>
-        <select
-          name="wheel"
-          id="wheel"
-          placeholder="Choose a wheel"
-          className="dropdown"
-          onChange={(e) => filterbyWheel(e.target.value)}
-        >
-          <option>Select A tire</option>
-          {uniqueWheels.map((wheel, wh) => (
-            <option key={wh} value={wheel.tireId}>
-              {wheel.tire_name}
-            </option>
-          ))}
-        </select>
-        <table className="carForm-table">
+
+        <table>
           <thead>
-            <tr>
+            <tr className={carStyle.carForm_tr}>
               <th>Wheel</th>
               <th>Company</th>
               <th>Season</th>
@@ -193,20 +181,13 @@ function CarsForm() {
           </thead>
           <tbody>
             {uniqueWheels.map((wheel, wh) => (
-              <tr key={(wheel.id, wh)}>
+              <tr key={(wheel.tireId, wh)}>
                 <td>{wheel.tire_name}</td>
                 <td>{wheel.tire_company}</td>
                 <td>{wheel.sn_name}</td>
                 <td>{wheel.tire_size}</td>
               </tr>
             ))}
-
-            {/* {uniqueWheels.map((wheel, wh) => (
-              <p>{wheel.tire}</p>
-            ))}
-             {uniqueWheels.map((wheel, wh) => (
-              <p>{wheel.company}</p>
-            ))}  */}
           </tbody>
         </table>
       </form>

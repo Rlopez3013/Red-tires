@@ -1,16 +1,15 @@
 import ModelsTable from './modelsTables';
 import ModelsForm from './ModelForm';
 import { Container } from 'react-bootstrap';
+import modelStyle from './models.module.css';
 
 const Model = () => {
   return (
-    <div>
+    <div className={modelStyle.modelBg}>
       <div>
         <main>
           <Container>
             <ModelsTable />
-            <br></br>
-            {/* <ModelsForm /> */}
           </Container>
         </main>
       </div>

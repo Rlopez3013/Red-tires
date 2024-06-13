@@ -1,18 +1,20 @@
-import TiresTable from './tiresTable'
-import {Container} from 'react-bootstrap'
+import TiresTable from './tiresTable';
+import { Container } from 'react-bootstrap';
+import tireStyle from './tires.module.css';
 
 const Tire = () => {
   return (
-    <div>
+    <div className={tireStyle.tireBg}>
       <div>
-        <main className='py-3'>
+        <main>
           <Container>
             <TiresTable />
           </Container>
+          <br></br>
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Tire;

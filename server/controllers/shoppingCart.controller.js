@@ -25,6 +25,7 @@ export const getShoppers = async (req, res) => {
 export const getShopper = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(req.params.id);
     const [result] = await pool.query(
       `Select 
       S.id,

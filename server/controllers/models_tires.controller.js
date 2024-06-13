@@ -123,10 +123,10 @@ export const getModelTirestires = async (req, res) => {
 export const createModelTire = async (req, res) => {
   try {
     const { model_id } = req.body;
-    const { tire_id } = req.body;
+    const { tire_Id } = req.body;
     const [result] = await pool.query(
-      'insert into Models_Tires(model_id,tire_id) values (?,?)',
-      [model_id, tire_id]
+      'insert into Models_Tires(model_id,tire_Id) values (?,?)',
+      [model_id, tire_Id]
     );
     console.log(result);
     res.send('New Model Tire created');
@@ -153,10 +153,10 @@ export const updateModelTire = async (req, res) => {
 
 export const deleteModelTires = async (req, res) => {
   try {
-    const { model_id, tire_id } = req.body;
+    const { model_id, tire_Id } = req.body;
     const [result] = await pool.query(
-      `delete from Models_Tires where  models_id = ? and tire_id = ?`,
-      [model_id, tire_id]
+      `delete from Models_Tires where  models_id = ? and tire_Id = ?`,
+      [model_id, tire_Id]
     );
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Model Tire not found' });

@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.tireBg {
+  background: url('../../images/tiresBg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.tire_title {
+  color: tomato;
+  text-align: justify;
+  text-align: center;
+}
+
+.tire_table {
+  font-weight: 800;
+  color: tomato;
+}
+
+.tire_tr {
+  text-align: justify;
+  text-decoration: underline;
+}
+
+.tire_tbody {
+  text-align: justify;
+  text-decoration: underline;
+}

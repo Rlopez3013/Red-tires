@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { TiresContext } from '../../context/tiresContext';
 import { useNavigate } from 'react-router-dom';
-import './tires.css';
+import blizzark from '../../images/blizzark.jpeg';
+import tireStyle from './tires.module.css';
 
 const TiresTable = () => {
   const { listTires, onDelete, onEdit, updateTire, onCancel, inEditMode } =
@@ -10,10 +11,10 @@ const TiresTable = () => {
 
   return (
     <div>
-      <h1 className="tire-title">Tires Inventory</h1>
-      <table className="tire-table">
+      <h1 className={tireStyle.tire_title}>Tires Inventory</h1>
+      <table className={tireStyle.tire_table}>
         <thead>
-          <tr className="tire-tr">
+          <tr className={tireStyle.tire_tr}>
             <th>Tires</th>
             <th>Companies</th>
             <th>Sizes</th>
@@ -22,7 +23,7 @@ const TiresTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={tireStyle.tire_tbody}>
           {listTires.map((item, pn) => (
             <tr key={(item.id, pn)}>
               <td>
@@ -82,7 +83,7 @@ const TiresTable = () => {
                 )}
               </td>
               <td>
-                <img src="blizzark.jpeg" width={180} height={180} alt="" />
+                <img src={blizzark} width={180} height={180} alt="" />
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (

@@ -6,20 +6,30 @@ body {
   margin: 0;
 }
 
+.modelBg {
+  background-image: url('../../images/modelBg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
 .tr {
   color: olive;
   font-size: larger;
   text-align: center;
 }
 
-.model-title {
-  color: olive;
-  text-align: justify;
+.model_title {
+  color: darkseagreen;
+  text-align: center;
 }
 
-.model-tbody {
+.model_tbody {
   color: black;
   font-size: larger;
+  opacity: 0.9;
 }
 
 .model-table {

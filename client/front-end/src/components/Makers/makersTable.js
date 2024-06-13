@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { MakersContext } from '../../context/makersContext.js';
 import { useNavigate } from 'react-router-dom';
-import './maker.css';
+import makerStyle from './maker.module.css';
 
 const MakersTable = () => {
   const { listMakers, onDelete, onEdit, updateMaker, onCancel, inEditMode } =
@@ -9,15 +9,15 @@ const MakersTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className="title display-5">Maker Inventory</h1>
-      <table className="table table-sm table-success table-hover">
+      <h1 className={makerStyle.maker_title}>Maker Inventory</h1>
+      <table className="table table-sm table-secondary table-hover">
         <thead>
-          <tr className="tr">
+          <tr className={makerStyle.tr}>
             <th>Makers</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="tb-info">
+        <tbody className={makerStyle.tbInfo}>
           {listMakers.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>

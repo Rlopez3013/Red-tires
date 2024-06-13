@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CarsTiresContext } from '../../context/carTiresContext.js';
 import { useNavigate } from 'react-router-dom';
-import './cars.css';
+import carStyle from './cars.module.css';
 
 const CarTireTable = () => {
   const {
@@ -17,19 +17,20 @@ const CarTireTable = () => {
   console.log('listModelTires', listModelsTires);
   return (
     <div>
-      <h1 className="car-title">Cars and Tires</h1>
-      <table className="car-table">
+      <h1 className={carStyle.car_title}>Cars and Tires</h1>
+      <table className="table table-lg table-secondary table-hover text-center">
         <thead>
-          <tr className="car-tr">
+          <tr className={carStyle.car_tr}>
             <th>Year</th>
             <th>Maker</th>
             <th>Model</th>
             <th>Trim</th>
             <th>Tire Brand</th>
             <th>Tire Model</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={carStyle.car_table}>
           {listModelsTires.map((item, mk) => (
             <tr key={(item, mk)}>
               <td>

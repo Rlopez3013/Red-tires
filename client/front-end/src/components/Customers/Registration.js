@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import CustomerCss from './Customer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 function Registration() {
   //States for registration
@@ -41,144 +42,131 @@ function Registration() {
   };
 
   return (
-    <div className="bg-light py-3 py-md-5">
-      <div className="container">
-        <div className="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
-          <div className="bg-white p-4 p-md-5 rounded shadow-sm">
-            <div className="row">
-              <div className="col-12">
-                <h2 className="h3">Registration</h2>
-                <h3 className="fs-6 fw-normal text-secondary m-0">
-                  Enter your details
-                </h3>
+    <div className={CustomerCss.formBg}>
+      <div className="row">
+        <div id={CustomerCss.ui}>
+          <h1 className={CustomerCss.ui}>Customer Form</h1>
+          <div>
+            <form onSubmit={register} className="form-group">
+              <div className="row">
+                <div className="col-lg-3">
+                  <label>First Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    className="form-control"
+                    placeholder="First Name"
+                    required
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div className="col-lg-3">
+                  <label>Last Name</label>
+                  <input
+                    id="last name"
+                    name="last name"
+                    type="text"
+                    className="form-control"
+                    placeholder="Last Name"
+                    required
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label>Email</label>
+                  <div className="col-lg-6">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      className="form-control"
+                      placeholder="Enter Email"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <form onSubmit={register} className="form-row">
-            <div className="row gy-2 gy-md-2 overflow-hidden">
-              <div className="col-12">
-                <label htmlFor="firstName" className="form-label">
-                  First Name <span className="text-danger">*</span>
-                </label>
+              <div className="row">
+                <label>Street</label>
+                <div className="col-lg-6">
+                  <input
+                    id="street"
+                    name="street"
+                    type="text"
+                    placeholder="Enter Street"
+                    onChange={(e) => {
+                      setStreet(e.target.value);
+                    }}
+                  />
+                </div>
+                <label>City</label>
+                <div className="col-lg-6">
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    placeholder="Enter City"
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                    }}
+                  />
+                </div>
+                <label>State</label>
+                <div className="col-lg-6">
+                  <input
+                    id="state"
+                    name="state"
+                    type="text"
+                    placeholder="Enter State"
+                    onChange={(e) => {
+                      setState(e.target.value);
+                    }}
+                  />
+                </div>
+                <label>Country</label>
+                <div className="col-lg-6">
+                  <input
+                    id="country"
+                    name="country"
+                    type="text"
+                    placeholder="Enter Country"
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                    }}
+                  />
+                </div>
+                <label>Zip Code</label>
+                <div className="col-lg-6">
+                  <input
+                    id="zipcode"
+                    name="zipcode"
+                    type="text"
+                    placeholder="Enter Zip Code"
+                    onChange={(e) => {
+                      setZipcode(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <br></br>
+              <div className="col-lg-6">
                 <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="name"
-                  required
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
+                  type="submit"
+                  className="btn btn-primary btn-lg btn-block"
+                  value="Register"
+                ></input>
               </div>
-            </div>
-            <div className="col-12">
-              <label htmlFor="lastName" className="form-label">
-                Last Name <span className="text-danger">*</span>
-              </label>
-              <input
-                id="last name"
-                name="last name"
-                type="text"
-                placeholder="Last Name"
-                required
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-12">
-              <label htmlFor="email" className="form-label">
-                Email <span className="text-danger">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="street" className="form-label">
-                Street:
-              </label>
-              <input
-                id="street"
-                name="street"
-                type="text"
-                placeholder="street"
-                onChange={(e) => {
-                  setStreet(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="city" className="form-label">
-                City:
-              </label>
-              <input
-                id="city"
-                name="city"
-                type="text"
-                placeholder="City"
-                onChange={(e) => {
-                  setCity(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="state" className="form-label">
-                State:
-              </label>
-              <input
-                id="state"
-                name="state"
-                type="text"
-                placeholder="State"
-                onChange={(e) => {
-                  setState(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="country" className="form-label">
-                Country:
-              </label>
-              <input
-                id="country"
-                name="country"
-                type="text"
-                placeholder="country"
-                onChange={(e) => {
-                  setCountry(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="Zip Code" className="form-label">
-                Zip Code:
-              </label>
-              <input
-                id="zipcode"
-                name="zipcode"
-                type="text"
-                placeholder="Zip Code"
-                onChange={(e) => {
-                  setZipcode(e.target.value);
-                }}
-              />
-            </div>
-            <div className="col-12">
-              <input
-                type="submit"
-                className="btn btn-primary btn-sm"
-                value="register"
-              ></input>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

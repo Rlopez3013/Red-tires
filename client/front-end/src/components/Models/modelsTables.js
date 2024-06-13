@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ModelsContext } from '../../context/modelsContext.js';
 import { useNavigate } from 'react-router-dom';
-import './models.css';
+import modelStyle from './models.module.css';
 
 const ModelsTable = () => {
   const {
@@ -17,8 +17,8 @@ const ModelsTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="row g-1 ">
-        <h1 className="model-title text-center ">Models</h1>
+      <div>
+        <h1 className={modelStyle.model_title}>Models</h1>
         <table className="table table-lg table-secondary table-hover text-center">
           <thead>
             <tr className="tr table-active">
@@ -29,7 +29,7 @@ const ModelsTable = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody className="model-tbody table-hover">
+          <tbody className={modelStyle.model_tbody}>
             {listModels.map((item, mk) => (
               <tr key={(item.id, mk)}>
                 <td>
