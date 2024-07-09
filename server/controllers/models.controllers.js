@@ -1,8 +1,10 @@
 import { pool } from '../db.js';
+//import { getModelsAsync } from '..///Repository/RedTires.js';
 
 export const getModels = async (req, res) => {
   try {
-    const [result] = await pool.query(
+    const [result] = await //getModelsAsync();
+    await pool.query(
       'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
     ); //make a join for makers value
     console.log(result);

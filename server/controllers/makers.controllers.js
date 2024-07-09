@@ -26,19 +26,19 @@ export const getMaker = async (req, res) => {
   }
 };
 
-export const createMaker = async (req, res) => {
-  try {
-    const { maker_name } = req.body;
-    const [result] = await pool.query(
-      'insert into Makers(maker_name) values (?)',
-      [maker_name]
-    );
-    console.log(result);
-    res.send('New maker created');
-  } catch (error) {
-    return res.status(500).json({ message: 'error.message' });
-  }
-};
+// export const createMaker = async (req, res) => {
+//   try {
+//     const { maker_name } = req.body;
+//     const [result] = await pool.query(
+//       'insert into Makers(maker_name) values (?)',
+//       [maker_name]
+//     );
+//     console.log(result);
+//     res.send('New maker created');
+//   } catch (error) {
+//     return res.status(500).json({ message: 'error.message' });
+//   }
+// };
 
 export const updateMaker = async (req, res) => {
   try {
@@ -54,14 +54,14 @@ export const updateMaker = async (req, res) => {
   console.log(res);
 };
 
-export const deleteMaker = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const [result] = await pool.query(`DELETE FROM Makers WHERE id = ${id}`);
-    if (result.affectedRows === 0)
-      return res.status(404).json({ message: 'Maker deleted', success: true });
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({ message: 'error', success: false });
-  }
-};
+// export const deleteMaker = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const [result] = await pool.query(`DELETE FROM Makers WHERE id = ${id}`);
+//     if (result.affectedRows === 0)
+//       return res.status(404).json({ message: 'Maker deleted', success: true });
+//     return res.sendStatus(204);
+//   } catch (error) {
+//     return res.status(500).json({ message: 'error', success: false });
+//   }
+// };

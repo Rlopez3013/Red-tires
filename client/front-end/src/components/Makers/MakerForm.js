@@ -45,7 +45,7 @@ function MakerForm() {
   };
 
   return (
-    <div>
+    <div className={makerStyle.makerFormBck}>
       <h3 className={makerStyle.form}>
         {params.id ? 'Edit Maker' : 'New Maker'}
       </h3>
