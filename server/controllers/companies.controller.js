@@ -26,10 +26,10 @@ export const getCompany = async (req, res) => {
 
 export const createCompany = async (req, res) => {
   try {
-    const { company } = req.body;
+    const { tire_company } = req.body;
     const [result] = await pool.query(
-      'insert into Companies(company) values(?)',
-      [company] 
+      'insert into Companies(tire_company) values(?)',
+      [tire_company]
     );
     console.log(result);
     res.send('New Company create');

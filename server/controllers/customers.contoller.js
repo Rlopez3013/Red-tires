@@ -5,18 +5,19 @@ export const getCustomers = async (req, res) => {
     const [result] = await pool.query(
       `Select 
       C.id, 
-      C.f_name,
+      C.first_name,
       C.last_name,
       C.email,
+      CA.number,
       CA.street,
       CA.city,
       CA.state,
       CA.country,
       CA.zip_code 
-      from customer_addresses CA 
+      from Customers_address CA 
       join Customers C on CA.customer_id = C.id`
     );
-    //console.log(result);
+    console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error);
@@ -28,8 +29,8 @@ export const getCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(
-      `select * from Customers where id = ${id}`,
-      []
+      `select * from Customers where id = ${id}`
+      //[]
     );
     if (result.length === 0) {
       return res.status(500).json({ message: 'Customer not found' });
@@ -43,16 +44,16 @@ export const getCustomer = async (req, res) => {
 export const createCustomer = async (req, res) => {
   try {
     console.log('creating customer');
-    const { f_name, last_name, email, create_date } = req.body;
+    const { first_name, last_name, email, create_date } = req.body;
     const { customer_id, street, city, state, country, zip_code } = req.body;
 
     const [customerResult] = await pool.query(
-      'insert into Customers(f_name,last_name,email,create_date) values(?,?,?,?)',
-      [f_name, last_name, email, create_date ?? new Date()]
+      'insert into Customers(first_name,last_name,email,create_date) values(?,?,?,?)',
+      [first_name, last_name, email, create_date ?? new Date()]
     );
 
     const [customerAddress] = await pool.query(
-      'insert into customer_addresses(customer_id,street,city,state,country,zip_code) values(?,?,?,?,?,?)',
+      'insert into customer_addresses(customer_id,number,street,city,state,country,zip_code) values(?,?,?,?,?,?)',
       [customerResult.insertId, street, city, state, country, zip_code]
     );
 
@@ -67,13 +68,13 @@ export const createCustomer = async (req, res) => {
 
 export const updateCustomer = async (req, res) => {
   try {
-    const [result] = await pool.query(`update Customer set ? where id = ?`, [
+    const [result] = await pool.query(`update Customers set ? where id = ?`, [
       req.body,
       req.params.id,
     ]);
     console.log(result);
     res.json(result);
-    res.status(200).json({ message: 'Customer updated!', success: true });
+    res.status(200).json({ message: 'Customers updated!', success: true });
   } catch (error) {
     return res
       .status(500)

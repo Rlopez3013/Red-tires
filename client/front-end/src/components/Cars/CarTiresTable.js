@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CarsTiresContext } from '../../context/carTiresContext.js';
 import { useNavigate } from 'react-router-dom';
-import './cars.css';
+import carStyle from './cars.module.css';
 
 const CarTireTable = () => {
   const {
@@ -14,22 +14,23 @@ const CarTireTable = () => {
     onSave,
   } = useContext(CarsTiresContext);
   const navigate = useNavigate();
-
+  console.log('listModelTires', listModelsTires);
   return (
     <div>
-      <h1 className="car-title">Cars and Tires</h1>
-      <table className="car-table">
+      <h1 className={carStyle.car_title}>Cars and Tires</h1>
+      <table className="table table-lg table-secondary table-hover text-center">
         <thead>
-          <tr className="car-tr">
+          <tr className={carStyle.car_tr}>
             <th>Year</th>
             <th>Maker</th>
             <th>Model</th>
-            <th>Type</th>
+            <th>Trim</th>
             <th>Tire Brand</th>
             <th>Tire Model</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={carStyle.car_table}>
           {listModelsTires.map((item, mk) => (
             <tr key={(item, mk)}>
               <td>
@@ -49,15 +50,15 @@ const CarTireTable = () => {
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.maker ? (
                   <select defaultValue={item.mk}>
-                    <option>Select Model</option>
+                    <option>Select Maker</option>
                     {listModelsTires.map((item, mk) => (
-                      <opotion key={mk} value={item.maker}>
-                        {item.maker}
+                      <opotion key={mk} value={item.id}>
+                        {item.maker_name}
                       </opotion>
                     ))}
                   </select>
                 ) : (
-                  item.maker
+                  item.maker_name
                 )}
               </td>
               <td>
@@ -69,21 +70,21 @@ const CarTireTable = () => {
                     ))}
                   </select>
                 ) : (
-                  item.model
+                  item.model_name
                 )}
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
                   <select defaultValue={item.id}>
-                    <option>Select Type</option>
+                    <option>Select Trim</option>
                     {listModelsTires.map((item, ty) => (
                       <option key={ty} value={item.id}>
-                        {item.type}
+                        {item.trim}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.type
+                  item.trim
                 )}
               </td>
 
@@ -93,12 +94,12 @@ const CarTireTable = () => {
                     <option>Select Company</option>
                     {listModelsTires.map((item, cp) => (
                       <option key={cp} value={item.id}>
-                        {item.company}
+                        {item.tire_company}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.company
+                  item.tire_company
                 )}
               </td>
               <td>
@@ -107,12 +108,12 @@ const CarTireTable = () => {
                     <option>Select Tire</option>
                     {listModelsTires.map((item, tr) => (
                       <option key={tr} value={item.id}>
-                        {item.tire}
+                        {item.tire_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.tire
+                  item.tire_name
                 )}
               </td>
               <td>
@@ -139,7 +140,7 @@ const CarTireTable = () => {
                 ) : (
                   <button
                     className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/update/${item.id}`)}
+                    onClick={() => navigate(`/carTire/edit/model/${item.id}`)}
                   >
                     Edit
                   </button>

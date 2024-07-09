@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { MakersContext } from '../../context/makersContext.js';
 import { useNavigate } from 'react-router-dom';
-import './maker.css';
+import makerStyle from './maker.module.css';
 
 const MakersTable = () => {
   const { listMakers, onDelete, onEdit, updateMaker, onCancel, inEditMode } =
@@ -9,15 +9,15 @@ const MakersTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className="title display-5">Maker Inventory</h1>
-      <table className="table table-sm table-success">
+      <h1 className={makerStyle.maker_title}>Maker Inventory</h1>
+      <table className="table table-sm table-secondary table-hover">
         <thead>
-          <tr className="tr">
+          <tr className={makerStyle.tr}>
             <th>Makers</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="tb-info">
+        <tbody className={makerStyle.tbInfo}>
           {listMakers.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>
@@ -26,12 +26,12 @@ const MakersTable = () => {
                     <option>Select Maker</option>
                     {listMakers.map((item, mk) => (
                       <option key={mk} value={item.id}>
-                        {item.maker}
+                        {item.maker_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.maker
+                  item.maker_name
                 )}
               </td>
               <td>
@@ -42,7 +42,7 @@ const MakersTable = () => {
                       onClick={() =>
                         updateMaker({
                           id: item.id,
-                          newMaker: item.maker,
+                          newMaker: item.maker_name,
                         })
                       }
                     >
@@ -59,7 +59,7 @@ const MakersTable = () => {
                 ) : (
                   <button
                     className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/api/maker/edit/${item.id}`)}
+                    onClick={() => navigate(`/maker/edit/${item.id}`)}
                   >
                     Edit
                   </button>

@@ -4,7 +4,6 @@
 
 body {
   margin: 0;
- 
 }
 
 .title_home {
@@ -12,5 +11,11 @@ body {
   text-align: center;
 }
 
-
-
+.homeBg {
+  background-image: url('./images/home_img.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+}

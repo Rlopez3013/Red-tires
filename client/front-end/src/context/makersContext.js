@@ -39,7 +39,7 @@ export const MakerProvider = ({ children }) => {
   };
 
   const updateMaker = (id) => {
-    Axios.put(`${MAKERS_API_URL}/api/makers/edit/${id}`, {
+    Axios.put(`${MAKERS_API_URL}/edit/${id}`, {
       newMaker: maker,
     }).then(() => {
       setListMakers.map((item) => {

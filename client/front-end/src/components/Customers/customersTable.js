@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { CustomerContext } from '../../context/customersContext.js';
 import { useNavigate } from 'react-router-dom';
+import customerStyle from './Customer.module.css';
 
 const CustomersTable = () => {
   const {
@@ -15,8 +16,8 @@ const CustomersTable = () => {
 
   return (
     <div>
-      <h1 className="title">Customer Inventory</h1>
-      <table className="table table-sm table-success">
+      <h1 className={customerStyle.customer_title}>Customer Inventory</h1>
+      <table className="table table-lg table-secondary table-hover">
         <thead>
           <tr className="tr">
             <th>Name</th>
@@ -39,12 +40,12 @@ const CustomersTable = () => {
                     <option>Select Name</option>
                     {listCustomers.map((item, n) => (
                       <option key={n} value={item.id}>
-                        {item.name}
+                        {item.first_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.f_name
+                  item.first_name
                 )}
               </td>
               <td>

@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { TiresContext } from '../../context/tiresContext';
 import { useNavigate } from 'react-router-dom';
-import './tires.css';
+import blizzark from '../../images/blizzark.jpeg';
+import tireStyle from './tires.module.css';
 
 const TiresTable = () => {
   const { listTires, onDelete, onEdit, updateTire, onCancel, inEditMode } =
@@ -10,10 +11,10 @@ const TiresTable = () => {
 
   return (
     <div>
-      <h1 className="tire-title">Tires Inventory</h1>
-      <table className="tire-table">
+      <h1 className={tireStyle.tire_title}>Tires Inventory</h1>
+      <table className={tireStyle.tire_table}>
         <thead>
-          <tr className="tire-tr">
+          <tr className={tireStyle.tire_tr}>
             <th>Tires</th>
             <th>Companies</th>
             <th>Sizes</th>
@@ -22,7 +23,7 @@ const TiresTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={tireStyle.tire_tbody}>
           {listTires.map((item, pn) => (
             <tr key={(item.id, pn)}>
               <td>
@@ -31,12 +32,12 @@ const TiresTable = () => {
                     <option>Select Tire</option>
                     {listTires.map((item, pn) => (
                       <option key={pn} value={item.id}>
-                        {item.tire}
+                        {item.tire_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.tire
+                  item.tire_name
                 )}
               </td>
               <td>
@@ -45,12 +46,12 @@ const TiresTable = () => {
                     <option>Select Company</option>
                     {listTires.map((item, C) => (
                       <option key={C} value={item.id}>
-                        {item.company}
+                        {item.tire_company}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.company
+                  item.tire_company
                 )}
               </td>
               <td>
@@ -59,12 +60,12 @@ const TiresTable = () => {
                     <option>Select Size</option>
                     {listTires.map((item, zs) => (
                       <option key={zs} value={item.id}>
-                        {item.size}
+                        {item.tire_size}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.size
+                  item.tire_size
                 )}
               </td>
               <td>
@@ -73,16 +74,16 @@ const TiresTable = () => {
                     <option>Select Season</option>
                     {listTires.map((item, se) => (
                       <option key={se} value={item.id}>
-                        {item.season}
+                        {item.sn_name}
                       </option>
                     ))}
                   </select>
                 ) : (
-                  item.season
+                  item.sn_name
                 )}
               </td>
               <td>
-                <img src={item.path_img} width={180} height={180} />
+                <img src={blizzark} width={180} height={180} alt="" />
               </td>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -92,7 +93,7 @@ const TiresTable = () => {
                       onClick={() =>
                         updateTire({
                           id: item.id,
-                          newTire: item.tire,
+                          newTire: item.tire_name,
                         })
                       }
                     >

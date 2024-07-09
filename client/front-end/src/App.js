@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import MakerForm from './components/Makers/MakerForm';
 import ModelForm from './components/Models/ModelForm';
 import CarsForm from './components/Cars/CarsForm';
+import CarsEdit from './components/Cars/carsTiresEdit';
 import Navbar from './components/Navbar';
 import EditTire from './components/Tires/tireEdit';
 import Registration from './components/Customers/Registration';
@@ -19,6 +20,7 @@ import Patrons from './components/Customers/Patrons';
 import CustomerEdit from './components/Customers/CustomerEdit';
 import Shopper from './Shopping/Shopper';
 import ShoppersForm from './Shopping/ShoppersForm';
+
 function App() {
   return (
     <>
@@ -39,8 +41,10 @@ function App() {
         <Route path="/models/newModel" element={<ModelForm />} />
         <Route path="/Customers/registration" element={<Registration />} />
         <Route path="/Customers/patrons" element={<Patrons />} />
-        {<Route path="/Customers/edit/:id" element={<CustomerEdit />} />}
+        <Route path="/Customers/edit/:id" element={<CustomerEdit />} />
         <Route path="/shopper/cart" element={<ShoppersForm />}></Route>
+        <Route path="/Shopping/shopper" element={<Shopper />}></Route>
+        <Route path="/carTire/edit/model/:id" element={<CarsEdit />}></Route>
       </Routes>
     </>
   );

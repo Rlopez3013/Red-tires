@@ -26,10 +26,11 @@ export const getSize = async (req, res) => {
 
 export const createSize = async (req, res) => {
   try {
-    const { size } = req.body;
-    const [result] = await pool.query('insert into Sizes(size) values(?)', [
-      size,
-    ]);
+    const { tire_size } = req.body;
+    const [result] = await pool.query(
+      'insert into Sizes(tire_size) values(?)',
+      [tire_size]
+    );
     console.log(result);
     res.send('New size created');
   } catch (error) {

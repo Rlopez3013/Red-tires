@@ -1,19 +1,20 @@
 import MakersTable from './makersTable';
 import MakerForm from './MakerForm';
 import { Container } from 'react-bootstrap';
-
+import makerStyle from './maker.module.css';
 
 const Maker = () => {
   return (
-    <div>
+    <div className={makerStyle.makerBg}>
       <div>
-        <main>
-          <Container >
-            <MakersTable />
+        <div>
+          <main>
+            <Container>
+              <MakersTable />
+            </Container>
             <br></br>
-            
-          </Container>
-        </main>
+          </main>
+        </div>
       </div>
     </div>
   );

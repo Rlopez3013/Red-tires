@@ -1,9 +1,11 @@
 import { pool } from '../db.js';
+//import { getModelsAsync } from '..///Repository/RedTires.js';
 
 export const getModels = async (req, res) => {
   try {
-    const [result] = await pool.query(
-      'select Mk.id as "makerId", Mk.name,Md.id,Md.model_name,Md.trim,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
+    const [result] = await //getModelsAsync();
+    await pool.query(
+      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
     ); //make a join for makers value
     console.log(result);
     res.json(result);
@@ -30,11 +32,11 @@ export const getModel = async (req, res) => {
 
 export const createModel = async (req, res) => {
   try {
-    const { model, type, year, Makers_id } = req.body;
+    const { model_name, trim, year, Makers_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into Models(model,type,year,Makers_id) values (?,?,?,?)',
-      [model, type, year, Makers_id]
+      'insert into Models(model_name,trim,year,Makers_id) values (?,?,?,?)',
+      [model_name, trim, year, Makers_id]
     );
     console.log(result);
     res.send('New Model created');
@@ -76,9 +78,10 @@ export const getModelsByYear = async (req, res) => {
     const { year } = req.params;
     const [result] = await pool.query(`SELECT 
     Ma.id as MakerId,
-    Ma.maker, 
+    Ma.maker_name, 
     Mo.id as ModelId,
-    Mo.model
+    Mo.model_name,
+    Mo.type
     FROM redtires.Models Mo
     inner join Makers Ma on Ma.id = Mo.Makers_id
     WHERE year = ${year}`);

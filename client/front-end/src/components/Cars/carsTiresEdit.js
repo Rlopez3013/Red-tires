@@ -7,10 +7,11 @@ const getAllModelsTiresList = Axios.get(MODELSTIRES_API_URL);
 const getModelTire = async (id) =>
   await Axios.get(`http://localhost:4000/api/models_tires/${id}`);
 
-function carsTiresEdit() {
+function CarsTiresEdit() {
   const { id } = useParams();
   const [listModelsTires, setListModelsTires] = useState([]);
   const [modelTire, setModelTire] = useState({});
+  const [maker, setMaker] = useState({});
   const params = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ function carsTiresEdit() {
   };
 
   useEffect(() => {
-    Axios.get(`${MODELSTIRES_API_URL}/${id}`).then((res) => {
+    Axios.get(`${MODELSTIRES_API_URL}/model/${id}`).then((res) => {
       console.log('this modelTire log', res.data);
       setListModelsTires(res.data);
     });
@@ -29,13 +30,35 @@ function carsTiresEdit() {
   }, []);
 
   function updateModelTire(event) {
-    Axios.put(`${MODELSTIRES_API_URL}/updateModelTire/${id}`, modelTire).then((res) => setListModelsTires(res.data),
-    navigate('/api/models_tires'),
-    loadModelsTires(),
-    console.log('this is modelsTires',modelTire)
-    )
+    Axios.put(`${MODELSTIRES_API_URL}/updateModelTire/${id}`, modelTire).then(
+      (res) => setListModelsTires(res.data),
+      navigate('/api/models_tires'),
+      loadModelsTires(),
+      console.log('this is modelsTires', modelTire)
+    );
   }
-  return <div>carsTiresEdit</div>;
+  return (
+    <div>
+      <h1 className="text-success text-center">Cars Tires Edit</h1>
+      <form>
+        <label htmlFor="maker">Maker</label>
+        <select
+          name="maker"
+          id="maker"
+          className="dropdown"
+          value={modelTire.model_id}
+          onChange={(e) => setMaker(e.target.value)}
+        >
+          {/* <option>Select Maker</option>
+          {listModelsTires.map((model) => (
+            <option key={model.id} value={model.id}>
+              {model.maker_name}
+            </option>
+          ))} */}
+        </select>
+      </form>
+    </div>
+  );
 }
 
-export default carsTiresEdit;
+export default CarsTiresEdit;

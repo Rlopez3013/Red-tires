@@ -4,20 +4,20 @@ export const getWheels = async (req, res) => {
   try {
     const [result] = await pool.query(
       `Select 
-      Md.model as model,
-      Md.id as modelId,
-      t.tire as tire,
+      Md.model_name,
+      t.tire_name,
       t.id  as tireId, 
-      Sn.season as season,
-      z.size as size,
-     C.company as company,
+      Md.id as modelId,
+      Sn.sn_name,
+      z.tire_size,
+     C.tire_company,
      C. id as companyId
      from Models_Tires L
-      join Tires t on t.id = L.Tires_id
-      join Companies C on C.id = t.Companies_id
-      join Models Md on Md.id = L.Models_id
-      join Seasons Sn on Sn.id = t.Seasons_id
-      join Sizes z on z.id = t.Sizes_id`
+      join Tires t on t.id = L.tire_Id
+      join Companies C on C.id = t.company_id
+      join Models Md on Md.id = L.model_id
+      join Seasons Sn on Sn.id = t.sn_id
+      join Sizes z on z.id = t.size_id`
     );
     console.log(result);
     res.json(result);
@@ -29,16 +29,19 @@ export const getWheels = async (req, res) => {
 export const getWheel = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(req.params.id);
     const [result] = await pool.query(`SELECT 
-    tire,
-    modelId,
-    company,
-    model,
-    type,
-    size,
-    year
-     FROM Modelos_Gomas
-     where modelId = ${id};`);
+    t.id as tireId,
+    t.tire_name,
+    C.tire_company,
+    Sn.sn_name,
+    S.tire_size
+     FROM Models_Tires L
+     inner join Tires t on t.id = L.tire_Id
+     inner join Companies C on C.id = t.company_id
+     inner join Sizes S on S.id = t.size_id
+     inner join Seasons Sn on Sn.id = t.sn_id
+     where t.id = '${id}';`);
     if (result.length === 0) {
       return res.status(404).json({ message: 'Wheel not found' });
     }

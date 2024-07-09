@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function MakersPage() {
-  return (
-    <div>MakersPage</div>
-  )
+  return <div>MakersPage</div>;
 }
 
-export default MakersPage
+export default MakersPage;

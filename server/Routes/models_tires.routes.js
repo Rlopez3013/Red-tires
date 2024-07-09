@@ -15,8 +15,8 @@ const router = Router();
 
 router.get('/api/models_tires', getModelsTires);
 
-router.get('/api/models_tires/model/:Models_id', getModelTiremodel);
-router.get('/api/models_tires/tire/:tire', getModelTirestires);
+router.get('/api/models_tires/model/:model_id', getModelTiremodel);
+router.get('/api/models_tires/tire/:tire_Id', getModelTirestires);
 
 router.get('/api/models_tires/:model/:tire', getModelTire);
 

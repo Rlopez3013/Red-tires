@@ -44,7 +44,7 @@ function ShoppersForm() {
     });
 
     setUniqueModels(filtered);
-    //setFilteredModel(filtered);
+    console.log('uniqueModels', setUniqueModels);
   };
 
   const filterbyYear = (year) => {
@@ -69,7 +69,7 @@ function ShoppersForm() {
     let filterModel = listWheels.filter((wheel) => {
       return wheel.modelId == model;
     });
-
+    console.log('wheel', listWheels);
     console.log('filtered list', filterModel);
 
     setFilteredModel(uniqueModels);
@@ -85,13 +85,14 @@ function ShoppersForm() {
     setUniqueWheels(filtered);
   };
 
-  const filterByCustomer = (customer) => {
+  const filterByCustomer = (first_name) => {
     let filtered = listCustomers.filter((customer) => {
-      return customer.wheel == wheel && model.tireId == customer;
+      return customer.wheel == wheel && model.tireId == first_name;
     });
 
     setCustomer(customer);
     setUniqueCustomer(filtered);
+    console.log('customer', uniqueCustomer);
   };
 
   useEffect(() => {
@@ -124,6 +125,7 @@ function ShoppersForm() {
       setUniqueYears(uniqueYears.sort());
       setUniqueMakers(uniqueMakers);
       setUniqueModels(uniqueModels);
+      console.log('unique Model', uniqueModels);
     });
   }, []);
 
@@ -134,8 +136,8 @@ function ShoppersForm() {
         <div>
           <label>First Name</label>
           <select
-            name="f_name"
-            id="f_name"
+            name="first_name"
+            id="first_name"
             placeholder="Choose a name"
             className="dropdown"
             onChange={(e) => filterbyYear(e.target.value)}
@@ -176,8 +178,8 @@ function ShoppersForm() {
         >
           <option value={0}>Select a Maker</option>
           {uniqueMakers?.map((maker, mk) => (
-            <option key={mk} value={maker.makerId}>
-              {maker.maker}
+            <option key={mk} value={maker}>
+              {maker}
             </option>
           ))}
         </select>
@@ -191,8 +193,8 @@ function ShoppersForm() {
         >
           <option>Select a Model</option>
           {uniqueModels.map((model, md) => (
-            <option key={md} value={model.id}>
-              {model.model}
+            <option key={md} value={model}>
+              {model}
             </option>
           ))}
         </select>

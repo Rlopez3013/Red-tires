@@ -9,14 +9,12 @@ body {
 .nav {
   background-color: #333;
   color: white;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
   padding: 0 1rem;
 }
-
-
 
 .nav ul {
   padding: 0;
@@ -31,7 +29,7 @@ body {
   text-decoration: none;
   display: flex;
   align-items: center;
-  padding: .95rem;
+  padding: 0.95rem;
 }
 
 .nav li.active {
@@ -41,4 +39,3 @@ body {
 .nav li:hover {
   background-color: #777;
 }
-

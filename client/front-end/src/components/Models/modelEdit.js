@@ -79,7 +79,7 @@ function Update() {
           <option>Select Maker</option>
           {listMakers.map((maker) => (
             <option key={maker.id} value={maker.id}>
-              {maker.maker}
+              {maker.maker_name}
             </option>
           ))}
         </select>
@@ -89,19 +89,19 @@ function Update() {
           <input
             className={'btn-submit'}
             type="text"
-            name="model"
-            value={model.model || ''}
-            onChange={(e) => setModel({ ...model, model: e.target.value })}
+            name="model_name"
+            value={model.model_name || ''}
+            onChange={(e) => setModel({ ...model, model_name: e.target.value })}
             //onChange={handleUpdate}
           />
         </label>
         <label>
-          Type
+          Trim
           <input
             type="text"
-            name="type"
-            value={model.type || ''}
-            onChange={(e) => setModel({ ...model, type: e.target.value })}
+            name="trim"
+            value={model.trim || ''}
+            onChange={(e) => setModel({ ...model, trim: e.target.value })}
             //onChange={handleUpdate}
           />
         </label>

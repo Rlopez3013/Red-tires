@@ -1,4 +1,4 @@
- import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { MakersContext } from '../../context/makersContext.js';
@@ -48,7 +48,7 @@ function Edit() {
       <form onSubmit={updateMaker}>
         <div>
           <label htmlFor="name">ID:</label>
-          <input type="text" name="name" value={maker?.id || ''} readOnly />
+          <input type="text" name="name" value={maker?.id || ''} />
         </div>
         <div>
           <label htmlFor="name">Maker</label>

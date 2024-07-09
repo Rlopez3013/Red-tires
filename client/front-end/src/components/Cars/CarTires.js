@@ -1,11 +1,11 @@
 import CarTiresTable from './CarTiresTable';
 import { Container } from 'react-bootstrap';
-
+import carTireStyle from './cars.module.css';
 const Car = () => {
   return (
-    <div>
+    <div className={carTireStyle.carTireBg}>
       <div>
-        <main className="py-3">
+        <main>
           <Container>
             <CarTiresTable />
           </Container>

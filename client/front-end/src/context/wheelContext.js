@@ -4,11 +4,11 @@ import Axios from 'axios';
 
 const API_HOST = 'http://localhost:4000';
 const WHEELS_API_URL = `${API_HOST}/api/wheels`;
+const WHEEL_API_URL = `${API_HOST}/api/wheel`;
 
 const getAllWheelsList = Axios.get(WHEELS_API_URL);
 export const WheelsContext = createContext({});
-const getWheelsRequest = async (id) =>
-  await Axios.get(`${WHEELS_API_URL}/${id}`);
+const getWheelRequest = async (id) => await Axios.get(`${WHEEL_API_URL}/${id}`);
 
 export const WheelProvider = ({ children }) => {
   const [listWheels, setListWheels] = useState([]);

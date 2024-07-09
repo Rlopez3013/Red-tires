@@ -18,14 +18,14 @@ function EditTire() {
 
   const loadTires = () => {
     getAllTireList.then((response) => {
-      console.log('this is data',response.data)
+      console.log('this is data', response.data);
       setListTires(response.data);
     });
   };
 
   const loadCompanies = () => {
     getallCompaniesList.then((response) => {
-      console.log('this is companies', response.data)
+      console.log('this is companies', response.data);
       setListCompanies(response.data);
     });
   };
@@ -34,12 +34,12 @@ function EditTire() {
     Axios.get(`${TIRES_API_URL}/${id}`).then((res) => {
       console.log('this is tire log43', res.data);
       setTire(res.data);
-      console.log(res.data)
+      console.log(res.data);
     });
     loadTires();
-    console.log('this is super edit', tire )
+    console.log('this is super edit', tire);
     loadCompanies();
-    console.log('all the companies', company)
+    console.log('all the companies', company);
   }, []);
 
   function updateTire(event) {
@@ -71,7 +71,7 @@ function EditTire() {
           <option>Select Company</option>
           {listTires.map((company, C) => (
             <option key={C} value={company.id}>
-              {company.company}
+              {company.tire_company}
             </option>
           ))}
         </select>
@@ -82,7 +82,7 @@ function EditTire() {
           type="text"
           name="tire"
           value={tire?.id || ''}
-          onChange={(e) => setTire({ ...tire, tire: e.target.value })}
+          onChange={(e) => setTire({ ...tire, tire_name: e.target.value })}
         />
         <label>
           Size
@@ -90,7 +90,7 @@ function EditTire() {
             type="text"
             name="size"
             value={tire.size || ''}
-            onChange={(e) => setTire({ ...tire, type: e.target.value })}
+            onChange={(e) => setTire({ ...tire, tire_size: e.target.value })}
           />
         </label>
         <label>
@@ -98,8 +98,8 @@ function EditTire() {
           <input
             type="text"
             name="season"
-            value={tire.season || ''}
-            onChange={(e) => setTire({ ...tire, season: e.target.value })}
+            value={tire.sn_name || ''}
+            onChange={(e) => setTire({ ...tire, sn_name: e.target.value })}
           />
         </label>
 
