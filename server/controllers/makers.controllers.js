@@ -1,14 +1,14 @@
 import { pool } from '../db.js';
 
-export const getMakers = async (req, res) => {
-  try {
-    const [result] = await pool.query('Select * from Makers');
-    console.log(result);
-    res.json(result);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
+// export const getMakers = async (req, res) => {
+//   try {
+//     const [result] = await pool.query('Select * from Makers');
+//     console.log(result);
+//     res.json(result);
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
 
 export const getMaker = async (req, res) => {
   try {
