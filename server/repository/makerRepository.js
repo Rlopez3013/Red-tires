@@ -1,9 +1,5 @@
 import { pool } from '../db.js';
 
-// let makers = await pool.query('select * from Makers');
-
-//   return makers;
-
 export const getAllMakers = async (req, res) => {
   try {
     const [result] = await pool.query('Select * from Makers');
@@ -14,7 +10,7 @@ export const getAllMakers = async (req, res) => {
   }
 };
 
-export const getMaker = async () => {
+export const getMaker = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(`Select * from Makers where id = ${id}`);

@@ -5,12 +5,13 @@ import {
   getAllMakers,
   deleteMaker,
   updateMaker,
+  getMaker,
 } from '../repository/makerRepository.js';
 
 const router = Router();
 
 router.get('/api/makers', getAllMakers);
-// router.get('/api/makers/:id', getMaker);
+router.get('/api/makers/:id', getMaker);
 router.post('/api/makers', createMaker);
 router.put('/api/makers/updateMaker/:id', updateMaker);
 router.delete('/api/makers/delete/:id', deleteMaker);
