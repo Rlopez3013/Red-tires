@@ -5,7 +5,7 @@ import {
   updateShopper,
   deleteShopper,
   createShopper,
-} from '../controllers/shoppingCart.controller.js';
+} from '../repository/shoppingCartRepository.js';
 const router = Router();
 
 router.get('/api/shops', getShoppers);

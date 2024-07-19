@@ -9,7 +9,7 @@ import {
   deleteModelTires,
   getModelTiremodel,
   getModelTirestires,
-} from '../controllers/models_tires.controller.js';
+} from '../repository/modelsTiresRepository.js';
 
 const router = Router();
 

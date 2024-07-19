@@ -39,10 +39,10 @@ export const getTire = async (req, res) => {
 
 export const createTire = async (req, res) => {
   try {
-    const { tire_name, Companies_id, Sizes_id, Seasons_id } = req.body;
+    const { tire_name, company_id, size_id, sn_id } = req.body;
     const [result] = await pool.query(
-      'insert into Tires(tire_name,Companies_id,Sizes_id,Seasons_id) values(?,?,?,?)',
-      [tire_name, Companies_id, Sizes_id, Seasons_id]
+      'insert into Tires(tire_name,company_id,size_id,sn_id) values(?,?,?,?)',
+      [tire_name, company_id, size_id, sn_id]
     );
     console.log(result);
     res.send('New Tire created');
@@ -62,7 +62,6 @@ export const updateTire = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: 'Tire updated ', success: true });
   }
-  console.log(result);
 };
 
 export const deleteTire = async (req, res) => {

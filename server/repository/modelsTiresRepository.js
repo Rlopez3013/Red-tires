@@ -68,16 +68,16 @@ export const getModelTiremodel = async (req, res) => {
     const { model, model_id } = req.params;
     console.log(req.params.model_id);
     const [result] = await pool.query(
-      `Select 
+      `Select
       M.id,
       M.model_name,
       M.year,
       t.tire_name,
-      Mk.maker_name 
-      from Models_Tires l 
-      inner join Models M on M.id=l.model_id 
+      Mk.maker_name
+      from Models_Tires l
+      inner join Models M on M.id=l.model_id
       inner Join Tires t on t.id = l.tire_Id
-      left join Makers Mk on Mk.id=M.maker_id 
+      left join Makers Mk on Mk.id=M.maker_id
       where model_id = '${model_id}' `
     );
     if (result.length === 0) {
@@ -96,16 +96,16 @@ export const getModelTirestires = async (req, res) => {
     const { tire_name, tire_Id } = req.params;
     console.log(req.params.tire_name);
     const [result] = await pool.query(
-      `Select 
+      `Select
       t.id,
       t.tire_name,
       C.tire_company,
       Sn.sn_name,
-      S.tire_size 
-      from Models_Tires l 
-      inner join Tires t on t.id = l.tire_Id 
-      inner join Seasons Sn on Sn.id = t.sn_id 
-      inner join Sizes S on S.id = t.size_id 
+      S.tire_size
+      from Models_Tires l
+      inner join Tires t on t.id = l.tire_Id
+      inner join Seasons Sn on Sn.id = t.sn_id
+      inner join Sizes S on S.id = t.size_id
       left join Companies C on C.id = t.company_id
      where tire_Id = '${tire_Id}' `
     );

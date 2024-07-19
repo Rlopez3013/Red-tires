@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { getWheels, getWheel } from '../controllers/wheels.controllers.js';
+import { getWheels, getWheel } from '../repository/wheelRepository.js';
 
 const router = Router();
 

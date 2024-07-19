@@ -1,6 +1,6 @@
 import { makerRepository } from '../../repository/makerRepository.js';
 
-const deleteMaker = async (req, res) => {
+export const deleteMaker = async (req, res) => {
   const { id } = req.params;
 
   try {
