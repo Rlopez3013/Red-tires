@@ -1,6 +1,6 @@
 import { modelRepository } from '../../repository/modelRepository.js';
 
-const getModelsByYear = async (req, res) => {
+export const getModelsByYear = async (req, res) => {
   const { year } = req.params;
 
   try {

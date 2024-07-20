@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { deleteModel } from '../controllers/models.controllers.js';
 
 import {
   getModelsTires,
