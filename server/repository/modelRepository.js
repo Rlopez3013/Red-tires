@@ -81,14 +81,16 @@ export const getModelsByYear = async (req, res) => {
     Mo.model_name,
     Mo.type,
     Mo.year
-    FROM redtires.Models Mo
-    inner join Makers Ma on Ma.id = Mo.Makers_id
+    FROM Models Mo
+    inner join Makers Ma on Ma.id = Mo.maker_id
     WHERE year = ${year}`);
 
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Model year', success: true });
+    console.log(result);
     return res.json(result);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: 'error', success: false });
   }
 };
