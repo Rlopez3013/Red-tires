@@ -9,6 +9,8 @@ services:
       - MYSQL_DATABASE=redtires2
     ports:
       - 3307:3306
+    networks:
+      - tire-app
   app:
     build: .
     depends_on:
@@ -17,7 +19,23 @@ services:
       - mysqldb
     ports:
       - 4001:4001
+    networks:
+      - tire-app
     volumes:
       - mysqldb:/Users/rafaellopez/Desktop/Red-tires/db:var/lib/mysql
 volumes:
   mysqldb:
+
+frontend:
+  build: ./frontend
+  container_name: react-app
+  ports:
+    - '3001:3000'
+  environtmen:
+    - REACT_APP_API_URL=http://localhost:3000
+  networks:
+    - tire-app
+
+networks:
+tire-app:
+  driver: bridge

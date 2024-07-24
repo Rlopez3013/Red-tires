@@ -4,7 +4,7 @@ import customerStyle from './Customer.module.css';
 
 const Patrons = () => {
   return (
-    <div className={customerStyle.customerBg}>
+    <div className={customerStyle.customer_Bg}>
       <div>
         <main>
           <Container>

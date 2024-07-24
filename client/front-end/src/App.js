@@ -17,7 +17,7 @@ import Navbar from './components/Navbar';
 import EditTire from './components/Tires/tireEdit';
 import Registration from './components/Customers/Registration';
 import Patrons from './components/Customers/Patrons';
-import CustomerEdit from './components/Customers/CustomerEdit';
+import CustomerEdit from './components/Customers/customerEdit';
 import Shopper from './Shopping/Shopper';
 import ShoppersForm from './Shopping/ShoppersForm';
 

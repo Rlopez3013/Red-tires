@@ -7,12 +7,12 @@ body {
 }
 
 .carTireBg {
-  background-image: url('../../images/carTireBg.jpg');
-  background-size: cover;
+  background-image: url('../../images/car_tire2.jpg');
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  background-position: center;
+  background-size: cover;
+  height: 92.9vh;
+  /* width: 330wh; */
 }
 
 .carFormBg {
@@ -20,12 +20,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 92.9vh;
+  /* width: 100vw; */
 }
 
 .car_title {
-  color: tomato;
+  color: #47fff0e4;
   text-align: center;
   font-weight: 700;
 }
@@ -50,16 +50,23 @@ body {
 }
 
 .form_title {
-  color: sandybrown;
+  color: rgba(229, 244, 96, 0.82);
   text-align: center;
   font-weight: 700;
   padding-top: 50px;
 }
 
 .cars_select {
-  margin-top: 60px;
   text-align: center;
   font-size: larger;
+  color: red;
+}
+
+.dropDn {
+  display: flex;
+  justify-content: center;
+  column-gap: 70px;
+  margin-top: 65px;
 }
 
 .h3 {
@@ -68,8 +75,13 @@ body {
 }
 
 .carForm_tr {
-  color: sandybrown;
-  display: flex;
+  color: rgb(170, 244, 96);
+  padding: 60px;
+  column-gap: 60px;
+  margin-left: 512px;
+  margin-top: 60px;
+
+  font-size: 30px;
 }
 
 .th {

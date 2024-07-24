@@ -6,14 +6,14 @@ body {
   margin: 0;
 }
 
-.customerBg {
+.customer_Bg {
   background-image: url('../../images/customerbckg.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 92.9vh;
+  /* width: 100vw; */
 }
 
 .formBg {
@@ -23,7 +23,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
-  width: 100vw;
+  width: 105%;
 }
 #ui {
   background-color: teal;
@@ -44,7 +44,7 @@ body {
 }
 
 .customer_title {
-  color: tomato;
+  color: rgb(255, 95, 71);
   text-align: center;
   font-weight: 600;
 }

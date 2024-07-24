@@ -11,11 +11,13 @@ body {
   text-align: center;
 }
 
-.homeBg {
+.home_Bg {
   background-image: url('./images/home_img.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  background-position: center;
+  position: relative;
+  /* background-attachment: fixed; */
+  height: 92.9vh;
+  /* width: 100%; */
 }

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ShopperContext } from './shoppingContext';
 import { useNavigate } from 'react-router-dom';
-import './shop.css';
+import './shop.module.css';
 
 const ShoppersTable = () => {
   const { listShopper, setListShoppers, shopper, setShopper, inEditMode } =

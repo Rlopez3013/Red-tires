@@ -10,14 +10,13 @@ body {
   background: url('../../images/makerBck.jpg') no-repeat center fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 92.9vh;
+  /* width: 100vw; */
 }
 
 .maker_title {
   text-align: center;
-  color: black;
+  color: rgb(189, 245, 5);
   text-align: justify;
   text-align: center;
 }
@@ -46,10 +45,10 @@ body {
 }
 
 .makerFormBck {
-  background: url('../../images/makerFormBck.jpg');
+  background: url('../../images/add_car.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 92.9vh;
+  /* width: 100vw; */
 }

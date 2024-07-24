@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CarsTiresContext } from '../context/carTiresContext.js';
 
 import { CustomerContext } from '../context/customersContext.js';
+import shopStyle from './shop.module.css';
 
 function ShoppersForm() {
   const [listModels, setListModels] = useState([]);
@@ -131,7 +132,7 @@ function ShoppersForm() {
 
   return (
     <div>
-      <h1 className="car-title">Add Tires To Shopping Cart</h1>
+      <h1 className={shopStyle.title_sh}>Add Tires To Shopping Cart</h1>
       <form className="car-form">
         <div>
           <label>First Name</label>
@@ -199,9 +200,9 @@ function ShoppersForm() {
           ))}
         </select>
 
-        <table className="carForm-table">
+        <table>
           <thead>
-            <tr>
+            <tr className={shopStyle.tr_sh}>
               <th>Customer</th>
               <th>Wheel</th>
               <th>Company</th>

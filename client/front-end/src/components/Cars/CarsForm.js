@@ -123,56 +123,56 @@ function CarsForm() {
   return (
     <div className={carStyle.carFormBg}>
       <h1 className={carStyle.form_title}>Add a New Tires to a Car </h1>
-      <form className={carStyle.cars_select}>
-        <label className={carStyle.year}>Year</label>
-        <select
-          name="year"
-          id="year"
-          placeholder="Choose a year"
-          className="dropdown"
-          onChange={(e) => filterbyYear(e.target.value)}
-        >
-          <option>Select Year</option>
-          {uniqueYears?.map((year, yr) => (
-            <option key={yr} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <label>Maker</label>
-        <select
-          name="maker"
-          id="maker"
-          placeholder="Choose a Maker"
-          className="dropdown"
-          onChange={(e) => filterByMaker(e.target.value)}
-        >
-          <option value={0}>Select a Maker</option>
-          {uniqueMakers?.map((m, mk) => (
-            <option key={mk} value={m.makerId}>
-              {m.maker_name}
-            </option>
-          ))}
-        </select>
-        <label>Model</label>
-        <select
-          name="model"
-          id="model"
-          placeholder="Choose a Model"
-          className="dropdown"
-          onChange={(e) => filterbyModel(e.target.value)}
-        >
-          <option>Select a Model</option>
-          {uniqueModels.map((mdl, md) => (
-            <option key={md} value={mdl.modelId}>
-              {mdl.model_name}
-            </option>
-          ))}
-        </select>
+      <form>
+        <div className={carStyle.dropDn}>
+          <select
+            name="year"
+            id="year"
+            placeholder="Choose a year"
+            className="dropdown"
+            onChange={(e) => filterbyYear(e.target.value)}
+          >
+            <option>Select Year</option>
+            {uniqueYears?.map((year, yr) => (
+              <option key={yr} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
 
-        <table>
+          <select
+            name="maker"
+            id="maker"
+            placeholder="Choose a Maker"
+            className="dropdown"
+            onChange={(e) => filterByMaker(e.target.value)}
+          >
+            <option value={0}>Select a Maker</option>
+            {uniqueMakers?.map((m, mk) => (
+              <option key={mk} value={m.makerId}>
+                {m.maker_name}
+              </option>
+            ))}
+          </select>
+          <select
+            name="model"
+            id="model"
+            placeholder="Choose a Model"
+            className="dropdown"
+            onChange={(e) => filterbyModel(e.target.value)}
+          >
+            <option>Select a Model</option>
+            {uniqueModels.map((mdl, md) => (
+              <option key={md} value={mdl.modelId}>
+                {mdl.model_name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <table className={carStyle.carForm_tr}>
           <thead>
-            <tr className={carStyle.carForm_tr}>
+            <tr>
               <th>Wheel</th>
               <th>Company</th>
               <th>Season</th>
