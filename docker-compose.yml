@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   mysqldb:
@@ -8,34 +8,39 @@ services:
       - MYSQL_ROOT_PASSWORD=change-me
       - MYSQL_DATABASE=redtires2
     ports:
-      - 3307:3306
+      - '3307:3306'
     networks:
-      - tire-app
+      - backend
   app:
     build: .
+    container_name: node-app
     depends_on:
       - mysqldb
     links:
       - mysqldb
     ports:
-      - 4001:4001
-    networks:
-      - tire-app
+      - '4001:4001'
     volumes:
       - mysqldb:/Users/rafaellopez/Desktop/Red-tires/db:var/lib/mysql
-volumes:
-  mysqldb:
+    networks:
+      - backend
+      - frontend
 
-frontend:
-  build: ./frontend
-  container_name: react-app
-  ports:
-    - '3001:3000'
-  environtmen:
-    - REACT_APP_API_URL=http://localhost:3000
-  networks:
-    - tire-app
+  client:
+    build: ./client/front-end
+    container_name: react-app-cont
+    ports:
+      - '3000:3000'
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+    networks:
+      - frontend
+    depends_on:
+      - app
 
 networks:
-tire-app:
-  driver: bridge
+  backend:
+  frontend:
+
+volumes:
+  mysqldb:
