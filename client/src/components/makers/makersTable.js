@@ -9,7 +9,7 @@ const MakersTable = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className={makerStyle.maker_title}>Maker Inventory</h1>
+      <h1 className={makerStyle.maker_title}>Maker Inventories</h1>
       <table className="table table-sm table-secondary table-hover">
         <thead>
           <tr className={makerStyle.tr}>
@@ -17,7 +17,7 @@ const MakersTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className={makerStyle.tbInfo}>
+        <tbody className={makerStyle.tb_Info}>
           {listMakers.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MakersPage from './components/pages/makersPage';
+import MakerForm from './components/makers/makerForm';
 import ModelsPage from './components/pages/modelsPage';
 import CarTires from './components/cars/carsTires';
 import Makers from './components/makers/maker';
@@ -30,7 +31,7 @@ function App() {
         <Route path="/models_tires/carsTires" element={<CarTires />} />
         <Route path="/makers" element={<Makers />} />
         <Route path="/tires" element={<Tires />} />
-        <Route path="/makers/newMaker" element={<makerForm />} />
+        <Route path="/makers/newMaker" element={<MakerForm />} />
         <Route path="/models_tires/newCarTires" element={<CarsForm />} />
         <Route path="/maker/edit/:id" element={<Edit />} />
         <Route path="/ModelsPage" element={<ModelsPage />} />

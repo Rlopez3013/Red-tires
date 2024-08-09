@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Maker from '../makers/maker';
 
 function Navbar() {
   return (
-    <div>
-      <nav className="nav">
+    <div className="nav">
+      <nav>
         <ul>
           <li>
             <Link to={'/'} className="home-title">

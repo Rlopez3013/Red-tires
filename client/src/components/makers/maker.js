@@ -1,11 +1,10 @@
 import MakersTable from './makersTable';
-import makerForm from './makerForm';
+// import MakerForm from './makerForm';
 import { Container } from 'react-bootstrap';
 import makerStyle from './maker.module.css';
-
 const Maker = () => {
   return (
-    <div className={makerStyle.makerBg}>
+    <div className={makerStyle.maker_Bg}>
       <div>
         <div>
           <main>

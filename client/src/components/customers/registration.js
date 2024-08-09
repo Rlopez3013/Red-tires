@@ -16,15 +16,6 @@ function Registration() {
   const API_HOST = 'http://localhost:4000';
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
 
-  // function handleChange(e) {
-  //   this.setState({ value: e.target.value });
-  // }
-
-  // function handleSubmit(e) {
-  //   alert('new customer created: ' + this.state.value);
-  //   e.preventDefault();
-  // }
-
   const register = async (e) => {
     const resp = await Axios.post(`${CUSTOMER_API_URL}`, {
       f_name: name,
