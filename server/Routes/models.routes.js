@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import {
-  getModels,
   createModel,
-  getModelsByYear,
-  deleteModel,
-  updateModel,
+  getModels,
   getModel,
-} from '../controllers/models.controllers.js';
+  getModelsByYear,
+  updateModel,
+  deleteModel,
+} from '../repository/modelRepository.js';
+
 const router = Router();
 
 router.get('/api/models/year/:year', getModelsByYear);
