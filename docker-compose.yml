@@ -25,7 +25,7 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: ./client/src/Dockerfile
+     # dockerfile: ./src/Dockerfile
 
     volumes:
       - ./client:/app

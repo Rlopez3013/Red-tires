@@ -13,13 +13,13 @@ export const getModelsTires = async (req, res) => {
     C.tire_company,
     Sn.sn_name,
     S.tire_size
-    from Models_Tires l
-    inner join Models Md on Md.id=l.model_id
-    inner Join Tires t on t.id=l.tire_Id
-    left join Companies C on C.id=t.company_id
-    left join Makers Mk on Mk.id=Md.maker_id
-    inner join Seasons Sn on Sn.id=t.sn_id
-    inner join Sizes S on S.id=t.size_id`);
+    from models_tires l
+    inner join models Md on Md.id=l.model_id
+    inner Join tires t on t.id=l.tire_Id
+    left join companies C on C.id=t.company_id
+    left join makers Mk on Mk.id=Md.maker_id
+    inner join seasons Sn on Sn.id=t.sn_id
+    inner join sizes S on S.id=t.size_id`);
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -45,13 +45,13 @@ export const getModelTire = async (req, res) => {
       C.tire_company,
       Sn.sn_name,
       S.tire_size
-      from Models_Tires l
-      inner join Models Md on Md.id=l.model_id
-      inner Join Tires t on t.id=l.tire_Id
-      left join Companies C on C.id=t.company_id
-      left join Makers Mk on Mk.id=Md.maker_id
-      inner join Seasons Sn on Sn.id=t.sn_id
-      inner join Sizes S on S.id=t.size_id
+      from models_tires l
+      inner join models Md on Md.id=l.model_id
+      inner Join tires t on t.id=l.tire_Id
+      left join companies C on C.id=t.company_id
+      left join makers Mk on Mk.id=Md.maker_id
+      inner join seasons Sn on Sn.id=t.sn_id
+      inner join sizes S on S.id=t.size_id
       where model_id = '${model_id}'`
     );
     if (result.length === 0) {
@@ -74,10 +74,10 @@ export const getModelTiremodel = async (req, res) => {
       M.year,
       t.tire_name,
       Mk.maker_name
-      from Models_Tires l
-      inner join Models M on M.id=l.model_id
-      inner Join Tires t on t.id = l.tire_Id
-      left join Makers Mk on Mk.id=M.maker_id
+      from models_tires l
+      inner join models M on M.id=l.model_id
+      inner Join tires t on t.id = l.tire_Id
+      left join makers Mk on Mk.id=M.maker_id
       where model_id = '${model_id}' `
     );
     if (result.length === 0) {
@@ -102,11 +102,11 @@ export const getModelTirestires = async (req, res) => {
       C.tire_company,
       Sn.sn_name,
       S.tire_size
-      from Models_Tires l
-      inner join Tires t on t.id = l.tire_Id
-      inner join Seasons Sn on Sn.id = t.sn_id
-      inner join Sizes S on S.id = t.size_id
-      left join Companies C on C.id = t.company_id
+      from models_tires l
+      inner join tires t on t.id = l.tire_Id
+      inner join seasons Sn on Sn.id = t.sn_id
+      inner join sizes S on S.id = t.size_id
+      left join companies C on C.id = t.company_id
      where tire_Id = '${tire_Id}' `
     );
     if (result.length === 0) {
@@ -125,7 +125,7 @@ export const createModelTire = async (req, res) => {
     const { model_id } = req.body;
     const { tire_Id } = req.body;
     const [result] = await pool.query(
-      'insert into Models_Tires(model_id,tire_Id) values (?,?)',
+      'insert into models_tires(model_id,tire_Id) values (?,?)',
       [model_id, tire_Id]
     );
     console.log(result);
@@ -141,7 +141,7 @@ export const updateModelTire = async (req, res) => {
     const { model_id, tire_id } = req.body;
 
     const result = await pool.query(
-      'update Models_Tires set  model_id = ? tire_id =? where modelId = ? tireId = ? ',
+      'update models_tires set  model_id = ? tire_id =? where modelId = ? tireId = ? ',
       [model_id, tire_id, modelId, tireId]
     );
     res.json(result);
@@ -155,7 +155,7 @@ export const deleteModelTires = async (req, res) => {
   try {
     const { model_id, tire_Id } = req.body;
     const [result] = await pool.query(
-      `delete from Models_Tires where  models_id = ? and tire_Id = ?`,
+      `delete from models_tires where  models_id = ? and tire_Id = ?`,
       [model_id, tire_Id]
     );
     if (result.affectedRows === 0)

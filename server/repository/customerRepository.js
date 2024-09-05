@@ -14,8 +14,8 @@ export const getCustomers = async (req, res) => {
       CA.state,
       CA.country,
       CA.zip_code 
-      from Customers_address CA 
-      join Customers C on CA.customer_id = C.id`
+      from customers_address CA 
+      join customers C on CA.customer_id = C.id`
     );
     console.log(result);
     res.json(result);
@@ -29,7 +29,7 @@ export const getCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(
-      `select * from Customers where id = ${id}`
+      `select * from customers where id = ${id}`
       //[]
     );
     if (result.length === 0) {
@@ -49,12 +49,12 @@ export const createCustomer = async (req, res) => {
       req.body;
 
     const [customerResult] = await pool.query(
-      'insert into Customers(first_name,last_name,email) values(?,?,?)',
+      'insert into customers(first_name,last_name,email) values(?,?,?)',
       [first_name, last_name, email]
     );
 
     const [customerAddress] = await pool.query(
-      'insert into Customers_address(customer_id,number,street,city,state,country,zip_code) values(?,?,?,?,?,?,?)',
+      'insert into customers_address(customer_id,number,street,city,state,country,zip_code) values(?,?,?,?,?,?,?)',
       [customerResult.insertId, number, street, city, state, country, zip_code]
     );
 
@@ -69,7 +69,7 @@ export const createCustomer = async (req, res) => {
 
 export const deleteCustomer = async (req, res) => {
   try {
-    const [result] = await pool.query(`Delete from Customers where id = ?`, [
+    const [result] = await pool.query(`Delete from customers where id = ?`, [
       req.params.id,
     ]);
     if (result.affectedRows === 0)
@@ -84,7 +84,7 @@ export const deleteCustomer = async (req, res) => {
 
 export const updateCustomer = async (req, res) => {
   try {
-    const [result] = await pool.query(`update Customers set ? where id = ?`, [
+    const [result] = await pool.query(`update customers set ? where id = ?`, [
       req.body,
       req.params.id,
     ]);

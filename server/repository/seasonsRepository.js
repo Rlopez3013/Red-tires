@@ -2,7 +2,7 @@ import { pool } from '../db.js';
 
 export const getSeasons = async (req, res) => {
   try {
-    const [result] = await pool.query('Select * from Seasons');
+    const [result] = await pool.query('Select * from seasons');
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -14,7 +14,7 @@ export const getSeasons = async (req, res) => {
 
 export const getSeason = async (req, res) => {
   try {
-    const [result] = await pool.query('select * from Seasons where id = ?', [
+    const [result] = await pool.query('select * from seasons where id = ?', [
       req.params.id,
     ]);
     if (result.length === 0) {
@@ -34,7 +34,7 @@ export const createSeason = async (req, res) => {
   try {
     const { sn_name } = req.body;
     const [result] = await pool.query(
-      'insert into Seasons(sn_name) values(?)',
+      'insert into seasons(sn_name) values(?)',
       [sn_name]
     );
     console.log(result);
@@ -48,7 +48,7 @@ export const createSeason = async (req, res) => {
 
 export const updateSeason = async (req, res) => {
   try {
-    const result = await pool.query('update Seasons set ? where id = ?', [
+    const result = await pool.query('update seasons set ? where id = ?', [
       req.body,
       req.params.id,
     ]);
@@ -62,7 +62,7 @@ export const updateSeason = async (req, res) => {
 
 export const deleteSeason = async (req, res) => {
   try {
-    const [result] = await pool.query('delete from Seasons where id = ?', [
+    const [result] = await pool.query('delete from seasons where id = ?', [
       req.params.id,
     ]);
     if (result.affectedRows === 0)

@@ -10,9 +10,9 @@ export const getTires = async (req, res) => {
       S.tire_size,
       Sn.sn_name
       from Tires T
-      inner join Companies C on T.company_id = C.id 
-      inner join Sizes S on T.size_id = S.id 
-      inner join Seasons Sn on T.sn_id = Sn.id`
+      inner join companies C on T.company_id = C.id 
+      inner join sizes S on T.size_id = S.id 
+      inner join seasons Sn on T.sn_id = Sn.id`
     );
     console.log(result);
     res.json(result);
@@ -25,7 +25,7 @@ export const getTire = async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(
-      `select * from Tires where id = ${id}`
+      `select * from tires where id = ${id}`
       //[req.params.id]
     );
     if (result.lenght === 0) {
@@ -41,7 +41,7 @@ export const createTire = async (req, res) => {
   try {
     const { tire_name, company_id, size_id, sn_id } = req.body;
     const [result] = await pool.query(
-      'insert into Tires(tire_name,company_id,size_id,sn_id) values(?,?,?,?)',
+      'insert into tires(tire_name,company_id,size_id,sn_id) values(?,?,?,?)',
       [tire_name, company_id, size_id, sn_id]
     );
     console.log(result);
@@ -56,7 +56,7 @@ export const updateTire = async (req, res) => {
     const { id } = req.params;
     const { tire_name } = req.body;
     const [result] = await pool.query(
-      `update Tires set tire_name = '${tire_name}' where id = ${id}`
+      `update tires set tire_name = '${tire_name}' where id = ${id}`
     );
     res.json(result);
   } catch (error) {
@@ -67,7 +67,7 @@ export const updateTire = async (req, res) => {
 export const deleteTire = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`DELETE FROM Tires WHERE id = ${id} `);
+    const [result] = await pool.query(`DELETE FROM tires WHERE id = ${id} `);
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Tires deleted', success: true });
     return res.sendStatus(204);

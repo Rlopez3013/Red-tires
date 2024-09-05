@@ -2,7 +2,7 @@ import { pool } from '../db.js';
 
 export const getAllMakers = async (req, res) => {
   try {
-    const [result] = await pool.query('Select * from Makers');
+    const [result] = await pool.query('Select * from makers');
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -13,7 +13,7 @@ export const getAllMakers = async (req, res) => {
 export const getMaker = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`Select * from Makers where id = ${id}`);
+    const [result] = await pool.query(`Select * from makers where id = ${id}`);
 
     if (result.length === 0) {
       return res.status(404).json({ message: 'Maker not found' });
@@ -28,7 +28,7 @@ export const createMaker = async (req, res) => {
   try {
     const { maker_name } = req.body;
     const [result] = await pool.query(
-      'insert into Makers(maker_name) values (?)',
+      'insert into makers(maker_name) values (?)',
       [maker_name]
     );
     console.log(result);
@@ -41,7 +41,7 @@ export const createMaker = async (req, res) => {
 export const deleteMaker = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`DELETE FROM Makers WHERE id = ${id}`);
+    const [result] = await pool.query(`DELETE FROM makers WHERE id = ${id}`);
     if (result.affectedRows === 0)
       return res
         .status(404)
@@ -57,7 +57,7 @@ export const updateMaker = async (req, res) => {
     const { id } = req.params;
     const { maker_name } = req.body;
     const [result] = await pool.query(
-      `update Makers set maker_name = '${maker_name}' where id = ${id}`
+      `update makers set maker_name = '${maker_name}' where id = ${id}`
     );
     res.json(result);
   } catch (error) {

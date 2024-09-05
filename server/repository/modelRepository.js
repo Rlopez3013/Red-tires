@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from Models Md join Makers Mk on Md.maker_id = Mk.id'
+      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from models Md join Makers Mk on Md.maker_id = Mk.id'
     );
     res.json(result);
   } catch (error) {
@@ -16,7 +16,7 @@ export const getModels = async (req, res) => {
 export const getModel = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`select * from Models where id = ${id}`, [
+    const [result] = await pool.query(`select * from models where id = ${id}`, [
       // req.params.id,
     ]);
 
@@ -34,7 +34,7 @@ export const createModel = async (req, res) => {
     const { model_name, trim, year, type, maker_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into Models(model_name,trim,year,type,maker_id) values (?,?,?,?,?)',
+      'insert into models(model_name,trim,year,type,maker_id) values (?,?,?,?,?)',
       [model_name, trim, year, type, maker_id]
     );
     console.log(result);
@@ -48,7 +48,7 @@ export const updateModel = async (req, res) => {
   try {
     //const { id } = req.params;
     //const { model, type, year, Makers_id } = req.body;
-    const [result] = await pool.query(`update Models set ? where id = ?`, [
+    const [result] = await pool.query(`update models set ? where id = ?`, [
       req.body,
       req.params.id,
     ]);
@@ -62,7 +62,7 @@ export const updateModel = async (req, res) => {
 export const deleteModel = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`Delete from Models where id = ${id}`);
+    const [result] = await pool.query(`Delete from models where id = ${id}`);
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Model deleted', success: true });
     return res.sendStatus(204);
@@ -82,7 +82,7 @@ export const getModelsByYear = async (req, res) => {
     Mo.type,
     Mo.year
     FROM Models Mo
-    inner join Makers Ma on Ma.id = Mo.maker_id
+    inner join makers Ma on Ma.id = Mo.maker_id
     WHERE year = ${year}`);
 
     if (result.affectedRows === 0)

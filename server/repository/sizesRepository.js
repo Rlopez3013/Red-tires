@@ -2,7 +2,7 @@ import { pool } from '../db.js';
 
 export const getSizes = async (req, res) => {
   try {
-    const [result] = await pool.query('select * from Sizes');
+    const [result] = await pool.query('select * from sizes');
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -12,7 +12,7 @@ export const getSizes = async (req, res) => {
 
 export const getSize = async (req, res) => {
   try {
-    const [result] = await pool.query('select * from Sizes where id = ?', [
+    const [result] = await pool.query('select * from sizes where id = ?', [
       req.params.id,
     ]);
     if (result.length === 0) {
@@ -28,7 +28,7 @@ export const createSize = async (req, res) => {
   try {
     const { tire_size } = req.body;
     const [result] = await pool.query(
-      'insert into Sizes(tire_size) values(?)',
+      'insert into sizes(tire_size) values(?)',
       [tire_size]
     );
     console.log(result);
@@ -40,7 +40,7 @@ export const createSize = async (req, res) => {
 
 export const updateSize = async (req, res) => {
   try {
-    const result = await pool.query('update Sizes set ? where id = ?', [
+    const result = await pool.query('update sizes set ? where id = ?', [
       req.body,
       req.params.id,
     ]);
@@ -52,7 +52,7 @@ export const updateSize = async (req, res) => {
 
 export const deleteSize = async (req, res) => {
   try {
-    const [result] = await pool.query('delete from Sizes where id = ?', [
+    const [result] = await pool.query('delete from sizes where id = ?', [
       req.params.id,
     ]);
     if (result.affectedRows === 0)

@@ -10,10 +10,10 @@ export const getShoppers = async (req, res) => {
       C.last_name,
       M.model_name,
       T.tire_name
-      from Shoppers S 
-      inner join Customers C on S.Customer_id = C.id 
-      inner join Models M on S.model_id = M.id
-      inner join Tires T on S.Tire_id = T.id`
+      from shoppers S 
+      inner join customers C on S.Customer_id = C.id 
+      inner join models M on S.model_id = M.id
+      inner join tires T on S.Tire_id = T.id`
     );
     console.log(result);
     res.json(result);
@@ -34,10 +34,10 @@ export const getShopper = async (req, res) => {
       C.last_name,
       M.model_name,
       T.tire_name 
-      from Shoppers S 
-      inner join Customers C on S.Customer_id = C.id 
-      inner join Models M on S.model_id = M.id
-      inner join Tires T on S.Tire_id = T.id 
+      from shoppers S 
+      inner join customers C on S.Customer_id = C.id 
+      inner join models M on S.model_id = M.id
+      inner join tires T on S.Tire_id = T.id 
       where S.id = ${id}`
     );
     if (result.length === 0) {
@@ -56,7 +56,7 @@ export const createShopper = async (req, res) => {
     const { Customer_id, Tire_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into Shoppers(Customer_id, Tire_id) values(?,?)',
+      'insert into shoppers(Customer_id, Tire_id) values(?,?)',
       [Customer_id, Tire_id]
     );
   } catch (error) {
@@ -67,7 +67,7 @@ export const createShopper = async (req, res) => {
 
 export const updateShopper = async (req, res) => {
   try {
-    const [result] = await pool.query(`update Shoppers set ? where id = ? `, [
+    const [result] = await pool.query(`update shoppers set ? where id = ? `, [
       req.body,
       req.params.id,
     ]);
@@ -81,7 +81,7 @@ export const updateShopper = async (req, res) => {
 export const deleteShopper = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query(`Delete from Shoppers where id = ${id}`);
+    const [result] = await pool.query(`Delete from shoppers where id = ${id}`);
     if (result.affectedRows === 0)
       return res
         .status(404)

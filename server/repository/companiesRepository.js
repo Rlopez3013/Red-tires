@@ -2,7 +2,7 @@ import { pool } from '../db.js';
 
 export const getCompanies = async (req, res) => {
   try {
-    const [result] = await pool.query('Select * from Companies');
+    const [result] = await pool.query('Select * from companies');
     console.log(result);
     res.json(result);
   } catch (error) {
@@ -12,11 +12,11 @@ export const getCompanies = async (req, res) => {
 
 export const getCompany = async (req, res) => {
   try {
-    const [result] = await pool.query('select * from Companies where id = ?', [
+    const [result] = await pool.query('select * from companies where id = ?', [
       req.params.id,
     ]);
     if (result.length === 0) {
-      return res.status(404).json({ message: 'Company not found' });
+      return res.status(404).json({ message: 'company not found' });
     }
     res.json(result[0]);
   } catch (error) {
@@ -28,7 +28,7 @@ export const createCompany = async (req, res) => {
   try {
     const { tire_company } = req.body;
     const [result] = await pool.query(
-      'insert into Companies(tire_company) values(?)',
+      'insert into companies(tire_company) values(?)',
       [tire_company]
     );
     console.log(result);
@@ -40,7 +40,7 @@ export const createCompany = async (req, res) => {
 
 export const updateCompany = async (req, res) => {
   try {
-    const result = await pool.query('update Companies set ? where id = ?', [
+    const result = await pool.query('update companies set ? where id = ?', [
       req.body,
       req.params.id,
     ]);
@@ -52,7 +52,7 @@ export const updateCompany = async (req, res) => {
 
 export const deleteCompany = async (req, res) => {
   try {
-    const [result] = await pool.query('delete from Companies where id = ?', [
+    const [result] = await pool.query('delete from companies where id = ?', [
       req.params.id,
     ]);
     if (result.affectedRows === 0)
