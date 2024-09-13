@@ -5,7 +5,7 @@ import {
   createCustomer,
   deleteCustomer,
   updateCustomer,
-} from '../controllers/customers.contoller.js';
+} from '../repository/customerRepository.js';
 const router = Router();
 
 router.get('/api/customers', getCustomers);

@@ -6,7 +6,7 @@ import {
   deleteCompany,
   updateCompany,
   getCompany,
-} from '../controllers/companies.controller.js';
+} from '../repository/companiesRepository.js';
 
 const router = Router();
 
@@ -16,4 +16,4 @@ router.post('/api/companies/', createCompany);
 router.put('/api/companies/:id', updateCompany);
 router.delete('/api/companies/:id', deleteCompany);
 
-export default router; 
+export default router;

@@ -6,7 +6,7 @@ import {
   deleteTire,
   updateTire,
   createTire,
-} from '../controllers/tires.controller.js';
+} from '../repository/tiresRepository.js';
 const router = Router();
 
 router.get('/api/tires', getTires);
