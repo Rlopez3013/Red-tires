@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TiresContext } from '../context/tiresContext';
 import { useNavigate } from 'react-router-dom';
 import blizzark from '../images/blizzark.jpeg';
@@ -8,6 +8,19 @@ const TiresTable = () => {
   const { listTires, onDelete, onEdit, updateTire, onCancel, inEditMode } =
     useContext(TiresContext);
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemsPerPage] = useState(4);
+
+  const lastItemIndex = currentPage * itemPerPage;
+  const firstItemIndex = lastItemIndex - itemPerPage;
+  const thisPageItems = listTires.slice(firstItemIndex, lastItemIndex);
+
+  const pages = [];
+
+  for (let i = 1; i <= Math.ceil(listTires.length / itemPerPage); i++) {
+    pages.push(i);
+  }
 
   return (
     <div>
@@ -24,7 +37,7 @@ const TiresTable = () => {
           </tr>
         </thead>
         <tbody className={tireStyle.tire_tbody}>
-          {listTires.map((item, pn) => (
+          {thisPageItems.map((item, pn) => (
             <tr key={(item.id, pn)}>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -125,6 +138,19 @@ const TiresTable = () => {
           ))}
         </tbody>
       </table>
+      <nav>
+        {pages.map((page, index) => {
+          return (
+            <button
+              onClick={() => setCurrentPage(page)}
+              key={index}
+              className="btn btn-outline-warning"
+            >
+              {page}
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 };

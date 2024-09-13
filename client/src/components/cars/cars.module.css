@@ -47,6 +47,8 @@ body {
 
 .year {
   color: orange;
+  margin: 20px;
+  font-size: larger;
 }
 
 .form_title {
@@ -68,14 +70,19 @@ body {
 }
 
 .carForm_tr {
-  color: sandybrown;
+  color: rgb(71, 230, 19);
   display: flex;
+  align-items: stretch;
 }
 
 .th {
-  color: orange;
+  color: red;
 }
 
 .car_table {
   text-align: center;
+}
+
+.wheels {
+  color: greenyellow
 }

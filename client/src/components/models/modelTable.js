@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ModelsContext } from '../context/modelsContext.js';
 import { useNavigate } from 'react-router-dom';
 import modelStyle from './model.module.css';
@@ -7,6 +7,7 @@ const ModelsTable = () => {
   const {
     listModels,
     listMakers,
+    loadModels,
     onDelete,
     onEdit,
     updateModel,
@@ -15,6 +16,20 @@ const ModelsTable = () => {
     inEditMode,
   } = useContext(ModelsContext);
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemsPerPage] = useState(5);
+
+  const lastItemIndex = currentPage * itemPerPage;
+  const firstItemIndex = lastItemIndex - itemPerPage;
+  const thisPageItems = listModels.slice(firstItemIndex, lastItemIndex);
+
+  const pages = [];
+
+  for (let i = 1; i <= Math.ceil(listModels.length / itemPerPage); i++) {
+    pages.push(i);
+  }
+
   return (
     <div>
       <div>
@@ -25,12 +40,13 @@ const ModelsTable = () => {
               <th>Makers</th>
               <th>Models</th>
               <th>Type</th>
+              <th>Trim</th>
               <th>Year</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody className={modelStyle.model_tbody}>
-            {listModels.map((item, mk) => (
+            {thisPageItems.map((item, mk) => (
               <tr key={(item.id, mk)}>
                 <td>
                   {inEditMode.status && inEditMode.rowKey === item.id ? (
@@ -72,6 +88,20 @@ const ModelsTable = () => {
                     </select>
                   ) : (
                     item.type
+                  )}
+                </td>
+                <td>
+                  {inEditMode.status && inEditMode.rowKey === item.id ? (
+                    <select defaultValue={item.id}>
+                      <option>Select Trim</option>
+                      {listModels.map((item, tr) => (
+                        <option key={tr} value={item.id}>
+                          {item.trim}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    item.trim
                   )}
                 </td>
                 <td>
@@ -128,6 +158,19 @@ const ModelsTable = () => {
             ))}
           </tbody>
         </table>
+        <nav>
+          {pages.map((page, index) => {
+            return (
+              <button
+                onClick={() => setCurrentPage(page)}
+                key={index}
+                className="btn btn-outline-warning"
+              >
+                {page}
+              </button>
+            );
+          })}
+        </nav>
       </div>
     </div>
   );

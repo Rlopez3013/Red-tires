@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CustomerContext } from '../context/customersContext';
 import { useNavigate } from 'react-router-dom';
 import customerStyle from './customer.module.css';
@@ -13,6 +13,19 @@ const CustomersTable = () => {
     inEditMode,
   } = useContext(CustomerContext);
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemsPerPage] = useState(4);
+
+  const lastItemIndex = currentPage * itemPerPage;
+  const firstItemIndex = lastItemIndex - itemPerPage;
+  const thisPageItems = listCustomers.slice(firstItemIndex, lastItemIndex);
+
+  const pages = [];
+
+  for (let i = 1; i < listCustomers.length / itemPerPage; i++) {
+    pages.push(i);
+  }
 
   return (
     <div>
@@ -187,6 +200,19 @@ const CustomersTable = () => {
           ))}
         </tbody>
       </table>
+      <nav>
+        {pages.map((page, index) => {
+          return (
+            <button
+              onClick={() => setCurrentPage(page)}
+              key={index}
+              className="btn btn-outline-warning"
+            >
+              {page}
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 };

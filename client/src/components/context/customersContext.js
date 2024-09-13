@@ -20,6 +20,7 @@ export const CustomerProvider = ({ children }) => {
       console.log(response.data);
     });
   };
+  
   useEffect(() => {
     loadCustomers();
   }, []);

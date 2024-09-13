@@ -1,8 +1,6 @@
 import React from 'react';
+// import pageStyle from './pages.module.css';
 
-function Home() {
-  return;
-  <h1>This is Home Page</h1>;
+export default function Home() {
+  return <h1>This is Home Page</h1>;
 }
-
-export default Home;

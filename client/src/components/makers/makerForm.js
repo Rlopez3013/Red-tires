@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import makerStyle from './maker.module.css';
 
 function MakerForm() {
-  const [maker, setMaker] = useState([]);
+  const [maker, setMaker] = useState('');
   const [fabricant, setFabricant] = useState({
     maker: '',
   });
@@ -35,13 +35,31 @@ function MakerForm() {
   const addMaker = (e) => {
     e.preventDefault();
     Axios.post('http://localhost:4000/api/makers/', {
-      maker,
-    }).then((response) => {
-      let item = response.data;
-      setListMakers((de) => [...de, item]);
-      navigate('/api/makers');
-      console.log(response.data);
-    });
+      maker_name: maker.maker_name,
+    })
+      .then((response) => {
+        let item = response.data;
+        setListMakers((de) => [...de, item]);
+        navigate('/makers');
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(
+          'Error adding maker',
+          error.response ? error.response.data : error.message
+        );
+      });
+  };
+
+  const handelChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setMaker((values) => ({ ...values, [name]: value }));
+  };
+
+  const hanldeSubmit = (event) => {
+    event.preventDefault();
+    console.log(maker);
   };
 
   return (
@@ -49,14 +67,14 @@ function MakerForm() {
       <h3 className={makerStyle.form}>
         {params.id ? 'Edit Maker' : 'New Maker'}
       </h3>
-      <form className={makerStyle.form}>
+      <form className={makerStyle.form} onSubmit={hanldeSubmit}>
         <input
           className={'btn-submit'}
+          type="text"
+          name="maker_name"
           placeholder="Add Maker"
-          value={maker}
-          onChange={(e) => {
-            setMaker(e.target.value);
-          }}
+          value={maker.maker_name || ''}
+          onChange={handelChange}
         />
         <input
           className={'btn btn-outline-primary'}

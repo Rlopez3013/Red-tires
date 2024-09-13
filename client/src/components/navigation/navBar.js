@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div className="nav">
-      <nav>
+    <div>
+      <nav className="nav">
         <ul>
           <li>
-            <Link to={'/'} className="home-title">
+            <Link to={'/home'} className="home-title">
               Home
             </Link>
           </li>

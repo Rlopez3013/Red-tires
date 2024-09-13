@@ -10,14 +10,13 @@ body {
   background-color: #333;
   color: rgb(6, 154, 110);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   gap: 2rem;
   padding: 0 1rem;
 }
 
 .nav ul {
-  padding: 0;
+  padding: 1rem;
   margin: 0;
   list-style: none;
   display: flex;
@@ -28,8 +27,9 @@ body {
   color: inherit;
   text-decoration: none;
   display: flex;
+  height: 100%;
   align-items: center;
-  padding: 0.95rem;
+  padding: 0.25rem;
 }
 
 .nav li.active {

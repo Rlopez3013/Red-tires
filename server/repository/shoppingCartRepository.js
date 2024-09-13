@@ -53,11 +53,11 @@ export const getShopper = async (req, res) => {
 
 export const createShopper = async (req, res) => {
   try {
-    const { Customer_id, Tire_id } = req.body;
+    const { customer_id, tire_id } = req.body;
 
     const [result] = await pool.query(
-      'insert into shoppers(Customer_id, Tire_id) values(?,?)',
-      [Customer_id, Tire_id]
+      'insert into shoppers(customer_id, tire_id) values(?,?)',
+      [customer_id, tire_id]
     );
   } catch (error) {
     console.log(error);

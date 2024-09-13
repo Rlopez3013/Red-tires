@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import CustomerCss from './customer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
+
 function Registration() {
   //States for registration
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -17,19 +19,33 @@ function Registration() {
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
 
   const register = async (e) => {
-    const resp = await Axios.post(`${CUSTOMER_API_URL}`, {
-      f_name: name,
+    e.preventDefault();
+    let data = {
+      first_name: name,
       last_name: lastName,
       email: email,
+      number: number,
       street: street,
       city: city,
       state: state,
       country: country,
       zip_code: zipcode,
-    });
+    };
 
-    console.log('response', resp);
-    e.preventDefault();
+    console.log('post payload... ', data);
+
+    const resp = await Axios.post(`${CUSTOMER_API_URL}`, data)
+      .then((response) => {
+        let item = response.data;
+        // setListCustomers((de) => [...de, item]);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(
+          'Error adding customer',
+          error.response ? error.response.data : error.message
+        );
+      });
   };
 
   return (
@@ -84,6 +100,20 @@ function Registration() {
                       }}
                     />
                   </div>
+                </div>
+              </div>
+              <div className="row">
+                <label>House Number</label>
+                <div className="col-lg-6">
+                  <input
+                    id="number"
+                    name="number"
+                    type="number"
+                    placeholder="House Number"
+                    onChange={(e) => {
+                      setNumber(e.target.value);
+                    }}
+                  />
                 </div>
               </div>
               <div className="row">

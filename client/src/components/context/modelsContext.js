@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 const API_HOST = 'http://localhost:4000';
 const MODELS_API_URL = `${API_HOST}/api/models`;
@@ -21,7 +22,7 @@ export const ModelProvider = ({ children }) => {
   };
   useEffect(() => {
     loadModels();
-  }, []);
+  });
 
   const loadMakers = () => {
     getAllMakerList.then((response) => {
@@ -29,6 +30,17 @@ export const ModelProvider = ({ children }) => {
       console.log(response.data);
     });
   };
+
+  function NavigateButton() {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleClick = () => {
+      navigate(location.pathname + '/models');
+    };
+  }
+
+  // const location = useLocation();
 
   useEffect(() => {
     loadMakers();
@@ -91,6 +103,7 @@ export const ModelProvider = ({ children }) => {
         listMakers,
         setListModels,
         setListMakers,
+        loadModels,
         model,
         setModel,
         onCancel,

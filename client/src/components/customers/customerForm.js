@@ -40,9 +40,15 @@ function customerForm() {
   const addCustomer = (e) => {
     e.preventDefault();
     Axios.post('http://localhost:4000/api/customers', {
-      f_name: f_name.f_name,
+      first_name: first_name.first_name,
       last_name: last_name.last_name,
       email: email.email,
+      number: number.number,
+      street: street.street,
+      city: city.city,
+      state: state.state,
+      country: country.country,
+      zip_code: zip_code.zip_code,
     }).then((res) => {
       let item = res.data;
       setListCustomers((de) => [...de, item]);

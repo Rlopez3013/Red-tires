@@ -9,7 +9,7 @@ export const getTires = async (req, res) => {
       C.tire_company,
       S.tire_size,
       Sn.sn_name
-      from Tires T
+      from tires T
       inner join companies C on T.company_id = C.id 
       inner join sizes S on T.size_id = S.id 
       inner join seasons Sn on T.sn_id = Sn.id`

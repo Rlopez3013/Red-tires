@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.year from models Md join Makers Mk on Md.maker_id = Mk.id'
+      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.trim,Md.year from models Md join makers Mk on Md.maker_id = Mk.id'
     );
     res.json(result);
   } catch (error) {
@@ -40,7 +40,8 @@ export const createModel = async (req, res) => {
     console.log(result);
     res.send('New Model created');
   } catch (error) {
-    return res.status(500).json({ messsage: 'error.message' });
+    console.log(error.message);
+    return res.status(500).json({ messsage: error.message });
   }
 };
 
@@ -79,9 +80,10 @@ export const getModelsByYear = async (req, res) => {
     Ma.maker_name, 
     Mo.id as ModelId,
     Mo.model_name,
+    Mo.trim,
     Mo.type,
     Mo.year
-    FROM Models Mo
+    FROM models Mo
     inner join makers Ma on Ma.id = Mo.maker_id
     WHERE year = ${year}`);
 

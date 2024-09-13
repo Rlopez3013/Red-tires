@@ -20,7 +20,8 @@ export const getMaker = async (req, res) => {
     }
     res.json(result[0]);
   } catch (error) {
-    return res.status(500).json({ message: 'error message' });
+    console.log(error.message)
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -34,7 +35,8 @@ export const createMaker = async (req, res) => {
     console.log(result);
     res.send('New maker created!!');
   } catch (error) {
-    return res.status(500).json({ message: 'error.message' });
+    console.log(error.message)
+    return res.status(500).json({ message: error.message });
   }
 };
 

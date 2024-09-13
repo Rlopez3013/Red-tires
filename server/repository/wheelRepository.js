@@ -5,6 +5,8 @@ export const getWheels = async (req, res) => {
     const [result] = await pool.query(
       `Select 
       Md.model_name,
+      Md.year,
+      M.maker_name,
       t.tire_name,
       t.id  as tireId, 
       Md.id as modelId,
@@ -16,6 +18,7 @@ export const getWheels = async (req, res) => {
       join tires t on t.id = L.tire_Id
       join companies C on C.id = t.company_id
       join models Md on Md.id = L.model_id
+      join makers M on M.id = Md.maker_id
       join seasons Sn on Sn.id = t.sn_id
       join sizes z on z.id = t.size_id`
     );
@@ -30,8 +33,11 @@ export const getWheel = async (req, res) => {
   try {
     const { id } = req.params;
     console.log(req.params.id);
-    const [result] = await pool.query(`SELECT 
+    const [result] = await pool.query(
+      `SELECT 
     t.id as tireId,
+    Md.year,
+    M.maker_name,
     t.tire_name,
     C.tire_company,
     Sn.sn_name,
@@ -39,15 +45,17 @@ export const getWheel = async (req, res) => {
      FROM models_tires L
      inner join tires t on t.id = L.tire_Id
      inner join companies C on C.id = t.company_id
+     inner join makers M on M.id = Md.maker_id
      inner join sizes S on S.id = t.size_id
      inner join seasons Sn on Sn.id = t.sn_id
-     where t.id = '${id}';`);
+     where t.id = '${id}';`
+    );
     if (result.length === 0) {
       return res.status(404).json({ message: 'Wheel not found' });
     }
     console.log(result);
     res.json(result[0]);
   } catch (error) {
-    return res.status(500).json({ message: 'error.message' });
+    return res.status(500).json({ message: error.message });
   }
 };

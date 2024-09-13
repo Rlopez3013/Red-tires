@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
-
 import CarsTiresContext from '../context/carTiresContext.js';
 import WheelsContext from '../context/wheelContext.js';
 import carStyle from './cars.module.css';
@@ -35,9 +34,9 @@ function CarsForm() {
   const MODELS_API_YEAR = `${API_HOST}/api/models/year/:year`;
   const WHEELS_API_URL = `${API_HOST}/api/wheels`;
 
-  const filterByMaker = (maker) => {
+  const filterByMaker = (maker_name) => {
     let filtered = listModels.filter((model) => {
-      return model.year == year && model.makerId == maker;
+      return model.year == year && model.makerId == maker_name;
     });
 
     setUniqueModels(filtered);
@@ -49,13 +48,16 @@ function CarsForm() {
       return model.year == year;
     });
 
-    const makers = filtered.map(({ maker }) => maker);
     const _uniqueMakers = filtered.filter(
-      ({ maker }, index) => !makers.includes(maker, index + 1)
+      (value, index, self) =>
+        index === self.findIndex((t) => t.makerId === value.makerId)
     );
+
+    console.log(`All filtered makers from year ${year}`, _uniqueMakers);
 
     setYear(year);
     setUniqueMakers(_uniqueMakers);
+    //setUniqueWheels(filtered);
     setUniqueModels([]);
   };
 
@@ -90,40 +92,41 @@ function CarsForm() {
     Axios.get(`${CARSTIRES_API_URL}`).then((res) => {
       setListModelsTires(res.data);
     });
+
     Axios.get(`${WHEELS_API_URL}/`).then((res) => {
       setListWheels(res.data);
       console.log('res.data id', res.data);
 
-      const uniqueWheels = [...new Set(res.data.map((obj) => obj.tireId))];
+      //const uniqueWheels = [...new Set(res.data.map((obj) => obj.tireId))];
 
-      setUniqueWheels(uniqueWheels);
-      console.log('unique wheels 2', uniqueWheels);
+      setUniqueWheels(res.data);
     });
 
     Axios.get(`${MODELS_API_URL}`).then((res) => {
       setListModels(res.data);
 
       const uniqueYears = [...new Set(res.data.map((obj) => obj.year))];
-      const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker))];
-      const uniqueModels = [...new Set(res.data.map((obj) => obj.model))];
+      //const uniqueMakers = [...new Set(res.data.map((obj) => obj.maker))];
+      //const uniqueModels = [...new Set(res.data.map((obj) => obj.model))];
 
-      console.log('prev unique makers', uniqueMakers);
+      //console.log('prev unique makers', uniqueMakers);
+      //setUniqueYears(uniqueYears.sort());
       setUniqueYears(uniqueYears.sort());
-      console.log('unique model', uniqueModels);
+      //console.log('unique model', uniqueModels);
 
-      //setUniqueMakers(uniqueMakers);
+      setUniqueMakers(uniqueMakers);
       //setUniqueModels(uniqueModels);
     });
 
-    // Axios.get(`${MAKERS_API_URL}`).then((res) => {
-    //   //setListModels(res.data);
-    //   console.log(res.data);
-    // });
+    Axios.get(`${MAKERS_API_URL}`).then((res) => {
+      //setListModels(res.data);
+      console.log(res.data);
+    });
   }, []);
 
   return (
     <div className={carStyle.carFormBg}>
-      <h1 className={carStyle.form_title}>Add a New Tires to a Car </h1>
+      <h1 className={carStyle.form_title}>Add a Tires </h1>
       <form className={carStyle.cars_select}>
         <label className={carStyle.year}>Year</label>
         <select
@@ -140,7 +143,7 @@ function CarsForm() {
             </option>
           ))}
         </select>
-        <label>Maker</label>
+        <label className={carStyle.year}>Maker</label>
         <select
           name="maker"
           id="maker"
@@ -155,7 +158,7 @@ function CarsForm() {
             </option>
           ))}
         </select>
-        <label>Model</label>
+        <label className={carStyle.year}>Model</label>
         <select
           name="model"
           id="model"
@@ -171,13 +174,14 @@ function CarsForm() {
           ))}
         </select>
 
-        <table>
+        <table className="table table-sm table-secondary table-hover">
           <thead>
-            <tr className={carStyle.carForm_tr}>
+            <tr className="tr">
               <th>Wheel</th>
-              <th>Company</th>
-              <th>Season</th>
-              <th>Size</th>
+              <th scope="col">Company</th>
+              <th scope="col">Season</th>
+              <th scope="col">Size</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -187,6 +191,11 @@ function CarsForm() {
                 <td>{wheel.tire_company}</td>
                 <td>{wheel.sn_name}</td>
                 <td>{wheel.tire_size}</td>
+                <td>
+                  <>
+                    <button className={'btn-secondary'}>Add Tire</button>
+                  </>
+                </td>
               </tr>
             ))}
           </tbody>
