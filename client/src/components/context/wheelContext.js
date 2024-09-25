@@ -24,6 +24,10 @@ export const WheelProvider = ({ children }) => {
     loadWheels();
   }, []);
 
+  const addShopperTire = async () => {
+    Axios.post
+  }
+
   return (
     <WheelsContext.Provider
       value={{

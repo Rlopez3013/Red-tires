@@ -18,8 +18,9 @@ import EditTire from './components/tires/tireEdit';
 import Registration from './components/customers/registration';
 import Patrons from './components/customers/patrons';
 import CustomerEdit from './components/customers/customerEdit';
-import Shopper from './shopping/shopper';
-import ShoppersForm from './shopping/shoppersForm';
+//import Shopper from './shopping/shopper';
+//import ShoppersForm from './shopping/shoppersForm';
+import Shoppers from './components/shoppers/shopper';
 
 function App() {
   return (
@@ -42,9 +43,10 @@ function App() {
         <Route path="/Customers/registration" element={<Registration />} />
         <Route path="/Customers/patrons" element={<Patrons />} />
         <Route path="/Customers/edit/:id" element={<CustomerEdit />} />
-        <Route path="/shopper/cart" element={<ShoppersForm />}></Route>
-        <Route path="/Shopping/shopper" element={<Shopper />}></Route>
+        {/* <Route path="/shopper/cart" element={<ShoppersForm />}></Route> */}
+        {/* <Route path="/Shopping/shopper" element={<Shopper />}></Route> */}
         <Route path="/carTire/edit/model/:id" element={<CarsEdit />}></Route>
+        <Route path="/shoppers" element={<Shoppers />} />
       </Routes>
     </>
   );

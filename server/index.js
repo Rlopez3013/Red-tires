@@ -11,6 +11,7 @@ import tiresRoutes from './Routes/tires.routes.js';
 import wheelsRoutes from './Routes/wheels.routes.js';
 import customersRoutes from './Routes/customers.routes.js';
 import shoppingRoutes from './Routes/shopping.routes.js';
+import shoppersRoutes from './Routes/shoppers.routes.js';
 
 import cors from 'cors';
 const app = express();
@@ -28,6 +29,7 @@ app.use(sizesRoutes);
 app.use(tiresRoutes);
 app.use(customersRoutes);
 app.use(shoppingRoutes);
+app.use(shoppersRoutes);
 
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);

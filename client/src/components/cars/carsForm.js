@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import CarsTiresContext from '../context/carTiresContext.js';
+import CustomerContext from '../context/customersContext.js';
 import WheelsContext from '../context/wheelContext.js';
 import carStyle from './cars.module.css';
 
@@ -21,8 +22,15 @@ function CarsForm() {
   const [year, setYear] = useState('');
   const [trim, setTrim] = useState('');
   const [maker, setMaker] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [names, setNames] = useState([]);
+
+  const [selectedCustomer, setSelectedCustomer] = useState();
+
   const { listWheels, setListWheels } = useContext(WheelsContext);
   const { listModelsTires, setListModelsTires } = useContext(CarsTiresContext);
+  const { listCustomers } = useContext(CustomerContext);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -33,11 +41,38 @@ function CarsForm() {
   const MAKERS_API_URL = `${API_HOST}/api/makers`;
   const MODELS_API_YEAR = `${API_HOST}/api/models/year/:year`;
   const WHEELS_API_URL = `${API_HOST}/api/wheels`;
+  const SHOPPERS_API_URL = `${API_HOST}/api/shoppers`; //might need to add (add_tire) to the route
+
+  const handleAddTire = (tireId) => {
+    if (!selectedCustomer) {
+      alert('Please select Customer');
+      return;
+    }
+
+    Axios.post(SHOPPERS_API_URL, {
+      customer_id: selectedCustomer,
+      model_id: model,
+      tire_id: tireId,
+    })
+      .then((response) => {
+        let item = response.data;
+        setSelectedCustomer((de) => [...de, item]);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(
+          'Error adding tire to customer',
+          error.response ? error.response.data : error.message
+        );
+      });
+  };
 
   const filterByMaker = (maker_name) => {
     let filtered = listModels.filter((model) => {
       return model.year == year && model.makerId == maker_name;
     });
+
+    console.log('unique models after DD', filtered);
 
     setUniqueModels(filtered);
     //setFilteredModel(filtered);
@@ -58,7 +93,7 @@ function CarsForm() {
     setYear(year);
     setUniqueMakers(_uniqueMakers);
     //setUniqueWheels(filtered);
-    setUniqueModels([]);
+    //setUniqueModels([]);
   };
 
   const filterbyModel = (model) => {
@@ -66,13 +101,13 @@ function CarsForm() {
     console.log('list models', listWheels);
     let filterModel = listWheels.filter((wheel) => {
       //model.year == year &&
-      return wheel.model_name == model;
+      return wheel.modelId == model;
     });
 
     console.log('filtered list', filterModel);
 
     setModel(model);
-    setFilteredModel(uniqueModels);
+    //setFilteredModel(uniqueModels);
     setUniqueWheels(filterModel);
   };
 
@@ -84,7 +119,6 @@ function CarsForm() {
     });
 
     setWheel(year);
-
     setUniqueWheels(filtered);
   };
 
@@ -112,21 +146,40 @@ function CarsForm() {
       //console.log('prev unique makers', uniqueMakers);
       //setUniqueYears(uniqueYears.sort());
       setUniqueYears(uniqueYears.sort());
-      //console.log('unique model', uniqueModels);
+      console.log('unique model', uniqueModels);
 
       setUniqueMakers(uniqueMakers);
-      //setUniqueModels(uniqueModels);
+      //setUniqueModels(res.data);
     });
 
     Axios.get(`${MAKERS_API_URL}`).then((res) => {
       //setListModels(res.data);
       console.log(res.data);
     });
-  }, []);
+  }, [uniqueModels]);
+
+  console.log('carForm first name', listCustomers);
 
   return (
     <div className={carStyle.carFormBg}>
       <h1 className={carStyle.form_title}>Add a Tires </h1>
+      <div>
+        <label className={carStyle.year}>Name</label>
+        <select
+          name="fullName"
+          id="fullName"
+          placeholder="Select Name"
+          className="dropdown"
+          onChange={(e) => setSelectedCustomer(parseInt(e.target.value))}
+        >
+          <option>Select Name</option>
+          {listCustomers.map((f, fn) => (
+            <option key={fn} value={f.id}>
+              {`${f.first_name} ${f.last_name}`}
+            </option>
+          ))}
+        </select>
+      </div>
       <form className={carStyle.cars_select}>
         <label className={carStyle.year}>Year</label>
         <select
@@ -135,6 +188,7 @@ function CarsForm() {
           placeholder="Choose a year"
           className="dropdown"
           onChange={(e) => filterbyYear(e.target.value)}
+          defaultValue={year}
         >
           <option>Select Year</option>
           {uniqueYears?.map((year, yr) => (
@@ -164,7 +218,7 @@ function CarsForm() {
           id="model"
           placeholder="Choose a Model"
           className="dropdown"
-          onChange={(e) => filterbyModel(e.target.value)}
+          onChange={(e) => filterbyModel(parseInt(e.target.value))}
         >
           <option>Select a Model</option>
           {uniqueModels.map((mdl, md) => (
@@ -173,7 +227,6 @@ function CarsForm() {
             </option>
           ))}
         </select>
-
         <table className="table table-sm table-secondary table-hover">
           <thead>
             <tr className="tr">
@@ -193,7 +246,12 @@ function CarsForm() {
                 <td>{wheel.tire_size}</td>
                 <td>
                   <>
-                    <button className={'btn-secondary'}>Add Tire</button>
+                    <button
+                      className={'btn-secondary'}
+                      onClick={() => handleAddTire(wheel.tireId)}
+                    >
+                      Add Tire
+                    </button>
                   </>
                 </td>
               </tr>

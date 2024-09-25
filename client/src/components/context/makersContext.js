@@ -36,6 +36,7 @@ export const MakerProvider = ({ children }) => {
 
   const addMaker = () => {
     Axios.post(`${MAKERS_API_URL}/newMaker`, { newName: maker });
+    
   };
 
   const updateMaker = (id) => {

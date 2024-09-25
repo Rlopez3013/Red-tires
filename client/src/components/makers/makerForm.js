@@ -34,7 +34,7 @@ function MakerForm() {
 
   const addMaker = (e) => {
     e.preventDefault();
-    Axios.post('http://localhost:4000/api/makers/', {
+    Axios.post('http://localhost:4000/api/makers', {
       maker_name: maker.maker_name,
     })
       .then((response) => {

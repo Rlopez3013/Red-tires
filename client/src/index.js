@@ -9,7 +9,7 @@ import { CarsTiresProvider } from './components/context/carTiresContext';
 import { TiresProvider } from './components/context/tiresContext';
 import { WheelProvider } from './components/context/wheelContext';
 import { CustomerProvider } from './components/context/customersContext';
-import { ShopperProvider } from './shopping/shoppingContext';
+import { ShoppersProvider } from './components/context/shoppersContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,9 +22,9 @@ root.render(
             <TiresProvider>
               <WheelProvider>
                 <CustomerProvider>
-                  <ShopperProvider>
+                  <ShoppersProvider>
                     <App />
-                  </ShopperProvider>
+                  </ShoppersProvider>
                 </CustomerProvider>
               </WheelProvider>
             </TiresProvider>

@@ -3,7 +3,16 @@ import { pool } from '../db.js';
 export const getModels = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'select Mk.id as "makerId",Mk.maker_name,Md.id,Md.model_name,Md.type,Md.trim,Md.year from models Md join makers Mk on Md.maker_id = Mk.id'
+      `select 
+      Md.id,
+      Mk.id as "makerId",
+      Mk.maker_name,
+      Md.id as "modelId",
+      Md.model_name,
+      Md.type,
+      Md.trim,
+      Md.year 
+      from models Md join makers Mk on Md.maker_id = Mk.id`
     );
     res.json(result);
   } catch (error) {
@@ -25,7 +34,7 @@ export const getModel = async (req, res) => {
     }
     res.json(result[0]);
   } catch (error) {
-    return res.status(500).json({ message: 'error.message' });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -68,7 +77,8 @@ export const deleteModel = async (req, res) => {
       return res.status(404).json({ message: 'Model deleted', success: true });
     return res.sendStatus(204);
   } catch (error) {
-    return res.status(500).json({ message: 'error', success: false });
+    console.log(error);
+    return res.status(500).json({ message: error, success: false });
   }
 };
 export const getModelsByYear = async (req, res) => {
@@ -76,9 +86,9 @@ export const getModelsByYear = async (req, res) => {
     console.log('by year');
     const { year } = req.params;
     const [result] = await pool.query(`SELECT 
-    Ma.id as MakerId,
+    Ma.id as "MakerId",
     Ma.maker_name, 
-    Mo.id as ModelId,
+    Mo.id as "ModelId",
     Mo.model_name,
     Mo.trim,
     Mo.type,

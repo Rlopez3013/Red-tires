@@ -52,6 +52,7 @@ export const ModelProvider = ({ children }) => {
         `${MODELS_API_URL}/deleteModel/${id}`
       );
       setListModels(listModels.filter((model_name) => model_name.id != id));
+      window.location.reload();
       console.log(response);
     } catch (error) {
       console.log(error);

@@ -29,7 +29,7 @@ function Navbar() {
           <Link to={'/models_tires/carsTires'}>Cars</Link>
         </li>
         <li>
-          <Link to={'/models_tires/newCarTires'}>New Car</Link>
+          <Link to={'/models_tires/newCarTires'}>Add Tires</Link>
         </li>
         <li>
           <Link to={'/tires'}>Tires</Link>
@@ -41,7 +41,7 @@ function Navbar() {
           <Link to={'/Customers/patrons'}>Patrons</Link>
         </li>
         <li>
-          <Link to={'/shopper/cart'}>Shopping</Link>
+          <Link to={'/shoppers'}>Shoppers</Link>
         </li>
       </nav>
     </div>
