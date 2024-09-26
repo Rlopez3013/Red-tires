@@ -17,13 +17,12 @@ body {
 }
 
 .shopper_bg {
-    background-image: url('../images/addTire2jpg.jpg');
-  background-size: cover;
-   background-repeat: no-repeat; 
-  background-attachment: fixed;
-  background-position: 50% 50%;
-  
-   min-height: 100vh;
-  width: 100%;
+   background-image: url('../images/desertCarBg.jpeg'); 
+  background-size: cover;           
+    background-position: center;
+    background-repeat: no-repeat;    
+    height: 110vh;
+    background-attachment: fixed;
+    width: 100vw;
   
 }

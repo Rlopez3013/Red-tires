@@ -19,7 +19,7 @@ const ShopperTable = () => {
   return (
     <div className={shopperStyle.shopper_bg}>
       <h1 className={shopperStyle.shopper_title}>Shoppers Table with Tires</h1>
-      <table className="table table-lg table-secondary table-hover text-center">
+      <table className="table table-sm table-secondary table-hover text-center">
         <thead>
           <tr>
             <th>Name</th>

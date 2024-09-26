@@ -15,7 +15,7 @@ const CustomersTable = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemsPerPage] = useState(4);
+  const [itemPerPage, setItemsPerPage] = useState(2);
 
   const lastItemIndex = currentPage * itemPerPage;
   const firstItemIndex = lastItemIndex - itemPerPage;
@@ -30,7 +30,7 @@ const CustomersTable = () => {
   return (
     <div>
       <h1 className={customerStyle.customer_title}>Customer Inventory</h1>
-      <table className="table table-lg table-secondary table-hover">
+      <table className="table table-lg table-secondary table-hover text-center">
         <thead>
           <tr className="tr">
             <th>Name</th>
@@ -45,7 +45,7 @@ const CustomersTable = () => {
           </tr>
         </thead>
         <tbody className="tb-info">
-          {listCustomers.map((item, n) => (
+          {thisPageItems.map((item, n) => (
             <tr key={(item.id, n)}>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (

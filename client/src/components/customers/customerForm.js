@@ -52,7 +52,7 @@ function customerForm() {
     }).then((res) => {
       let item = res.data;
       setListCustomers((de) => [...de, item]);
-      navigate('/api/customers');
+      navigate('/Customers/patrons');
       console.log(res.data);
     });
   };

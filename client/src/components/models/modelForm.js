@@ -26,11 +26,24 @@ function ModelForm() {
   const MAKERS_API_URL = `${API_HOST}/api/makers`;
   const MODELS_API_URL = `${API_HOST}/api/models`;
   const { id } = useParams();
+  // useEffect(() => {
+  //   Axios.get(`${MODELS_API_URL}`).then((res) => {
+  //     setListModels(res.data);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    Axios.get(`${MODELS_API_URL}`).then((res) => {
-      setListModels(res.data);
-    });
-  }, []);
+    const fetchModels = async () => {
+      try {
+        const response = await Axios.get(MODELS_API_URL);
+        setListModels(response.data);
+      } catch (error) {
+        console.error('Error fetching models:', error);
+      }
+    };
+
+    fetchModels();
+  }, [setListModels]);
 
   // useEffect(() => {
   //   //fetch data or perform an action when id changes
@@ -70,18 +83,18 @@ function ModelForm() {
 
   const addModel = (e) => {
     e.preventDefault();
-    Axios.post('http://localhost:4000/api/models/', {
+    Axios.post('http://localhost:4000/api/models', {
       model_name: model.model_name,
       trim: model.trim,
       type: model.type,
       year: model.year,
       maker_id: maker,
     })
-      .then(async (response) => {
-        //await loadModels(); /// loadModels
+      .then((response) => {
+        let item = response.data;
         console.log('server response', response.data);
-       // setListModels((de) => [...de, item]);
-        navigate('/models');
+        setListModels((de) => [...de, item]);
+        navigate('/models', { replace: true });
         console.log(response.data);
       })
       .catch((error) => {

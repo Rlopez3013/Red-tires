@@ -1,14 +1,14 @@
 import ShoppersTable from './shoppersTable';
-import { Container } from 'react-bootstrap';
-
+import { container } from 'react-bootstrap';
+import shopperStyle from './shopper.module.css';
 const Shopper = () => {
   return (
-    <div>
+    <div className={shopperStyle.shopper_bg}>
       <div>
         <main>
-          <Container>
+          <container-xxl>
             <ShoppersTable />
-          </Container>
+          </container-xxl>
         </main>
       </div>
     </div>

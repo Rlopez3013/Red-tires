@@ -26,6 +26,7 @@ function CarsForm() {
   const [lastName, setLastName] = useState('');
   const [names, setNames] = useState([]);
 
+
   const [selectedCustomer, setSelectedCustomer] = useState();
 
   const { listWheels, setListWheels } = useContext(WheelsContext);
@@ -76,6 +77,7 @@ function CarsForm() {
 
     setUniqueModels(filtered);
     //setFilteredModel(filtered);
+    setModel('');
   };
 
   const filterbyYear = (year) => {
@@ -219,6 +221,7 @@ function CarsForm() {
           placeholder="Choose a Model"
           className="dropdown"
           onChange={(e) => filterbyModel(parseInt(e.target.value))}
+          value={model}
         >
           <option>Select a Model</option>
           {uniqueModels.map((mdl, md) => (

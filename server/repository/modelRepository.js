@@ -38,19 +38,42 @@ export const getModel = async (req, res) => {
   }
 };
 
+// export const createModel = async (req, res) => {
+//   try {
+//     const { model_name, trim, year, type, maker_id } = req.body;
+
+//     const [result] = await pool.query(
+//       'insert into models(model_name,trim,year,type,maker_id) values (?,?,?,?,?)',
+//       [model_name, trim, year, type, maker_id]
+//     );
+//     console.log(result);
+//     res.send('New Model created');
+//   } catch (error) {
+//     console.log(error.message);
+//     return res.status(500).json({ messsage: error.message });
+//   }
+// };
+
 export const createModel = async (req, res) => {
   try {
     const { model_name, trim, year, type, maker_id } = req.body;
-
     const [result] = await pool.query(
-      'insert into models(model_name,trim,year,type,maker_id) values (?,?,?,?,?)',
+      'insert into models(model_name, trim, year,type,maker_id) values (?,?,?,?,?)',
       [model_name, trim, year, type, maker_id]
     );
-    console.log(result);
-    res.send('New Model created');
+    const newModel = {
+      id: result.insertId,
+      model_name,
+      trim,
+      year,
+      type,
+      maker_id,
+    };
+
+    res.status(201).json(newModel);
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ messsage: error.message });
+    return res.status(500).json({ message: error.message });    
   }
 };
 

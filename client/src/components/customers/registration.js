@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
+// import { customersContext } from '../context/customersContext';
 import CustomerCss from './customer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -17,6 +18,9 @@ function Registration() {
 
   const API_HOST = 'http://localhost:4000';
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
+  // const { listCustomers, setListCustomers, getCustomer } =
+  //   useContext(customersContext);
+  const navigate = useNavigate();
 
   const register = async (e) => {
     e.preventDefault();
@@ -37,8 +41,9 @@ function Registration() {
     const resp = await Axios.post(`${CUSTOMER_API_URL}`, data)
       .then((response) => {
         let item = response.data;
-        // setListCustomers((de) => [...de, item]);
-        console.log(response.data);
+        //setListCustomers((de) => [...de, item]);
+        navigate('/registration');
+        console.log(data);
       })
       .catch((error) => {
         console.log(
