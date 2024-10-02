@@ -3,8 +3,8 @@ import Axios from 'axios';
 const API_HOST = 'http://localhost:4000';
 const SHOPPERS_API_HOST = `${API_HOST}/api/shoppers`;
 const getAllShoppers = Axios.get(SHOPPERS_API_HOST);
-const getShopper = async (id) =>
-  await Axios.get(`${API_HOST}/api/shoppers/${id}`);
+const getShopper = async (customer_id) =>
+  await Axios.get(`${API_HOST}/api/shoppers/${customer_id}`);
 export const ShoppersContext = createContext({});
 
 export const ShoppersProvider = ({ children }) => {
@@ -85,6 +85,7 @@ export const ShoppersProvider = ({ children }) => {
     <ShoppersContext.Provider
       value={{
         listShoppers,
+        getShopper,
         setListShoppers,
         onDelete,
         shopper,

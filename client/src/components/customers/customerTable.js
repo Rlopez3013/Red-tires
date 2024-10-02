@@ -133,7 +133,7 @@ const CustomersTable = () => {
                 )}
               </td>
               <td>
-                {inEditMode.state && inEditMode.rowKey === item.id ? (
+                {inEditMode.status && inEditMode.rowKey === item.id ? (
                   <select defaultValue={item.id}>
                     <option>Select Country</option>
                     {listCustomers.map((item, H) => (

@@ -25,17 +25,31 @@ function customerForm() {
     Axios.get(`${ADDRESS_API_URL}`).then((res) => setlistAddresses(res.data));
   }, []);
 
+  // useEffect(() => {
+  //   const loadCustomers = async () => {
+  //     if (params.id) {
+  //       const customer = await getCustomer(params.id);
+  //       console.log(customer);
+  //       setCustomer({
+  //         customer: customer.customer,
+  //       });
+  //     }
+  //   };
+  // });
+
   useEffect(() => {
     const loadCustomers = async () => {
       if (params.id) {
         const customer = await getCustomer(params.id);
-        console.log(customer);
+        console.log(customer)
         setCustomer({
-          customer: customer.customer,
+          ...customer,
         });
       }
     };
-  });
+    loadCustomers(); // Call the function here
+  }, [params.id]); // Add params.id as a dependency
+  
 
   const addCustomer = (e) => {
     e.preventDefault();
@@ -50,8 +64,8 @@ function customerForm() {
       country: country.country,
       zip_code: zip_code.zip_code,
     }).then((res) => {
-      let item = res.data;
-      setListCustomers((de) => [...de, item]);
+      let newItem = res.data;
+      setListCustomers((de) => [...de, newItem]);
       navigate('/Customers/patrons');
       console.log(res.data);
     });

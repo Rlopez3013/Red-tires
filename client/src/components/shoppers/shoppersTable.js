@@ -1,133 +1,103 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import Axios from 'axios';
 import { ShoppersContext } from '../context/shoppersContext';
+import { CustomerContext } from '../context/customersContext';
 import { useNavigate } from 'react-router-dom';
 import shopperStyle from './shopper.module.css';
+import WheelsContext from '../context/wheelContext';
+
+const TireCard = ({ tireName, company, model }) => {
+  const [listCustomers, setListCustomers] = useState([]);
+
+  return (
+    <div className="card" style={{ width: '18rem' }}>
+      <div className="card-body">
+        <h5 className="card-title">{tireName}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">{company}</h6>
+        <p className="card-text">Model: {model}</p>
+      </div>
+    </div>
+  );
+};
+
 const ShopperTable = () => {
   const {
     listShoppers,
     setListShoppers,
     onDelete,
-    shopper,
     inEditMode,
     updateShopper,
     onSave,
     onCancel,
   } = useContext(ShoppersContext);
   const navigate = useNavigate();
-  console.log('list shoppers', listShoppers);
+  const { listCustomers } = useContext(CustomerContext);
+  const { listWheels } = useContext(WheelsContext);
+  const [selectedCustomer, setSelectedCustomer] = useState();
+  const [getShopper, setShopper] = useState([]);
+  const [uniqueShopper, setUniqueShopper] = useState([]);
+
+  const API_HOST = 'http://localhost:4000';
+
+  const getShoppers = async (customer_id) => {
+    try {
+      const response = await Axios.get(
+        `${API_HOST}/api/shoppers/customer/${customer_id}`
+      );
+      setShopper(response.data);
+    } catch (error) {
+      console.log('Error fetching customer', error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCustomer) {
+      getShoppers(selectedCustomer);
+    }
+  }, [selectedCustomer]);
+
+  const filterByShopper = (customer) => {
+    console.log('init filter', customer);
+    console.log('list tires', listWheels);
+    let filterCustomer = listCustomers.filter((wheel) => {
+      return wheel.customerId == wheel.first_name;
+    });
+    setUniqueShopper(filterCustomer);
+  };
 
   return (
     <div className={shopperStyle.shopper_bg}>
-      <h1 className={shopperStyle.shopper_title}>Shoppers Table with Tires</h1>
-      <table className="table table-sm table-secondary table-hover text-center">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Last Name</th>
-            <th>Model</th>
-            <th>Tire</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listShoppers.map((item, fn) => (
-            <tr key={(item.id, fn)}>
-              <td>
-                {inEditMode.status && inEditMode.rowKey === item.id ? (
-                  <select defaultValue={item.id}>
-                    <option>Select Name</option>
-                    {listShoppers.map((item, fn) => (
-                      <option key={fn} value={item.id}>
-                        {item.first_name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  item.first_name
-                )}
-              </td>
-              <td>
-                {inEditMode.status && inEditMode.rowKey === item.id ? (
-                  <select default={item.id}>
-                    <option>Select Last Name</option>
-                    {listShoppers.map((item, ln) => (
-                      <option key={ln} value={item.id}>
-                        {item.last_name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  item.last_name
-                )}
-              </td>
-              <td>
-                {inEditMode.status && inEditMode.rowKey === item.id ? (
-                  <select defaultValue={item.id}>
-                    <option>select Model</option>
-                    {listShoppers.map((item, md) => (
-                      <option key={md} value={item.id}>
-                        {item.model_name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  item.model_name
-                )}
-              </td>
-              <td>
-                {inEditMode.status && inEditMode.rowKey === item.id ? (
-                  <select defaultValue={item.id}>
-                    <option>Select Tire</option>
-                    {listShoppers.map((item, t) => (
-                      <option key={t} value={item.id}>
-                        {item.tire_name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  item.tire_name
-                )}
-              </td>
-              <td>
-                {inEditMode.status && inEditMode.rowKey === item.id ? (
-                  <>
-                    <button
-                      className={'btn-secondary'}
-                      onClick={() =>
-                        updateShopper({
-                          id: item.id,
-                          newShopper: item.model_name,
-                        })
-                      }
-                    >
-                      Save
-                    </button>
-                    <button
-                      style={{ marginLeft: 8 }}
-                      onClick={() => onCancel({ id: item.id })}
-                    >
-                      Cancel
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    className={'btn btn-outline-primary'}
-                    onClick={() => navigate(`/shoppers/edit/${item.id}`)}
-                  >
-                    Edit
-                  </button>
-                )}
-                <button
-                  className={'btn btn-outline-danger'}
-                  onClick={(e) => onDelete(item.id, e)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
+      <h1>Shopper table with tires</h1>
+      <label>Name:</label>
+      <select
+        name="fullName"
+        id="fullName"
+        placeholder="Select Name"
+        className="dropdown"
+        //onChange={(e) => setSelectedCustomer(parseInt(e.target.value))}
+        onChange={(e) => filterByShopper(e.target.value)}
+      >
+        <option>Select Name</option>
+        {listCustomers.map((customer) => (
+          <option key={customer.id} value={customer.id}>
+            {`${customer.first_name} ${customer.last_name}`}
+          </option>
+        ))}
+      </select>
+      <div>
+        <h1>Tire info</h1>
+        <div className="row">
+          {listWheels.map((wheel, wh) => (
+            <div className="col-md-4" key={wh} value={wheel.tireId}>
+              <TireCard
+                tireName={wheel.tire_name}
+                company={wheel.tire_company}
+                model={wheel.model_name}
+              />
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };

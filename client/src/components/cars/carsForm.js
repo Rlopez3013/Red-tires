@@ -25,7 +25,7 @@ function CarsForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [names, setNames] = useState([]);
-
+  const [qty, setQty] = useState({});
 
   const [selectedCustomer, setSelectedCustomer] = useState();
 
@@ -45,10 +45,7 @@ function CarsForm() {
   const SHOPPERS_API_URL = `${API_HOST}/api/shoppers`; //might need to add (add_tire) to the route
 
   const handleAddTire = (tireId) => {
-    if (!selectedCustomer) {
-      alert('Please select Customer');
-      return;
-    }
+   
 
     Axios.post(SHOPPERS_API_URL, {
       customer_id: selectedCustomer,
@@ -57,7 +54,9 @@ function CarsForm() {
     })
       .then((response) => {
         let item = response.data;
+        console.log('server response', response.data);
         setSelectedCustomer((de) => [...de, item]);
+        navigate('/shoppers');
         console.log(response.data);
       })
       .catch((error) => {
@@ -73,7 +72,7 @@ function CarsForm() {
       return model.year == year && model.makerId == maker_name;
     });
 
-    console.log('unique models after DD', filtered);
+    //console.log('unique models after DD', filtered);
 
     setUniqueModels(filtered);
     //setFilteredModel(filtered);
@@ -90,7 +89,7 @@ function CarsForm() {
         index === self.findIndex((t) => t.makerId === value.makerId)
     );
 
-    console.log(`All filtered makers from year ${year}`, _uniqueMakers);
+    //console.log(`All filtered makers from year ${year}`, _uniqueMakers);
 
     setYear(year);
     setUniqueMakers(_uniqueMakers);
@@ -106,7 +105,7 @@ function CarsForm() {
       return wheel.modelId == model;
     });
 
-    console.log('filtered list', filterModel);
+    //console.log('filtered list', filterModel);
 
     setModel(model);
     //setFilteredModel(uniqueModels);
@@ -114,8 +113,8 @@ function CarsForm() {
   };
 
   const filterbyWheel = (tire) => {
-    console.log('list wheel', tire);
-    console.log('list wheel2', listWheels);
+   // console.log('list wheel', tire);
+    //console.log('list wheel2', listWheels);
     let filtered = listWheels.filter((wheel) => {
       return wheel.year == year && model.tireId == tire;
     });
@@ -131,7 +130,7 @@ function CarsForm() {
 
     Axios.get(`${WHEELS_API_URL}/`).then((res) => {
       setListWheels(res.data);
-      console.log('res.data id', res.data);
+      //console.log('res.data id', res.data);
 
       //const uniqueWheels = [...new Set(res.data.map((obj) => obj.tireId))];
 
@@ -148,7 +147,7 @@ function CarsForm() {
       //console.log('prev unique makers', uniqueMakers);
       //setUniqueYears(uniqueYears.sort());
       setUniqueYears(uniqueYears.sort());
-      console.log('unique model', uniqueModels);
+      //console.log('unique model', uniqueModels);
 
       setUniqueMakers(uniqueMakers);
       //setUniqueModels(res.data);
@@ -156,11 +155,19 @@ function CarsForm() {
 
     Axios.get(`${MAKERS_API_URL}`).then((res) => {
       //setListModels(res.data);
-      console.log(res.data);
+      //console.log(res.data);
     });
   }, [uniqueModels]);
 
-  console.log('carForm first name', listCustomers);
+  //console.log('carForm first name', listCustomers);
+
+  // function for handel quantity changes
+  const handleQtyChange = (tireId, value) => {
+    setQty((prevQty) => ({
+      ...prevQty,
+      [tireId]: value,
+    }));
+  };
 
   return (
     <div className={carStyle.carFormBg}>
@@ -237,6 +244,7 @@ function CarsForm() {
               <th scope="col">Company</th>
               <th scope="col">Season</th>
               <th scope="col">Size</th>
+              <th scope="col">Qty</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -247,6 +255,17 @@ function CarsForm() {
                 <td>{wheel.tire_company}</td>
                 <td>{wheel.sn_name}</td>
                 <td>{wheel.tire_size}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    value={qty[wheel.tireId] || ''}
+                    onChange={(e) =>
+                      handleQtyChange(wheel.tireId, e.target.value)
+                    }
+                    placeholder="Qty"
+                  />
+                </td>
                 <td>
                   <>
                     <button

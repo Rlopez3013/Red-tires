@@ -22,6 +22,37 @@ function Registration() {
   //   useContext(customersContext);
   const navigate = useNavigate();
 
+  // const register = async (e) => {
+  //   e.preventDefault();
+  //   let data = {
+  //     first_name: name,
+  //     last_name: lastName,
+  //     email: email,
+  //     number: number,
+  //     street: street,
+  //     city: city,
+  //     state: state,
+  //     country: country,
+  //     zip_code: zipcode,
+  //   };
+
+  //   console.log('post payload... ', data);
+
+  //   const resp = await Axios.post(`${CUSTOMER_API_URL}`, data)
+  //     .then((response) => {
+  //       let item = response.data;
+  //       //setListCustomers((de) => [...de, item]);
+  //       navigate('/Customers/patrons');
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(
+  //         'Error adding customer',
+  //         error.response ? error.response.data : error.message
+  //       );
+  //     });
+  // };
+
   const register = async (e) => {
     e.preventDefault();
     let data = {
@@ -36,21 +67,26 @@ function Registration() {
       zip_code: zipcode,
     };
 
-    console.log('post payload... ', data);
+    try {
+      const response = await Axios.post(CUSTOMER_API_URL, data);
+      // Assuming this is where you might want to reset form fields:
+      setName('');
+      setLastName('');
+      setEmail('');
+      setNumber('');
+      setStreet('');
+      setCity('');
+      setState('');
+      setZipcode('');
+      setCountry('');
 
-    const resp = await Axios.post(`${CUSTOMER_API_URL}`, data)
-      .then((response) => {
-        let item = response.data;
-        //setListCustomers((de) => [...de, item]);
-        navigate('/registration');
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(
-          'Error adding customer',
-          error.response ? error.response.data : error.message
-        );
-      });
+      navigate('/Customers/patrons');
+    } catch (error) {
+      console.error(
+        'Error adding customer',
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
   return (
@@ -116,7 +152,7 @@ function Registration() {
                     type="number"
                     placeholder="House Number"
                     onChange={(e) => {
-                      setNumber(e.target.value);
+                      setNumber(parseInt(e.target.value));
                     }}
                   />
                 </div>

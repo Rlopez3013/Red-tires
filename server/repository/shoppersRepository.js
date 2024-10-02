@@ -28,7 +28,7 @@ export const getShopper = async (req, res) => {
   try {
     const { customer_id, model_id, tire_id } = req.params;
 
-    console.log(req.params.customer_id);
+    console.log(customer_id);
     const [result] = await pool.query(
       `select 
             t.id as tireId,
@@ -37,18 +37,18 @@ export const getShopper = async (req, res) => {
             t.tire_name,
             cs.id as customerId,
             cs.first_name,
-            cs.last_name,
+            cs.last_name
             from shoppers s
             join models Md on Md.id = s.model_id
             join tires t on t.id = s.tire_id
             join customers cs on cs.id = s.customer_id
-            where cs.id = '${id}'
+            where cs.id = ${customer_id}
             `
     );
     if (result.length === 0) {
       return res.status(404).json({ message: 'buyer not found' });
     }
-    res.json(result[0]);
+    res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -66,7 +66,7 @@ export const createShopper = async (req, res) => {
     console.log(result);
     res.send('New shopper created!!');
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
