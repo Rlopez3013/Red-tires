@@ -1,103 +1,90 @@
 import { useContext, useState, useEffect } from 'react';
-import Axios from 'axios';
 import { ShoppersContext } from '../context/shoppersContext';
 import { CustomerContext } from '../context/customersContext';
 import { useNavigate } from 'react-router-dom';
-import shopperStyle from './shopper.module.css';
 import WheelsContext from '../context/wheelContext';
+import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const TireCard = ({ tireName, company, model }) => {
-  const [listCustomers, setListCustomers] = useState([]);
-
-  return (
-    <div className="card" style={{ width: '18rem' }}>
-      <div className="card-body">
-        <h5 className="card-title">{tireName}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{company}</h6>
-        <p className="card-text">Model: {model}</p>
-      </div>
-    </div>
-  );
-};
+const API_HOST = 'http://localhost:4000';
+const SHOPPERS_API_URL = `${API_HOST}/api/shoppers`;
+const WHEELS_API_URL = `${API_HOST}/api/wheels`;
 
 const ShopperTable = () => {
-  const {
-    listShoppers,
-    setListShoppers,
-    onDelete,
-    inEditMode,
-    updateShopper,
-    onSave,
-    onCancel,
-  } = useContext(ShoppersContext);
-  const navigate = useNavigate();
-  const { listCustomers } = useContext(CustomerContext);
-  const { listWheels } = useContext(WheelsContext);
-  const [selectedCustomer, setSelectedCustomer] = useState();
-  const [getShopper, setShopper] = useState([]);
-  const [uniqueShopper, setUniqueShopper] = useState([]);
-
-  const API_HOST = 'http://localhost:4000';
-
-  const getShoppers = async (customer_id) => {
-    try {
-      const response = await Axios.get(
-        `${API_HOST}/api/shoppers/customer/${customer_id}`
-      );
-      setShopper(response.data);
-    } catch (error) {
-      console.log('Error fetching customer', error);
-    }
-  };
+  const { listShoppers, setListShoppers, getShopper } =
+    useContext(ShoppersContext);
+  const params = useParams();
+  const [shopper, setShopper] = useState('');
+  useEffect(() => {
+    Axios.get(`${SHOPPERS_API_URL}`)
+      .then((res) => {
+        console.log('fetched shoppers:', res.data);
+        setListShoppers(res.data);
+      })
+      .catch((error) => {
+        console.error('error fetching shoppers', error);
+      });
+  }, [setListShoppers]);
 
   useEffect(() => {
-    if (selectedCustomer) {
-      getShoppers(selectedCustomer);
-    }
-  }, [selectedCustomer]);
+    const loadShopper = async () => {
+      if (params.customer_id) {
+        console.log('init params', params.customer_id);
+        const shopper = await getShopper(params.customer_id);
+        console.log('params shopper', params.customer_id);
+        setShopper({
+          shopper: shopper.first_name,
+        });
+      }
+    };
+    loadShopper();
+  }, []);
 
-  const filterByShopper = (customer) => {
-    console.log('init filter', customer);
-    console.log('list tires', listWheels);
-    let filterCustomer = listCustomers.filter((wheel) => {
-      return wheel.customerId == wheel.first_name;
-    });
-    setUniqueShopper(filterCustomer);
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setShopper((values) => ({ ...values, [name]: value }));
   };
 
+  // const handleCustomerChange = (e) => {
+  //   const customerId = e.target.value;
+  //   const foundCustomer = listShoppers.find((c) => c.id === customerId);
+  //   setListShoppers(foundCustomer);
+  //   // setListShoppers(listShoppers.find((c) => c.id === customerId));
+  // };
+  console.log(' select Customer', listShoppers);
   return (
-    <div className={shopperStyle.shopper_bg}>
-      <h1>Shopper table with tires</h1>
-      <label>Name:</label>
+    <div>
       <select
-        name="fullName"
-        id="fullName"
-        placeholder="Select Name"
-        className="dropdown"
-        //onChange={(e) => setSelectedCustomer(parseInt(e.target.value))}
-        onChange={(e) => filterByShopper(e.target.value)}
+        // value={listShoppers ? listShoppers.customerId : ''}
+        id="customerId"
+        placeholder="Choose a Customer"
+        className={'btn btn-success btn-lg dropdown-toggle'}
+        onChange={handleChange}
       >
-        <option>Select Name</option>
-        {listCustomers.map((customer) => (
-          <option key={customer.id} value={customer.id}>
+        <option>Select Customer</option>
+        {listShoppers.map((customer, c) => (
+          <option key={c} value={c.customer_id}>
             {`${customer.first_name} ${customer.last_name}`}
           </option>
         ))}
       </select>
-      <div>
-        <h1>Tire info</h1>
-        <div className="row">
-          {listWheels.map((wheel, wh) => (
-            <div className="col-md-4" key={wh} value={wheel.tireId}>
-              <TireCard
-                tireName={wheel.tire_name}
-                company={wheel.tire_company}
-                model={wheel.model_name}
-              />
-            </div>
-          ))}
+      {listShoppers && (
+        <div>
+          <h2> Purchases:</h2>
+          <ul className="list-group">
+            {listShoppers.map((item, tr) => (
+              <li
+                className="list-group-item list-group-item-primary"
+                key={tr}
+                value={item.customerId}
+              >
+                {item.tire_name}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -10,12 +10,13 @@ export const getShoppers = async (req, res) => {
             t.id as tireId,
             cs.id as customerId,
             cs.first_name,
-            cs.last_name 
+            cs.last_name,
+            s.Qty 
             from shoppers as s
             join models as Md on Md.id = s.model_id
             join tires as t on t.id = s.tire_id
             join customers as cs on cs.id = s.customer_id 
-            `
+            ORDER BY cs.first_name`
     );
     console.log(result);
     res.json(result);
@@ -37,7 +38,8 @@ export const getShopper = async (req, res) => {
             t.tire_name,
             cs.id as customerId,
             cs.first_name,
-            cs.last_name
+            cs.last_name,
+            s.Qty
             from shoppers s
             join models Md on Md.id = s.model_id
             join tires t on t.id = s.tire_id
@@ -59,9 +61,10 @@ export const createShopper = async (req, res) => {
     const { customer_id } = req.body;
     const { model_id } = req.body;
     const { tire_id } = req.body;
+    const { Qty } = req.body;
     const [result] = await pool.query(
-      'insert into shoppers(customer_id,model_id,tire_id) values(?,?,?)',
-      [customer_id, model_id, tire_id]
+      'insert into shoppers(customer_id,model_id,tire_id,Qty) values(?,?,?,?)',
+      [customer_id, model_id, tire_id, Qty]
     );
     console.log(result);
     res.send('New shopper created!!');
@@ -74,11 +77,11 @@ export const createShopper = async (req, res) => {
 export const updateShopper = async (req, res) => {
   try {
     const { modelId, customerId, tireId } = req.params;
-    const { model_id, customer_id, tire_id } = req.body;
+    const { model_id, customer_id, tire_id, Qty } = req.body;
 
     const result = await pool.query(
-      'update shoppers set model_id = ? tire_id = ? customer_id = ?',
-      [model_id, tire_id, customer_id, modelId, customerId, tireId]
+      'update shoppers set model_id = ? tire_id = ? customer_id = ? Qty = ?',
+      [model_id, tire_id, customer_id, Qty, modelId, customerId, tireId]
     );
     res.json(result);
     console.log(result);

@@ -25,7 +25,7 @@ function CarsForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [names, setNames] = useState([]);
-  const [qty, setQty] = useState({});
+  const [Qty, setQty] = useState('');
 
   const [selectedCustomer, setSelectedCustomer] = useState();
 
@@ -45,12 +45,12 @@ function CarsForm() {
   const SHOPPERS_API_URL = `${API_HOST}/api/shoppers`; //might need to add (add_tire) to the route
 
   const handleAddTire = (tireId) => {
-   
-
+    const quantity = Qty[tireId] || 0; 
     Axios.post(SHOPPERS_API_URL, {
       customer_id: selectedCustomer,
       model_id: model,
       tire_id: tireId,
+      Qty: quantity,
     })
       .then((response) => {
         let item = response.data;
@@ -113,7 +113,7 @@ function CarsForm() {
   };
 
   const filterbyWheel = (tire) => {
-   // console.log('list wheel', tire);
+    // console.log('list wheel', tire);
     //console.log('list wheel2', listWheels);
     let filtered = listWheels.filter((wheel) => {
       return wheel.year == year && model.tireId == tire;
@@ -127,7 +127,6 @@ function CarsForm() {
     Axios.get(`${CARSTIRES_API_URL}`).then((res) => {
       setListModelsTires(res.data);
     });
-
     Axios.get(`${WHEELS_API_URL}/`).then((res) => {
       setListWheels(res.data);
       //console.log('res.data id', res.data);
@@ -165,7 +164,7 @@ function CarsForm() {
   const handleQtyChange = (tireId, value) => {
     setQty((prevQty) => ({
       ...prevQty,
-      [tireId]: value,
+      [tireId]: value ? parseInt(value) : 0, // Convert to integer
     }));
   };
 
@@ -259,7 +258,7 @@ function CarsForm() {
                   <input
                     type="number"
                     min="1"
-                    value={qty[wheel.tireId] || ''}
+                    value={Qty[wheel.tireId] || ''}
                     onChange={(e) =>
                       handleQtyChange(wheel.tireId, e.target.value)
                     }
