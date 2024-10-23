@@ -3,6 +3,7 @@ import { Router } from 'express';
 import {
   getShoppers,
   getShopper,
+  getClientes,
   createShopper,
   updateShopper,
   deleteShopper,
@@ -11,7 +12,8 @@ import {
 const router = Router();
 
 router.get('/api/shoppers', getShoppers);
-router.get('/api/shoppers/customer/:customer_id', getShopper);
+router.get('/api/shoppers/customer/:customerId', getShopper);
+router.get('/api/shoppers/clientes', getClientes);
 router.post('/api/shoppers', createShopper);
 router.put('/api/shoppers/:modelId/:tireId', updateShopper);
 router.delete('/api/shopers', deleteShopper);

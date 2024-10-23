@@ -1,6 +1,7 @@
 * {
-    border: border-box;
+  box-sizing: border-box;
 }
+
 
 body {
     margin: 0;
@@ -26,3 +27,33 @@ body {
     width: 100vw;
   
 }
+
+.shopper_title {
+  color: tomato;
+  text-align: center;
+  font-weight: 700;
+}
+
+.cliente {
+  background-image: url('../images/clienteTableBg.jpg') ;
+  background-size: cover; /* Adjust to cover the entire area */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-attachment: fixed; /* Keep the background fixed during scrolling */
+  background-position: center; /* Center the image */
+  height: 110vh;
+  width: 100vw;
+}
+
+
+
+.cliente_title {
+  color: #ff6f00; 
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+
+
+

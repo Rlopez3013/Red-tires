@@ -38,7 +38,7 @@ function Update() {
     //loadModels();
 
     Axios.get(`${MODELS_API_URL}/${id}`).then((res) => {
-      console.log('is log8', res.data);
+      console.log('is log8', res.data);    
       setModel(res.data);
     });
     loadModels();

@@ -27,31 +27,54 @@ export const getShoppers = async (req, res) => {
 
 export const getShopper = async (req, res) => {
   try {
-    const { customer_id, model_id, tire_id } = req.params;
+    const { customerId, model_id, tire_id } = req.params;
 
-    console.log(customer_id);
+    console.log(customerId);
+    //where cs.id = ${customer_id}
     const [result] = await pool.query(
-      `select 
-            t.id as tireId,
-            Md.id as modelId,
-            Md.model_name,
-            t.tire_name,
-            cs.id as customerId,
-            cs.first_name,
-            cs.last_name,
-            s.Qty
-            from shoppers s
-            join models Md on Md.id = s.model_id
-            join tires t on t.id = s.tire_id
-            join customers cs on cs.id = s.customer_id
-            where cs.id = ${customer_id}
-            `
+      `SELECT DISTINCT
+    t.id AS tireId,
+    Md.id AS modelId,
+    Md.model_name,
+    t.tire_name,
+    cs.id AS customerId,
+    cs.first_name,
+    cs.last_name,
+    s.Qty
+    FROM shoppers s
+    JOIN models Md ON Md.id = s.model_id
+    JOIN tires t ON t.id = s.tire_id
+    JOIN customers cs ON cs.id = s.customer_id
+    WHERE cs.id = ?
+    ORDER BY cs.first_name;`,
+      [customerId]
     );
     if (result.length === 0) {
       return res.status(404).json({ message: 'buyer not found' });
     }
     res.json(result);
   } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getClientes = async (req, res) => {
+  try {
+    //const { customerId } = req.params;
+    const [result] = await pool.query(
+      `     select DISTINCT 
+            cs.id as customerId,
+            cs.first_name,
+            cs.last_name
+            from shoppers s
+            join customers cs on cs.id = s.customer_id
+            order by first_name`,
+      //[customerId]
+    );
+    console.log(result);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };

@@ -2,13 +2,18 @@ import { createContext, useState, useEffect } from 'react';
 import Axios from 'axios';
 const API_HOST = 'http://localhost:4000';
 const SHOPPERS_API_HOST = `${API_HOST}/api/shoppers`;
+const CLIENTES_API_HOST = `${API_HOST}/api/shoppers/clientes`;
+//const getAllClientes = Axios.get(CLIENTES_API_HOST);
 const getAllShoppers = Axios.get(SHOPPERS_API_HOST);
+
 const getShopper = async (customer_id) =>
   await Axios.get(`${API_HOST}/api/shoppers/${customer_id}`);
 export const ShoppersContext = createContext({});
 
 export const ShoppersProvider = ({ children }) => {
   const [listShoppers, setListShoppers] = useState([]);
+  const [listClientes, setListClientes] = useState([]);
+  const [cliente, setCliente] = useState('');
   const [shopper, setShopper] = useState('');
 
   const loadShoppers = () => {
@@ -20,6 +25,17 @@ export const ShoppersProvider = ({ children }) => {
   useEffect(() => {
     loadShoppers();
   }, []);
+
+  // const loadClientes = () => {
+  //   getAllClientes.then((response) => {
+  //     setListClientes(response.data);
+  //     console.log(response.data);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   loadClientes();
+  // }, []);
 
   const onDelete = async (id) => {
     try {
@@ -47,15 +63,6 @@ export const ShoppersProvider = ({ children }) => {
       });
     });
   };
-
-  // const shopper = async (id) => {
-  //   try {
-  //     const response = await getShopper(id);
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const [inEditMode, setInEditMode] = useState({
     status: true,
@@ -87,8 +94,13 @@ export const ShoppersProvider = ({ children }) => {
         listShoppers,
         getShopper,
         setListShoppers,
+        listClientes,
+        setListClientes,
+        cliente,
+        setCliente,
         onDelete,
         shopper,
+        setShopper,
         onCancel,
         updateShopper,
         onEdit,

@@ -21,6 +21,7 @@ import CustomerEdit from './components/customers/customerEdit';
 //import Shopper from './shopping/shopper';
 //import ShoppersForm from './shopping/shoppersForm';
 import Shoppers from './components/shoppers/shopper';
+import Clientes from './components/shoppers/clientesTable'
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
         {/* <Route path="/Shopping/shopper" element={<Shopper />}></Route> */}
         <Route path="/carTire/edit/model/:id" element={<CarsEdit />}></Route>
         <Route path="/shoppers" element={<Shoppers />} />
+        <Route path="/shoppers/clientes" element={<Clientes />}></Route>
+        <Route path="/shopper/customer/:customerId" element={<shopperDetails />}></Route>
       </Routes>
     </>
   );
