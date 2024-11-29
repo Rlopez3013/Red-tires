@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from './config';
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
-const getAllCustomerList = Axios.get(CUSTOMER_API_URL);
+const getAllCustomerList = Axios.get(CUSTOMER_API_URL, {headers});
 const getCustomerRequest = async (id) =>
-  await Axios.get(`http://localhost:4000/api/customers/${id}`);
+  await Axios.get(`${CUSTOMER_API_URL}/${id}`,{headers});
 
 export const CustomerContext = createContext({});
 

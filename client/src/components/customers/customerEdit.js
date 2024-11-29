@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+
+import { API_HOST } from '../context/config';
 const Customers_API_URL = `${API_HOST}/api/customers`;
 const getAllCustomersList = Axios.get(Customers_API_URL);
+
 const getCustomer = async (id) =>
-  await Axios.get(`http://localhost:4000/api/customers/${id}`);
+  await Axios.get(`${CustomerEdit}/${id}`);
 
 function CustomerEdit() {
   const { id } = useParams();

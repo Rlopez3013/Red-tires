@@ -2,8 +2,11 @@ import { useState, useContext, useEffect } from 'react';
 import { MakersContext } from '../context/makersContext.js';
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { API_HOST } from '../context/config.js';
 import makerStyle from './maker.module.css';
-
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 function MakerForm() {
   const [maker, setMaker] = useState('');
   const [fabricant, setFabricant] = useState({
@@ -12,6 +15,8 @@ function MakerForm() {
   const { listMakers, setListMakers, getMaker } = useContext(MakersContext);
   const params = useParams();
   const navigate = useNavigate();
+  // const API_HOST = 'https://c428-108-198-117-66.ngrok-free.app ';
+  const MAKERS_API_URL = `${API_HOST}/api/makers`;
 
   useEffect(() => {
     const loadMakers = async () => {
@@ -27,14 +32,14 @@ function MakerForm() {
   }, []);
 
   useEffect(() => {
-    Axios.get('http://localhost:4000/api/makers').then((res) => {
+    Axios.get(`${MAKERS_API_URL}`, {headers}).then((res) => {
       setListMakers(res.data);
     });
   }, []);
 
   const addMaker = (e) => {
     e.preventDefault();
-    Axios.post('http://localhost:4000/api/makers', {
+    Axios.post('${MAKERS_API_URL}', {
       maker_name: maker.maker_name,
     })
       .then((response) => {

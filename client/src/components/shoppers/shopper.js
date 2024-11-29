@@ -1,6 +1,7 @@
 import ShoppersTable from './shoppersTable';
 import { container } from 'react-bootstrap';
 import shopperStyle from './shopper.module.css';
+
 const Shopper = () => {
   return (
     <div className={shopperStyle.shopper_bg}>

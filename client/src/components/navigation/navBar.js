@@ -41,7 +41,10 @@ function Navbar() {
           <Link to={'/Customers/patrons'}>Patrons</Link>
         </li>
         <li>
-          <Link to={'/shoppers'}>Shoppers</Link>
+          <Link to={'/shoppers/clientes'}>Shoppers</Link>
+        </li>
+        <li>
+          <Link to={'/checkoutform'}>Checkout</Link>
         </li>
       </nav>
     </div>

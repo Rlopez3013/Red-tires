@@ -3,6 +3,10 @@ import { ModelsContext } from '../context/modelsContext';
 import Axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import modelStyle from './model.module.css';
+import { API_HOST } from '../context/config';
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 
 function ModelForm() {
   const [model, setModel] = useState('');
@@ -22,15 +26,10 @@ function ModelForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const API_HOST = 'http://localhost:4000';
+  //const API_HOST = 'https://c92e-166-181-83-133.ngrok-free.app';
   const MAKERS_API_URL = `${API_HOST}/api/makers`;
   const MODELS_API_URL = `${API_HOST}/api/models`;
   const { id } = useParams();
-  // useEffect(() => {
-  //   Axios.get(`${MODELS_API_URL}`).then((res) => {
-  //     setListModels(res.data);
-  //   });
-  // }, []);
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -45,23 +44,8 @@ function ModelForm() {
     fetchModels();
   }, [setListModels]);
 
-  // useEffect(() => {
-  //   //fetch data or perform an action when id changes
-  //   const reloadData = async () => {
-  //     try {
-  //       const response = await Axios.get(`/api/models`);
-  //       setListModels(response.data); //set fetch data to state
-  //     } catch (err) {
-  //       setError(err); //handle errors
-  //     } finally {
-  //       setReloadData(false); // set loading  to false when the request is complete
-  //     }
-  //   };
-  //   reloadData();
-  // }, [id]);
-
   useEffect(() => {
-    Axios.get(`${MAKERS_API_URL}`).then((response) =>
+    Axios.get(`${MAKERS_API_URL}`, { headers }).then((response) =>
       setListMakers(response.data)
     );
     // .then((error) => console.log(error));

@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { customersContext } from '../context/customersContext';
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { API_HOST } from '../context/config';
 
 function customerForm() {
   const [customer, setCustomer] = useState('');
@@ -11,7 +12,6 @@ function customerForm() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const API_HOST = 'http://localhost:4000';
   const CUSTOMERS_API_URL = `${API_HOST}/api/customers`;
   const ADDRESS_API_URL = `${API_HOST}/api/customers_addressess`;
 
@@ -22,7 +22,9 @@ function customerForm() {
   }, []);
 
   useEffect(() => {
-    Axios.get(`${ADDRESS_API_URL}`).then((res) => setlistAddresses(res.data));
+    Axios.get(`${ADDRESS_API_URL}`).then((res) =>
+      setlistAddresses(res.data)
+    );
   }, []);
 
   // useEffect(() => {
@@ -41,7 +43,7 @@ function customerForm() {
     const loadCustomers = async () => {
       if (params.id) {
         const customer = await getCustomer(params.id);
-        console.log(customer)
+        console.log(customer);
         setCustomer({
           ...customer,
         });
@@ -49,7 +51,6 @@ function customerForm() {
     };
     loadCustomers(); // Call the function here
   }, [params.id]); // Add params.id as a dependency
-  
 
   const addCustomer = (e) => {
     e.preventDefault();

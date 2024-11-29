@@ -12,6 +12,7 @@ import { CustomerProvider } from './components/context/customersContext';
 import { ShoppersProvider } from './components/context/shoppersContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

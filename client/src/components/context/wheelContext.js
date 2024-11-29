@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 
 import Axios from 'axios';
 
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from './config';
 const WHEELS_API_URL = `${API_HOST}/api/wheels`;
 const WHEEL_API_URL = `${API_HOST}/api/wheel`;
 
@@ -24,9 +24,9 @@ export const WheelProvider = ({ children }) => {
     loadWheels();
   }, []);
 
-  const addShopperTire = async () => {
-    Axios.post
-  }
+  // const addShopperTire = async () => {
+  //   Axios.post
+  // }
 
   return (
     <WheelsContext.Provider

@@ -3,6 +3,7 @@ import Axios from 'axios';
 // import { customersContext } from '../context/customersContext';
 import CustomerCss from './customer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { API_HOST } from '../context/config';
 
 function Registration() {
   //States for registration
@@ -15,8 +16,10 @@ function Registration() {
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [country, setCountry] = useState('');
-
-  const API_HOST = 'http://localhost:4000';
+  const headers = {
+    headers: { 'ngrok-skip-browser-warning': '1' },
+  };
+  
   const CUSTOMER_API_URL = `${API_HOST}/api/customers`;
   // const { listCustomers, setListCustomers, getCustomer } =
   //   useContext(customersContext);

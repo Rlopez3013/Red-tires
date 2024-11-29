@@ -1,12 +1,15 @@
 import { createContext, useState, useEffect } from 'react';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from './config';
 const MODELSTIRES_API_HOST = `${API_HOST}/api/models_tires`;
 const MODELS_API_URL = `${API_HOST}/api/models`;
 const getAllModelList = Axios.get(MODELS_API_URL);
 const getAllModelsTiresList = Axios.get(MODELSTIRES_API_HOST);
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 const getModelTire = async (id) =>
-  await Axios.get(`http://localhost:4000/api/models_tires/${id}`);
+  await Axios.get(`${MODELSTIRES_API_HOST}/${id}`,{headers});
 export const CarsTiresContext = createContext({});
 
 export const CarsTiresProvider = ({ children }) => {

@@ -43,3 +43,18 @@ export const getOrder = async (req, res) => {
     return res.status(500).json({ message: 'error.message' });
   }
 };
+
+export const createOrder = async (req, res) => {
+  try {
+    const { customer_id, status, total_price } = req.params;
+    const [result] = await pool.query(
+      'insert into orders(customer_id,total_price) values (?,?,?,?)',
+      [customer_id, status, total_price]
+    );
+    console.log(result);
+    res.send('New order create!!');
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};

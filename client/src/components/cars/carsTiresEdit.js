@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from '../context/config';
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 const MODELSTIRES_API_URL = `${API_HOST}/api/models_tires`;
 const getAllModelsTiresList = Axios.get(MODELSTIRES_API_URL);
 const getModelTire = async (id) =>
-  await Axios.get(`http://localhost:4000/api/models_tires/${id}`);
+  await Axios.get(`${MODELSTIRES_API_URL}/${id}`, {headers});
 
 function CarsTiresEdit() {
   const { id } = useParams();
@@ -22,7 +25,7 @@ function CarsTiresEdit() {
   };
 
   useEffect(() => {
-    Axios.get(`${MODELSTIRES_API_URL}/model/${id}`).then((res) => {
+    Axios.get(`${MODELSTIRES_API_URL}/model/${id}`, {headers}).then((res) => {
       console.log('this modelTire log', res.data);
       setListModelsTires(res.data);
     });

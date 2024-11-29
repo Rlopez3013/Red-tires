@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { TiresContext } from '../context/tiresContext';
 import { useNavigate } from 'react-router-dom';
-import blizzark from '../images/blizzark.jpeg';
 import tireStyle from './tires.module.css';
 
 const TiresTable = () => {
@@ -10,7 +9,7 @@ const TiresTable = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemsPerPage] = useState(4);
+  const [itemPerPage, setItemsPerPage] = useState(3);
 
   const lastItemIndex = currentPage * itemPerPage;
   const firstItemIndex = lastItemIndex - itemPerPage;
@@ -28,12 +27,12 @@ const TiresTable = () => {
       <table className={tireStyle.tire_table}>
         <thead>
           <tr className={tireStyle.tire_tr}>
-            <th>Tires</th>
-            <th>Companies</th>
-            <th>Sizes</th>
-            <th>Seasons</th>
-            <th>Imageg</th>
-            <th>Actions</th>
+            <th scope="col">Tires</th>
+            <th scope="col">Companies</th>
+            <th scope="col">Sizes</th>
+            <th scope="col">Seasons</th>
+            <th scope="col">Imageg</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody className={tireStyle.tire_tbody}>
@@ -96,8 +95,20 @@ const TiresTable = () => {
                 )}
               </td>
               <td>
-                <img src={blizzark} width={180} height={180} alt="" />
+                {inEditMode.status && inEditMode.rowKey === item.id ? (
+                  <select defaultValue={item.img}>
+                    <option>Select img</option>
+                    {listTires.map((tire, i) => (
+                      <option key={i} value={tire.img}>
+                        {tire.img}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <img src={`${item.img}`} alt={item.tire_name} width="210px" />
+                )}
               </td>
+
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (
                   <>

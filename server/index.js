@@ -12,10 +12,12 @@ import wheelsRoutes from './Routes/wheels.routes.js';
 import customersRoutes from './Routes/customers.routes.js';
 import shoppingRoutes from './Routes/shopping.routes.js';
 import shoppersRoutes from './Routes/shoppers.routes.js';
-import ordersRoutes from './Routes/orders.route.js';
-
+import ordersRoutes from './Routes/orders.routes.js';
+import checkoutsRoutes from './Routes/checkout.routes.js';
+import customerAddressRoutes from './Routes/customerAddress.routes.js';
 import cors from 'cors';
 const app = express();
+const Stripe = require('stripe')
 
 app.use(express.json());
 app.use(cors());
@@ -32,6 +34,8 @@ app.use(customersRoutes);
 app.use(shoppingRoutes);
 app.use(shoppersRoutes);
 app.use(ordersRoutes);
+app.use(checkoutsRoutes);
+app.use(customerAddressRoutes);
 
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);

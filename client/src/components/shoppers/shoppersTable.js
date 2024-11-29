@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import shopperStyle from './shopper.module.css';
 
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from '../context/config';
 const SHOPPERS_API_URL = `${API_HOST}/api/shoppers/customer`;
 const WHEELS_API_URL = `${API_HOST}/api/wheels`;
 const getAllShopperList = Axios.get(`${API_HOST}/api/shoppers`);

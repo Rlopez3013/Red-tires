@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-import { MakersContext } from '../context/makersContext.js';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from '../context/config.js';
+
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
+
 const MAKERS_API_URL = `${API_HOST}/api/makers`;
-const getAllMakerList = Axios.get(MAKERS_API_URL);
+const getAllMakerList = Axios.get(MAKERS_API_URL, { headers });
 const getMakerRequest = async (id) =>
-  await Axios.get(`http://localhost:4000/api/makers/${id}`);
+  await Axios.get(`${MAKERS_API_URL}/${id}`, { headers });
 
 function Edit() {
   const { id } = useParams();
   const [maker, setMaker] = useState({});
   const [listMakers, setListMakers] = useState([]);
-  // const {  getMaker } = useContext(MakersContext);`
-  const params = useParams();
   const navigate = useNavigate();
 
   const loadMakers = () => {
@@ -23,11 +25,11 @@ function Edit() {
   };
 
   useEffect(() => {
-    Axios.get('http://localhost:4000/api/makers/' + id).then((res) => {
+    Axios.get(`${MAKERS_API_URL}/${id}`, { headers }).then((res) => {
       console.log('this is log', res.data);
       setMaker(res.data);
     });
-  }, []);
+  }, [id]);
 
   function updateMaker(event) {
     event.preventDefault();
@@ -36,32 +38,44 @@ function Edit() {
       navigate('/api/makers'),
       loadMakers(),
       console.log('this is log2', maker)
-      //loadMakers()
     );
-
-    // .catch((err) => console.log(err));
   }
 
   return (
-    <div>
-      <h1>Edit Maker</h1>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Edit Maker</h1>
       <form onSubmit={updateMaker}>
-        <div>
-          <label htmlFor="name">ID:</label>
-          <input type="text" name="name" value={maker?.id || ''} />
-        </div>
-        <div>
-          <label htmlFor="name">Maker</label>
+        <div className="form-group mb-3">
+          <label htmlFor="id">ID:</label>
           <input
             type="text"
-            name="name"
-            value={maker?.maker || ''}
-            onChange={(e) => setMaker({ ...maker, maker: e.target.value })}
+            id="id"
+            name="id"
+            value={maker?.id || ''}
+            className="form-control"
+            readOnly
           />
         </div>
-        <button className="btn-update">Update</button>
+        <div className="form-group mb-3">
+          <label htmlFor="maker">Maker Name</label>
+          <input
+            type="text"
+            id="maker"
+            name="maker"
+            value={maker?.maker || ''}
+            onChange={(e) => setMaker({ ...maker, maker: e.target.value })}
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-primary">Update</button>
+          <button type="button" className="btn btn-secondary" onClick={() => navigate('/api/makers')}>Cancel</button>
+        </div>
       </form>
     </div>
   );
 }
+
 export default Edit;
+

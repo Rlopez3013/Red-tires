@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from './config';
+
 const MODELS_API_URL = `${API_HOST}/api/models`;
 const MAKERS_API_URL = `${API_HOST}/api/makers`;
-const getAllModelList = Axios.get(MODELS_API_URL);
-const getAllMakerList = Axios.get(MAKERS_API_URL);
+
+
+const getAllModelList = Axios.get(MODELS_API_URL,);
+const getAllMakerList = Axios.get(MAKERS_API_URL,);
 export const ModelsContext = createContext({});
 
 export const ModelProvider = ({ children }) => {

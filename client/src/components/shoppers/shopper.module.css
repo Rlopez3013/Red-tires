@@ -34,17 +34,6 @@ body {
   font-weight: 700;
 }
 
-.cliente {
-  background-image: url('../images/clienteTableBg.jpg') ;
-  background-size: cover; /* Adjust to cover the entire area */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-attachment: fixed; /* Keep the background fixed during scrolling */
-  background-position: center; /* Center the image */
-  height: 110vh;
-  width: 100vw;
-}
-
-
 
 .cliente_title {
   color: #ff6f00; 
@@ -53,7 +42,41 @@ body {
   margin-bottom: 10px;
 }
 
+/* .container_cliente {
+  background-color: red;
+} */
 
+.productImage {
+  width: 100px; /* Adjust width as needed */
+  height: auto;
+  max-width: 100%;
+}
 
+/* shopper.module.css */
+.container {
+  background: linear-gradient(to right, #e3f2fd, #ffffff); /* Light gradient */
+  min-height: 100vh; /* Ensures it takes full height */
+  padding: 30px;
+}
+
+.clienteDetails {
+  background-color: rgba(255, 255, 255, 0.9); /* Light, semi-transparent white background for cards */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton {
+  background-color: #007bff; /* Blue button */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background-color: #0056b3;
+}
 
 

@@ -1,8 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_HOST } from './config';
 //import MakersTable from '../components/makersTable';
-const API_HOST = 'http://localhost:4000';
+
 const MAKERS_API_URL = `${API_HOST}/api/makers`;
 const getAllMakerList = Axios.get(MAKERS_API_URL); //{}
 const getMakerRequest = async (id) =>

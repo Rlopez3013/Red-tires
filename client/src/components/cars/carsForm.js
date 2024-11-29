@@ -4,7 +4,7 @@ import CarsTiresContext from '../context/carTiresContext.js';
 import CustomerContext from '../context/customersContext.js';
 import WheelsContext from '../context/wheelContext.js';
 import carStyle from './cars.module.css';
-
+import { API_HOST } from '../context/config.js';
 import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -26,7 +26,9 @@ function CarsForm() {
   const [lastName, setLastName] = useState('');
   const [names, setNames] = useState([]);
   const [Qty, setQty] = useState('');
-
+  const headers = {
+    headers: { 'ngrok-skip-browser-warning': '1' },
+  };
   const [selectedCustomer, setSelectedCustomer] = useState();
 
   const { listWheels, setListWheels } = useContext(WheelsContext);
@@ -36,7 +38,7 @@ function CarsForm() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const API_HOST = 'http://localhost:4000';
+  // const API_HOST = 'http://localhost:4000';
   const CARSTIRES_API_URL = `${API_HOST}/api/models_tires`;
   const MODELS_API_URL = `${API_HOST}/api/models`;
   const MAKERS_API_URL = `${API_HOST}/api/makers`;
@@ -45,7 +47,7 @@ function CarsForm() {
   const SHOPPERS_API_URL = `${API_HOST}/api/shoppers`; //might need to add (add_tire) to the route
 
   const handleAddTire = (tireId) => {
-    const quantity = Qty[tireId] || 0; 
+    const quantity = Qty[tireId] || 0;
     Axios.post(SHOPPERS_API_URL, {
       customer_id: selectedCustomer,
       model_id: model,
@@ -124,10 +126,10 @@ function CarsForm() {
   };
 
   useEffect(() => {
-    Axios.get(`${CARSTIRES_API_URL}`).then((res) => {
+    Axios.get(`${CARSTIRES_API_URL}`, { headers }).then((res) => {
       setListModelsTires(res.data);
     });
-    Axios.get(`${WHEELS_API_URL}/`).then((res) => {
+    Axios.get(`${WHEELS_API_URL}/`, { headers }).then((res) => {
       setListWheels(res.data);
       //console.log('res.data id', res.data);
 
@@ -136,7 +138,7 @@ function CarsForm() {
       setUniqueWheels(res.data);
     });
 
-    Axios.get(`${MODELS_API_URL}`).then((res) => {
+    Axios.get(`${MODELS_API_URL}`, { headers }).then((res) => {
       setListModels(res.data);
 
       const uniqueYears = [...new Set(res.data.map((obj) => obj.year))];
@@ -152,7 +154,7 @@ function CarsForm() {
       //setUniqueModels(res.data);
     });
 
-    Axios.get(`${MAKERS_API_URL}`).then((res) => {
+    Axios.get(`${MAKERS_API_URL}`, { headers }).then((res) => {
       //setListModels(res.data);
       //console.log(res.data);
     });

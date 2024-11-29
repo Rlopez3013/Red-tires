@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from './config';
 const TIRES_API_URL = `${API_HOST}/api/tires`;
+
 const getAllTiresList = Axios.get(TIRES_API_URL);
 export const TiresContext = createContext({});
 const getTireRequest = async (id) => await Axios.get(`${TIRES_API_URL}/${id}`);

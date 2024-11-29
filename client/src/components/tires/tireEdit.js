@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from '../context/config';
 const TIRES_API_URL = `${API_HOST}/api/tires`;
 const COMPANIES_API_URL = `${API_HOST}/api/companies`;
 const getAllTireList = Axios.get(TIRES_API_URL);
 const getallCompaniesList = Axios.get(COMPANIES_API_URL);
-
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 function EditTire() {
   const { id } = useParams();
   const [listTires, setListTires] = useState([]);

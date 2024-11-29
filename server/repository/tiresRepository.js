@@ -2,10 +2,12 @@ import { pool } from '../db.js';
 
 export const getTires = async (req, res) => {
   try {
+    
     const [result] = await pool.query(
       `SELECT 
       T.id,
       T.tire_name,
+      T.img,
       C.tire_company,
       S.tire_size,
       Sn.sn_name

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-const API_HOST = 'http://localhost:4000';
+import { API_HOST } from '../context/config';
+
+
 const MAKERS_API_URL = `${API_HOST}/api/makers`;
 const MODELS_API_URL = `${API_HOST}/api/models`;
 const getAllModelsList = Axios.get(MODELS_API_URL);
 const getAllMakerList = Axios.get(MAKERS_API_URL);
 const getMakerRequest = async (id) =>
   await Axios.get(`${MAKERS_API_URL}/${id}`);
-// const getModelsResquest = async (id) =>
-//   await Axios.get(`${MODELS_API_URL}/${id}`);
+const headers = {
+  headers: { 'ngrok-skip-browser-warning': '1' },
+};
 
 function Update() {
   const { id } = useParams();
@@ -33,12 +36,7 @@ function Update() {
   };
 
   useEffect(() => {
-    //loadMakers();
-
-    //loadModels();
-
-    Axios.get(`${MODELS_API_URL}/${id}`).then((res) => {
-      console.log('is log8', res.data);    
+    Axios.get(`${MODELS_API_URL}/${id}`, { headers }).then((res) => {
       setModel(res.data);
     });
     loadModels();
@@ -48,14 +46,14 @@ function Update() {
   function updateModel(event) {
     event.preventDefault();
     Axios.put(`${MODELS_API_URL}/updateModel/${id}`, model).then(
-      (res) => setListModels(res.data),
-      navigate('/api/models'),
-      // loadMakers(),
-      loadModels(),
-      loadMakers(),
-      console.log('this is log4', model)
+      (res) => {
+        setListModels(res.data);
+        navigate('/api/models');
+        loadModels();
+        loadMakers();
+        console.log('Updated model:', model);
+      }
     );
-    //console.log((err) => console.log(err));
   }
 
   const handleUpdate = (event) => {
@@ -65,60 +63,75 @@ function Update() {
   };
 
   return (
-    <div>
-      <h2>Update Model!</h2>
+    <div className="container mt-4" style={{ backgroundColor: '#eeffee' }}>
+      <h2 className="mb-4">Update Model</h2>
       <form onSubmit={updateModel}>
-        <label htmlFor="maker">Maker</label>
-        <select
-          name="maker"
-          id="maker"
-          className="dropdown"
-          value={model.Makers_id}
-          onChange={(e) => setMaker(e.target.value)}
-        >
-          <option>Select Maker</option>
-          {listMakers.map((maker) => (
-            <option key={maker.id} value={maker.id}>
-              {maker.maker_name}
-            </option>
-          ))}
-        </select>
+        <div className="mb-3">
+          <label htmlFor="maker" className="form-label">
+            Maker
+          </label>
+          <select
+            name="maker"
+            id="maker"
+            className="form-select"
+            value={model.Makers_id}
+            onChange={(e) => setMaker(e.target.value)}
+          >
+            <option value="">Select Maker</option>
+            {listMakers.map((maker) => (
+              <option key={maker.id} value={maker.id}>
+                {maker.maker_name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <label htmlFor="Model">
-          Model
+        <div className="mb-3">
+          <label htmlFor="model_name" className="form-label">
+            Model Name
+          </label>
           <input
-            className={'btn-submit'}
+            className="form-control"
             type="text"
             name="model_name"
             value={model.model_name || ''}
             onChange={(e) => setModel({ ...model, model_name: e.target.value })}
-            //onChange={handleUpdate}
           />
-        </label>
-        <label>
-          Trim
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="trim" className="form-label">
+            Trim
+          </label>
           <input
+            className="form-control"
             type="text"
             name="trim"
             value={model.trim || ''}
             onChange={(e) => setModel({ ...model, trim: e.target.value })}
-            //onChange={handleUpdate}
           />
-        </label>
-        <label>
-          Year
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="year" className="form-label">
+            Year
+          </label>
           <input
+            className="form-control"
             type="number"
             name="year"
             value={model.year || ''}
             onChange={(e) => setModel({ ...model, year: e.target.value })}
-            //onChange={handleUpdate}
           />
-        </label>
-        <button className="btn-update">Update</button>
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Update
+        </button>
       </form>
     </div>
   );
 }
 
 export default Update;
+

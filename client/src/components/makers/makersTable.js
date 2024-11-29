@@ -18,7 +18,7 @@ const MakersTable = () => {
           </tr>
         </thead>
         <tbody className={makerStyle.tb_Info}>
-          {listMakers.map((item, mk) => (
+          {listMakers?.map((item, mk) => (
             <tr key={(item.id, mk)}>
               <td>
                 {inEditMode.status && inEditMode.rowKey === item.id ? (

@@ -18,10 +18,10 @@ import EditTire from './components/tires/tireEdit';
 import Registration from './components/customers/registration';
 import Patrons from './components/customers/patrons';
 import CustomerEdit from './components/customers/customerEdit';
-//import Shopper from './shopping/shopper';
-//import ShoppersForm from './shopping/shoppersForm';
 import Shoppers from './components/shoppers/shopper';
-import Clientes from './components/shoppers/clientesTable'
+import Clientes from './components/shoppers/clientesTable';
+import CheckOutForm from './components/shoppers/checkOutForm';
+import ClienteInfo from './components/shoppers/customerInfo';
 
 function App() {
   return (
@@ -48,8 +48,16 @@ function App() {
         {/* <Route path="/Shopping/shopper" element={<Shopper />}></Route> */}
         <Route path="/carTire/edit/model/:id" element={<CarsEdit />}></Route>
         <Route path="/shoppers" element={<Shoppers />} />
+        <Route path="/checkoutform" element={<CheckOutForm />}></Route>
         <Route path="/shoppers/clientes" element={<Clientes />}></Route>
-        <Route path="/shopper/customer/:customerId" element={<shopperDetails />}></Route>
+        <Route
+          path="/shoppers/customer/:customerId"
+          element={<shopperDetails />}
+        ></Route>
+        <Route
+          path="/shoppers/customeraddress/:customerId"
+          element={<ClienteInfo />}
+        />
       </Routes>
     </>
   );

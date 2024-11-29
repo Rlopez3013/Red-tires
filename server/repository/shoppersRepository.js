@@ -37,14 +37,20 @@ export const getShopper = async (req, res) => {
     Md.id AS modelId,
     Md.model_name,
     t.tire_name,
+    t.img,
+    Z.tire_size,
+    Sn.sn_name,
     cs.id AS customerId,
     cs.first_name,
     cs.last_name,
+    s.prices,
     s.Qty
     FROM shoppers s
     JOIN models Md ON Md.id = s.model_id
     JOIN tires t ON t.id = s.tire_id
     JOIN customers cs ON cs.id = s.customer_id
+    JOIN sizes Z on t.size_id = Z.id
+    JOIN seasons Sn on t.sn_id = Sn.id
     WHERE cs.id = ?
     ORDER BY cs.first_name;`,
       [customerId]
@@ -58,20 +64,20 @@ export const getShopper = async (req, res) => {
   }
 };
 
-export const getClientes = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
-    //const { customerId } = req.params;
     const [result] = await pool.query(
       `     select DISTINCT 
-            cs.id as customerId,
+            cs.id as "customerId",
             cs.first_name,
             cs.last_name
             from shoppers s
             join customers cs on cs.id = s.customer_id
-            order by first_name`,
-      //[customerId]
+            order by first_name`
     );
-    console.log(result);
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'Cliente not found' });
+    }
     res.json(result);
   } catch (error) {
     console.log(error);
