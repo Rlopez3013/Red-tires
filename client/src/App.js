@@ -22,6 +22,8 @@ import Shoppers from './components/shoppers/shopper';
 import Clientes from './components/shoppers/clientesTable';
 import CheckOutForm from './components/shoppers/checkOutForm';
 import ClienteInfo from './components/shoppers/customerInfo';
+import PaymentProcedure from './cart/PaymentProcedure';
+
 
 function App() {
   return (
@@ -59,7 +61,9 @@ function App() {
           element={<ClienteInfo />}
         />
       </Routes>
+     <Route path='/cart/Payment' element={<PaymentProcedure />}/>
     </>
+    
   );
 }
 

@@ -1,1 +1,3 @@
 export const PORT = 4000
+
+// STRIPE_KEY = sk_test_51QO3StJ13o3FLYTtRDFK9ttavQMuhUED2JluaqHifbXptsRFZ1XZHlseK27lZPIpV5ixzAfHMzZkRHpSMigoQw8b001stwAXrG

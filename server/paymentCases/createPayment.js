@@ -1,7 +1,7 @@
-import { cartRepository } from '../../repository/cartRepository.js';
+// import { cartRepository } from '../../repository/cartRepository.js';
 
-export const createPayment = async (req, res) => {
-  try {
-    await cartRepository.createPayment(req.body);
-  } catch (error) {}
-};
+// export const createPayment = async (req, res) => {
+//   try {
+//     await cartRepository.createPayment(req.body);
+//   } catch (error) {}
+// };

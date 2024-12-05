@@ -25,20 +25,7 @@ export const getMaker = async (req, res) => {
   }
 };
 
-// export const createMaker = async (req, res) => {
-//   try {
-//     const { maker_name } = req.body;
-//     const [result] = await pool.query(
-//       'insert into makers(maker_name) values (?)',
-//       [maker_name]
-//     );
-//     console.log(result);
-//     res.status(201).json(maker_name);
-//   } catch (error) {
-//     console.log(error.message);
-//     return res.status(500).json({ message: error.message });
-//   }
-// };
+
 
 export const createMaker = async (req, res) => {
   try {
