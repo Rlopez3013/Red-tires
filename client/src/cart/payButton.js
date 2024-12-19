@@ -2,8 +2,8 @@ import Axios from 'axios'
 
 
  export const PayButton = () => {
-    const handleCheckout = ({cartItems}) => {
-          Axios.post(`${url}/stripe/create-checkout-session`)
+    const handleCheckout = () => {
+          Axios.post(`http://localhost:4000/api/payments`)
     }
     return(
         <>

@@ -15,6 +15,7 @@ const ClienteInfo = () => {
   const [totalPrice, setTotalPrice] = useState(0); // Declare totalPrice state
   const [totalQty, setTotalQty] = useState(0); // Declare totalQty state
   const { customerId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     Axios.get(`${CUSTOMERINFO_API_URL}/${customerId}`)
@@ -36,8 +37,10 @@ const ClienteInfo = () => {
         // Calculate total price and quantity after tire info is fetched
         const total = res.data.reduce(
           (acc, unit) => {
-            const price = unit.prices;
+            const price = unit.price;
             const qty = unit.Qty;
+
+            const validPrice = isNaN(price) ? 0 : price;
 
             // Accumulate total price and quantity
             acc.totalPrice += price * qty; // price * quantity
@@ -56,6 +59,10 @@ const ClienteInfo = () => {
       });
   }, [customerId]);
 
+  const handleCheckout = () => {
+    navigate(`/cart/payment/${customerId}`);
+  };
+
   return (
     <div className="container mt-4 bg-secondary p-4">
       <h2 className="mb-4">Client Address Information</h2>
@@ -73,7 +80,7 @@ const ClienteInfo = () => {
                 <strong>Email:</strong> {item.email}
               </li>
               <li className="list-group-item">
-                <strong>Phone Number:</strong> {item.number}
+                <strong>House Number:</strong> {item.number}
               </li>
               <li className="list-group-item">
                 <strong>Street:</strong> {item.street}
@@ -124,7 +131,7 @@ const ClienteInfo = () => {
                   <strong>Quantity:</strong> {unit.Qty}
                 </p>
                 <p className="card-text">
-                  <strong>Price:</strong> ${unit.prices}
+                  <strong>Price:</strong> ${unit.price}
                 </p>
               </div>
             </div>
@@ -138,7 +145,7 @@ const ClienteInfo = () => {
       </div>
 
       <div className="text-center mt-4">
-        <button className="btn btn-success btn-lg">
+        <button className="btn btn-success btn-lg" onClick={handleCheckout}>
           <i className="fas fa-shopping-cart"></i> Checkout
         </button>
       </div>

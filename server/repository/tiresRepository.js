@@ -2,7 +2,6 @@ import { pool } from '../db.js';
 
 export const getTires = async (req, res) => {
   try {
-    
     const [result] = await pool.query(
       `SELECT 
       T.id,
@@ -10,7 +9,8 @@ export const getTires = async (req, res) => {
       T.img,
       C.tire_company,
       S.tire_size,
-      Sn.sn_name
+      Sn.sn_name,
+      T.price
       from tires T
       inner join companies C on T.company_id = C.id 
       inner join sizes S on T.size_id = S.id 

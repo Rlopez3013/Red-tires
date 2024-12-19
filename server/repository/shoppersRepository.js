@@ -11,7 +11,8 @@ export const getShoppers = async (req, res) => {
             cs.id as customerId,
             cs.first_name,
             cs.last_name,
-            s.Qty 
+            s.Qty,
+            t.price 
             from shoppers as s
             join models as Md on Md.id = s.model_id
             join tires as t on t.id = s.tire_id
@@ -43,8 +44,8 @@ export const getShopper = async (req, res) => {
     cs.id AS customerId,
     cs.first_name,
     cs.last_name,
-    s.prices,
-    s.Qty
+    s.Qty,
+    t.price
     FROM shoppers s
     JOIN models Md ON Md.id = s.model_id
     JOIN tires t ON t.id = s.tire_id

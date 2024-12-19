@@ -24,7 +24,6 @@ import CheckOutForm from './components/shoppers/checkOutForm';
 import ClienteInfo from './components/shoppers/customerInfo';
 import PaymentProcedure from './cart/PaymentProcedure';
 
-
 function App() {
   return (
     <>
@@ -60,10 +59,12 @@ function App() {
           path="/shoppers/customeraddress/:customerId"
           element={<ClienteInfo />}
         />
+        <Route
+          path="/cart/payment/:customerId"
+          element={<PaymentProcedure />}
+        />
       </Routes>
-     <Route path='/cart/Payment' element={<PaymentProcedure />}/>
     </>
-    
   );
 }
 

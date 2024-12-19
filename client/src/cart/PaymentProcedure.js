@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+
 import {
   CardElement,
   Elements,
@@ -7,24 +8,17 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 
-// import {
-//   loadStripe,
-//   CardElement,
-//   Elements,
-//   useStripe,
-//   useElements,
-// } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ totalPrice }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [loading, setLoading] = useState(false); // Track loading state
   const [errorMessage, setErrorMessage] = useState(null); // Track error messages
-
+  const [clientSecret, setClientSecret] = useState('') // store client secret key for payment
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,8 +40,9 @@ const CheckoutForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/api/payment', {
+      const response = await axios.post('http://localhost:4000/api/create-checkout-session', {
         id: paymentMethod.id, // Use payment method ID
+        amount: totalPrice * 100, //conver to cents
       });
 
       console.log(response.data); // Handle the response
@@ -74,11 +69,18 @@ const CheckoutForm = () => {
   );
 };
 
-function PaymentProcedure() {
+function PaymentProcedure({ totalPrice }) {
   return (
-    <Elements stripe={stripePromise}>
-      <CheckoutForm />
-    </Elements>
+    <div className="container" style={{ marginTop: '150px' }}>
+      <Elements stripe={stripePromise}>
+        <div className="card" style={{ width: '18rem' }}>
+          <div className="card-body">
+            <p className="card-text">Great deal in this tire for you car</p>
+            <CheckoutForm totalPrice={totalPrice} />
+          </div>
+        </div>
+      </Elements>
+    </div>
   );
 }
 

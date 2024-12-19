@@ -3,12 +3,15 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import shopperStyle from './shopper.module.css';
 import { API_HOST } from '../context/config';
+import PaymentProcedure from '../../cart/PaymentProcedure';
+
 const CLIENTE_API_URL = `${API_HOST}/api/shoppers/clientes`;
 
 const ClientesTable = () => {
   const [listClientes, setListClientes] = useState([]);
   const [cliente, setCliente] = useState([]);
   const [selectedCliente, setSelectedCliente] = useState('');
+  const [showPayment, setShowPayment] = useState(false);
 
   const { customerId } = useParams();
 
@@ -35,6 +38,7 @@ const ClientesTable = () => {
         .then((res) => {
           console.log('Fetched shopper data:', res.data);
           setCliente(res.data);
+          // setCliente(res.data.items || []);
         })
         .catch((error) => {
           console.error('Error fetching customer data', error);
@@ -56,14 +60,18 @@ const ClientesTable = () => {
       //sum up total quantity
       totalQty += item.Qty || 0;
 
-      //Multiply price by quantity and sum up for total price
-      if (item.prices && !isNaN(item.prices)) {
-        totalPrice += item.prices * (item.Qty || 0);
+      const price = parseFloat(item.price);
+      if (!isNaN(price)) {
+        totalPrice += price * (item.Qty || 0);
       }
     });
     return { totalQty, totalPrice };
   };
   const { totalQty, totalPrice } = calculateTotals();
+
+  const handleCheckout = () => {
+    setShowPayment(true);
+  };
 
   return (
     <div className={shopperStyle.container}>
@@ -86,7 +94,7 @@ const ClientesTable = () => {
         </select>
       </div>
 
-      {cliente?.length > 0 && (
+      {cliente?.length > 0 && !showPayment && (
         <div className={shopperStyle.clienteDetails}>
           <h2>Purchase Details</h2>
           <div className="row">
@@ -109,7 +117,8 @@ const ClientesTable = () => {
                       <strong>Quantity:</strong> {item.Qty}
                     </p>
                     <p className="card-text">
-                      <strong>Price:</strong> {item.prices}
+                      <strong>Price:</strong> $
+                      {parseFloat(item.price).toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -137,6 +146,7 @@ const ClientesTable = () => {
           </a>
         </div>
       )}
+      {showPayment && <PaymentProcedure totalPrice={totalPrice} />}
     </div>
   );
 };

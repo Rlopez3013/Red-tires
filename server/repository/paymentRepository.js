@@ -3,14 +3,34 @@ import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import express from 'express';
 
-
-
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
-export const createPayment = async (req, res) => {
+// export const createSession = async (req, res) => {
+//   const session = await stripe.checkout.sessions.create({
+//     line_items: [
+//       {
+//         price_data: {
+//           product_data: {
+//             name: 'tire',
+//             description: 'car tire',
+//           },
+//           currency: 'usd',
+//           unit_amount: 20000, //200.00
+//         },
+//         quantity: 1
+//       },
+//     ],
+//     mode: 'payment',
+//     success_url: 'http://localhost:3000/success',
+//     cancel_url: 'http://localhost:3000/cancel',
+//   });
+//   return res.json(session)
+// };
+
+export const createSession = async (req, res) => {
   try {
     const { amount, payment_intent_id, currency, description } = req.body;
     const [result] = await pool.query(
@@ -25,18 +45,3 @@ export const createPayment = async (req, res) => {
     });
   }
 };
-
-//  export const createPayment = async (req, res) => {
-//   const {id, currency} = req.body
-//  const payment =   await stripe.paymentIntents.create({
-//     currency: 'usd',
-//     description: 'tires',
-//     payment_method: id,
-//     confirm: true
-
-//   })
-//   console.log(payment)
-//   res.send({message: "Payment accepted"})
-// });
-
-// module.exports = router;
