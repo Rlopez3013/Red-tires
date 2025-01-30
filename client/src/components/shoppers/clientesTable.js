@@ -3,15 +3,20 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import shopperStyle from './shopper.module.css';
 import { API_HOST } from '../context/config';
-import PaymentProcedure from '../../cart/PaymentProcedure';
+import { loadStripe } from '@stripe/stripe-js';
+//import PaymentProcedure from '../../cart/PaymentProcedure';
 
 const CLIENTE_API_URL = `${API_HOST}/api/shoppers/clientes`;
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 const ClientesTable = () => {
   const [listClientes, setListClientes] = useState([]);
   const [cliente, setCliente] = useState([]);
   const [selectedCliente, setSelectedCliente] = useState('');
   const [showPayment, setShowPayment] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const itemName = 'tire';
+  const itemPrice = 300;
 
   const { customerId } = useParams();
 
@@ -71,6 +76,39 @@ const ClientesTable = () => {
 
   const handleCheckout = () => {
     setShowPayment(true);
+  };
+
+  const checkout = async () => {
+    try {
+      // Perform the POST request
+      const response = await Axios.post(
+        'http://localhost:4000/create-checkout-session',
+        {
+          items: [
+            {
+              quantity: quantity,
+              price: itemPrice,
+              name: itemName,
+            },
+          ],
+        }
+      )
+        .then((res) => {
+          console.log('result from checkout session ', res.data);
+          window.location = res.data.url;
+          //if (res.ok) return res.json();
+          //return res.json().then((json) => Promise.reject(json));
+        })
+        .catch((e) => {
+          console.log(e.error);
+        });
+      console.log('response from axios', response.data);
+      // Load Stripe to redirect to checkout
+      const stripe = await stripePromise;
+      // await stripe.redirectToCheckout({ sessionId: id });
+    } catch (error) {
+      console.error('Checkout failed:', error);
+    }
   };
 
   return (
@@ -135,18 +173,23 @@ const ClientesTable = () => {
             </p>
           </div>
 
-          <a
+          {/* <a
             href={`http://localhost:3000/shoppers/customeraddress/${
               selectedCliente || customerId
             }`}
-          >
-            <button className={shopperStyle.actionButton}>
-              Go to Checkout
-            </button>
-          </a>
+          > */}
+          <button onClick={checkout} className={shopperStyle.actionButton}>
+            Go to Checkout
+          </button>
+          {/* </a> */}
         </div>
       )}
-      {showPayment && <PaymentProcedure totalPrice={totalPrice} />}
+      {/* {showPayment && (
+        <div>
+          <div>Extra</div>
+          <PaymentProcedure totalPrice={totalPrice} />
+        </div>
+      )} */}
     </div>
   );
 };

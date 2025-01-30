@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const BKND_URL = process.env.BKND_URL;
 
 import {
   createSession,
@@ -14,8 +15,8 @@ import {
 
 const router = Router();
 
-router.post('/api/create-checkout-session', createSession);
-// router.get('/api/success', success);
-// router.get('/api/cancel', cancel);
+router.post('/create-checkout-session', createSession);
+// router.get(`${BKND_URL}/api/success`,success, (req, res) => res.send('Success! Payment was successful.'));
+// router.get(`${BKND_URL}/api/cancel`,cancel, (req, res) => res.send('Payment was canceled.'));
 
 export default router;

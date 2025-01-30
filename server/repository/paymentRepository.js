@@ -8,40 +8,56 @@ dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
 
-// export const createSession = async (req, res) => {
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         price_data: {
-//           product_data: {
-//             name: 'tire',
-//             description: 'car tire',
-//           },
-//           currency: 'usd',
-//           unit_amount: 20000, //200.00
-//         },
-//         quantity: 1
-//       },
-//     ],
-//     mode: 'payment',
-//     success_url: 'http://localhost:3000/success',
-//     cancel_url: 'http://localhost:3000/cancel',
-//   });
-//   return res.json(session)
-// };
+// Function to calculate order amount
+const calculateOrderAmount = (items) => {
+  let total = 0;
+  items.forEach((item) => {
+    total += item.amount;
+    console.log('Adding item amount:', item.amount, 'Total so far:', total);
+  });
+  return total;
+};
 
+// POST route to create a payment intent
 export const createSession = async (req, res) => {
   try {
-    const { amount, payment_intent_id, currency, description } = req.body;
-    const [result] = await pool.query(
-      'Insert into payments(payment_intent_id,amount,currency,description) VALUES(?,?,?,?)',
-      [payment_intent_id, amount, currency, description]
-    );
-    console.log(result);
-    res.send('Payment received');
-  } catch (error) {
-    return res.status(500).json({
-      message: error.message,
+    if (!process.env.BASE_URL) {
+      throw new Error('BASE_URL environment variable is not set.');
+    }
+
+    // Create line items separately for better readability
+    const lineItems = req.body.items.map((item) => {
+      return {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+          },
+          unit_amount: item.price * 100, // Convert to cents
+        },
+        quantity: item.quantity,
+      };
     });
+
+    console.log('create session with', lineItems);
+
+    // Create the checkout session with Stripe
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: lineItems,
+      success_url: `${process.env.BASE_URL}/success`,
+      cancel_url: `${process.env.BASE_URL}/cancel`,
+    });
+
+    // Return the session URL
+    //return { url: session.url };
+
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error('Error creating Stripe session:', error);
+    throw new Error('Failed to create checkout session');
   }
 };
+
+

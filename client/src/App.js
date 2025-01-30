@@ -22,7 +22,9 @@ import Shoppers from './components/shoppers/shopper';
 import Clientes from './components/shoppers/clientesTable';
 import CheckOutForm from './components/shoppers/checkOutForm';
 import ClienteInfo from './components/shoppers/customerInfo';
-import PaymentProcedure from './cart/PaymentProcedure';
+//import PaymentProcedure from './cart/PaymentProcedure';
+import Cancel from './components/pages/cancelPage';
+import Success from './components/pages/successPage';
 
 function App() {
   return (
@@ -59,10 +61,12 @@ function App() {
           path="/shoppers/customeraddress/:customerId"
           element={<ClienteInfo />}
         />
-        <Route
+        {/* <Route
           path="/cart/payment/:customerId"
           element={<PaymentProcedure />}
-        />
+        /> */}
+        <Route path="/success" element={<Success />}/>
+        <Route path="/cancel" element={<Cancel />}/>
       </Routes>
     </>
   );

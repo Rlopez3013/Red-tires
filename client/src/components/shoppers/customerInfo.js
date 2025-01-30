@@ -17,16 +17,16 @@ const ClienteInfo = () => {
   const { customerId } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    Axios.get(`${CUSTOMERINFO_API_URL}/${customerId}`)
-      .then((res) => {
-        console.log('this is cliente buying tire info ', res.data);
-        setClientInfo(res.data);
-      })
-      .catch((error) => {
-        console.log('error getting customer tire info', error);
-      });
-  }, [customerId]);
+  // useEffect(() => {
+  //   Axios.get(`${CUSTOMERINFO_API_URL}/${customerId}`)
+  //     .then((res) => {
+  //       console.log('this is cliente buying tire info ', res.data);
+  //       setClientInfo(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log('error getting customer tire info', error);
+  //     });
+  // }, [customerId]);
 
   useEffect(() => {
     Axios.get(`${CLIENTE_API_URL}/${customerId}`)
@@ -145,7 +145,7 @@ const ClienteInfo = () => {
       </div>
 
       <div className="text-center mt-4">
-        <button className="btn btn-success btn-lg" onClick={handleCheckout}>
+        <button className="btn btn-success btn-lg">
           <i className="fas fa-shopping-cart"></i> Checkout
         </button>
       </div>
